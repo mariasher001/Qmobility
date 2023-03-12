@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">QMobilityBusiness</string>
+    <string name="business_offical_email">Business offical Email</string>
+    <string name="qmobility">QMobility</string>
+    <string name="business_name">Business Name</string>
+    <string name="business_phone_number">Business Phone Number</string>
+    <string name="business_email">Business Email</string>
+    <string name="business_address">Business Address</string>
+    <string name="business_type">Business Type</string>
+    <string name="location_manager_name">Location Manager Name</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="get_location_using_gps">Get Location Using GPS</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="click_to_register_your_business">Click to Register your Business</string>
+    <string name="login">login</string>
+    <string name="forgot_your_password">forgot_your_password</string>
+    <string name="email_address">email_address</string>
+    <string name="passwordicon">passwordIcon</string>
+    <string name="emailicon">emailIcon</string>
+    <string name="smart_queue_system">smart_queue_system</string>
+</resources>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    tools:context=".LoginActivity">
+    <TextView
+        android:id="@+id/headerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+       android:text="QMobility"
+        android:textColor="#FF6E40"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/smallHeaderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/smart_queue_system"
+        android:textColor="#FF6E40"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@+id/headerTextView"
+        app:layout_constraintStart_toStartOf="@+id/headerTextView"
+        app:layout_constraintTop_toBottomOf="@+id/headerTextView" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="200dp"
+        android:background="@drawable/edit_text_corners"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/smallHeaderTextView">
+
+        <ImageView
+            android:id="@+id/emailIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@string/emailicon"
+            app:layout_constraintBottom_toBottomOf="@+id/emailAddressLoginEditText"
+            app:layout_constraintStart_toStartOf="@+id/emailAddressLoginEditText"
+            app:layout_constraintTop_toTopOf="@+id/emailAddressLoginEditText"
+            app:layout_constraintVertical_bias="0.517"
+            app:srcCompat="@drawable/ic_baseline_email_icon_orange" />
+
+        <ImageView
+            android:id="@+id/passwordIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@string/passwordicon"
+            app:layout_constraintBottom_toBottomOf="@+id/businessNameEditText"
+            app:layout_constraintStart_toStartOf="@+id/businessNameEditText"
+            app:layout_constraintTop_toTopOf="@+id/businessNameEditText"
+            app:layout_constraintVertical_bias="0.517"
+            app:srcCompat="@drawable/ic_baseline_lock_open_24" />
+
+        <EditText
+            android:id="@+id/emailAddressLoginEditText"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="20dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_corners"
+            android:ems="10"
+            android:hint="@string/email_address"
+            android:inputType="textEmailAddress"
+            android:paddingStart="40dp"
+            android:paddingEnd="1dp"
+            android:textColor="@color/black"
+            android:textColorHint="#F44336"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginTextView"
+            tools:ignore="TextContrastCheck,TextContrastCheck" />
+        <EditText
+            android:id="@+id/businessNameEditText"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_corners"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:paddingStart="40dp"
+            android:paddingEnd="1dp"
+            android:textColor="@color/black"
+            android:textColorHint="#F44336"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailAddressLoginEditText"
+            tools:ignore="TextContrastCheck" />
+
+
+        <TextView
+            android:id="@+id/loginTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_corners"
+            android:text="@string/login"
+            android:textAlignment="center"
+            android:textColor="#5D4037"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/forgotPasswordTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/forgot_your_password"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/businessNameEditText" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/registerUserButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="@string/login"
+            android:focusable="true"
+            android:onClick="loginButtonClicked"
+            app:backgroundTint="#f56a4d"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/forgotPasswordTextView"
+            app:srcCompat="@drawable/ic_next_white"
+            tools:ignore="DuplicateSpeakableTextCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/registerBusinessTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="RegisterBusinessActivity"
+        android:text="@string/click_to_register_your_business"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
