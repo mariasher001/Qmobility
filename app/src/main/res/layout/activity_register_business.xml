@@ -81,28 +81,6 @@
             tools:ignore="TextContrastCheck" />
 
         <EditText
-            android:id="@+id/businessEmailEditText"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="25dp"
-            android:autofillHints=""
-            android:background="@drawable/edit_text_corners"
-            android:ems="10"
-            android:hint="@string/business_email"
-            android:inputType="textEmailAddress"
-            android:paddingStart="40dp"
-            android:paddingEnd="1dp"
-            android:textColor="@color/white"
-            android:textColorHint="#F44336"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/businessPhoneNumberEditText"
-            tools:ignore="TextContrastCheck" />
-
-        <EditText
             android:id="@+id/businessAddressEditText"
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -121,7 +99,7 @@
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/businessEmailEditText"
+            app:layout_constraintTop_toBottomOf="@+id/businessPhoneNumberEditText"
             tools:ignore="TextContrastCheck" />
 
         <CheckBox
@@ -201,7 +179,7 @@
             tools:ignore="TextContrastCheck" />
 
         <EditText
-            android:id="@+id/locationManagerNameEditText"
+            android:id="@+id/adminNameEditText"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="25dp"
@@ -210,7 +188,7 @@
             android:autofillHints=""
             android:background="@drawable/edit_text_corners"
             android:ems="10"
-            android:hint="@string/location_manager_name"
+            android:hint="Admin Name"
             android:inputType="text"
             android:paddingStart="20dp"
             android:paddingEnd="1dp"
@@ -223,7 +201,30 @@
             tools:ignore="TextContrastCheck" />
 
         <EditText
-            android:id="@+id/passwordEditText"
+            android:id="@+id/adminEmailEditText"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="25dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_corners"
+            android:ems="10"
+            android:hint="Admin Email"
+            android:inputType="textEmailAddress"
+            android:paddingStart="20dp"
+            android:paddingEnd="1dp"
+            android:textColor="@color/white"
+            android:textColorHint="#F44336"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adminNameEditText"
+            tools:ignore="TextContrastCheck" />
+
+        <EditText
+            android:id="@+id/adminPasswordEditText"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="25dp"
@@ -241,7 +242,7 @@
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/locationManagerNameEditText"
+            app:layout_constraintTop_toBottomOf="@+id/adminEmailEditText"
             tools:ignore="TextContrastCheck" />
 
         <Button
@@ -260,7 +261,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
+            app:layout_constraintTop_toBottomOf="@+id/adminPasswordEditText"
             app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

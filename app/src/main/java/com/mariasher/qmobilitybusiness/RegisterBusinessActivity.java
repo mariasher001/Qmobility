@@ -21,7 +21,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.google.firebase.database.FirebaseDatabase;
+import com.mariasher.qmobilitybusiness.Utils.enums.AccessType;
 import com.mariasher.qmobilitybusiness.database.BusinessInfo;
+import com.mariasher.qmobilitybusiness.database.Employee;
 import com.mariasher.qmobilitybusiness.databinding.ActivityRegisterBusinessBinding;
 
 import java.util.UUID;
@@ -49,32 +51,31 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
     private void setBusinessData() {
         String businessName = binding.businessNameEditText.getText().toString();
         String businessPhoneNumber = binding.businessPhoneNumberEditText.getText().toString();
-        String businessEmail = binding.businessEmailEditText.getText().toString();
         String businessAddress = binding.businessAddressEditText.getText().toString();
         String businessLatitude = binding.businessLatitudeEditText.getText().toString();
         String businessLongitude = binding.businessLongitudeEditText.getText().toString();
         String businessType = binding.businessTypeEditText.getText().toString();
-        String locationManagersName = binding.locationManagerNameEditText.getText().toString();
         String businessID = businessName + "-" + UUID.randomUUID().toString();
 
-        if (checkBusinessInformation(businessName, businessPhoneNumber, businessEmail, businessAddress,
-                businessLatitude, businessLongitude, businessType, locationManagersName)) {
-            BusinessInfo businessInfo = new BusinessInfo(businessName, businessPhoneNumber, businessEmail, businessAddress,
-                    businessLatitude, businessLongitude, businessType, locationManagersName, businessID);
+        String adminName = binding.adminNameEditText.getText().toString();
+        String adminEmail = binding.adminEmailEditText.getText().toString();
+        String adminPassword = binding.adminPasswordEditText.getText().toString();
+        String employeeId = UUID.randomUUID().toString();
 
-            createRealtimeDataBase(businessInfo);
+        if (checkBusinessInformation(businessName, businessPhoneNumber, businessAddress,
+                businessLatitude, businessLongitude, businessType) &&
+                checkEmployeeDetails(adminName, adminEmail, adminPassword)) {
+            BusinessInfo businessInfo = new BusinessInfo(businessID, businessName, businessPhoneNumber, businessAddress, businessLatitude, businessLongitude, businessType);
+            Employee employee = new Employee(employeeId, adminName, adminEmail, businessID, "", AccessType.ADMIN);
+            createRealtimeDataBase(businessInfo, employee);
         }
     }
 
-    private boolean checkBusinessInformation(String businessName, String businessPhoneNumber, String businessEmail, String businessAddress, String businessLatitude, String businessLongitude, String businessType, String locationManagersName) {
+    private boolean checkBusinessInformation(String businessName, String businessPhoneNumber, String businessAddress, String businessLatitude, String businessLongitude, String businessType) {
         if (businessName.isEmpty())
             return setError(binding.businessNameEditText, " Business Name is Required!");
         if (businessPhoneNumber.isEmpty())
             return setError(binding.businessPhoneNumberEditText, "Business PhoneNumber is Required!");
-        if (businessEmail.isEmpty())
-            return setError(binding.businessEmailEditText, "BusinessEmail is Required!");
-        if (!Patterns.EMAIL_ADDRESS.matcher(businessEmail).matches())
-            return setError(binding.businessEmailEditText, "Please enter Correct Email Address");
         if (businessAddress.isEmpty())
             return setError(binding.businessAddressEditText, "BusinessAddress is Required!");
         if (businessLatitude.isEmpty())
@@ -83,8 +84,20 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
             return setError(binding.businessLongitudeEditText, "BusinessLongitude Coordinates are Required!");
         if (businessType.isEmpty())
             return setError(binding.businessTypeEditText, "BusinessType is Required!");
-        if (locationManagersName.isEmpty())
-            return setError(binding.locationManagerNameEditText, "Location Manager Name is required!");
+        return true;
+    }
+
+    private boolean checkEmployeeDetails(String adminName, String adminEmail, String adminPassword) {
+        if (adminName.isEmpty())
+            return setError(binding.adminNameEditText, "Admin Name is Required!");
+        if (adminEmail.isEmpty())
+            return setError(binding.adminEmailEditText, "Admin Email is Required!");
+        if (!Patterns.EMAIL_ADDRESS.matcher(adminEmail).matches())
+            return setError(binding.adminEmailEditText, "Enter correct email!");
+        if (adminPassword.isEmpty())
+            return setError(binding.adminPasswordEditText, "Password is required!");
+        if (adminPassword.length() < 6)
+            return setError(binding.adminPasswordEditText, "Password length should be more than 6");
 
         return true;
     }
@@ -96,19 +109,38 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
     }
 
 
-    private void createRealtimeDataBase(BusinessInfo businessInfo) {
+    private void createRealtimeDataBase(BusinessInfo businessInfo, Employee employee) {
         mReal.getReference("QMobility")
                 .child("Businesses")
                 .child(businessInfo.getBusinessID())
                 .child("BusinessDetails")
-                .setValue(businessInfo).addOnCompleteListener(task -> {
+                .setValue(businessInfo)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        addFirstEmployee(employee);
+                    } else {
+                        Toast.makeText(this, "Registration Unsuccessful!", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
+    }
+
+    private void addFirstEmployee(Employee employee) {
+        mReal.getReference("QMobility")
+                .child("Businesses")
+                .child(employee.getBusinessId())
+                .child("EmployeeDetails")
+                .child(employee.getEmployeeId())
+                .setValue(employee)
+                .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Registration Successful!", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(this, LoginActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(this, "Registration Failed!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Registration Unsuccessful!", Toast.LENGTH_LONG).show();
                     }
                 });
     }
