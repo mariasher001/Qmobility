@@ -26,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     public void RegisterBusinessActivity(View view) {
         Intent registerBusinessIntent = new Intent(this, RegisterBusinessActivity.class);
         startActivity(registerBusinessIntent);
+        finish();
     }
 
 

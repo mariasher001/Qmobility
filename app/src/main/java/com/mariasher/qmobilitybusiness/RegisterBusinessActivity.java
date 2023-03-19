@@ -137,8 +137,6 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
                         Toast.makeText(this, "Registration Unsuccessful!", Toast.LENGTH_LONG).show();
                     }
                 });
-
-
     }
 
     private void addFirstEmployee(Employee employee) {
@@ -151,13 +149,17 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Registration Successful!", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+                        startLoginActivity();
                     } else {
                         Toast.makeText(this, "Registration Unsuccessful!", Toast.LENGTH_LONG).show();
                     }
                 });
+    }
+
+    private void startLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void getLocationUsingGPSClicked(View view) {
@@ -222,6 +224,11 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
                 }
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startLoginActivity();
     }
 }
 
