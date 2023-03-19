@@ -6,12 +6,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.mariasher.qmobilitybusiness.databinding.ActivityLoginBinding;
+
 public class LoginActivity extends AppCompatActivity {
+
+    private ActivityLoginBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
     }
 
     public void loginButtonClicked(View view) {
@@ -21,7 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     public void RegisterBusinessActivity(View view) {
         Intent registerBusinessIntent = new Intent(this, RegisterBusinessActivity.class);
         startActivity(registerBusinessIntent);
-        finish();
     }
 
 

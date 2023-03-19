@@ -1,6 +1,7 @@
 package com.mariasher.qmobilitybusiness;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,7 +18,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.firebase.database.FirebaseDatabase;
@@ -26,25 +26,20 @@ import com.mariasher.qmobilitybusiness.databinding.ActivityRegisterBusinessBindi
 
 import java.util.UUID;
 
-public class RegisterBusinessActivity extends AppCompatActivity {
+public class RegisterBusinessActivity extends AppCompatActivity implements LocationListener {
 
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 123;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
     private ActivityRegisterBusinessBinding binding;
-    private LocationManager locationManager;
     private FirebaseDatabase mReal;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Activating Binding
         binding = ActivityRegisterBusinessBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        //Creating an instance of FireBaseDatabase
+        permissions();
         mReal = FirebaseDatabase.getInstance();
-
     }
 
     public void registerBusinessButtonClicked(View view) {
@@ -62,9 +57,10 @@ public class RegisterBusinessActivity extends AppCompatActivity {
         String locationManagersName = binding.locationManagerNameEditText.getText().toString();
         String businessID = businessName + "-" + UUID.randomUUID().toString();
 
-        if (checkBusinessInformation(businessName, businessPhoneNumber, businessEmail, businessAddress, businessLatitude, businessLongitude, businessType, locationManagersName)) {
-
-            BusinessInfo businessInfo = new BusinessInfo(businessName, businessPhoneNumber, businessEmail, businessAddress, businessLatitude, businessLongitude, businessType, locationManagersName, businessID);
+        if (checkBusinessInformation(businessName, businessPhoneNumber, businessEmail, businessAddress,
+                businessLatitude, businessLongitude, businessType, locationManagersName)) {
+            BusinessInfo businessInfo = new BusinessInfo(businessName, businessPhoneNumber, businessEmail, businessAddress,
+                    businessLatitude, businessLongitude, businessType, locationManagersName, businessID);
 
             createRealtimeDataBase(businessInfo);
         }
@@ -101,20 +97,24 @@ public class RegisterBusinessActivity extends AppCompatActivity {
 
 
     private void createRealtimeDataBase(BusinessInfo businessInfo) {
-        mReal.getReference("QMobility").child("Businesses").child(businessInfo.getBusinessID()).child("BusinessDetails").setValue(businessInfo).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Toast.makeText(this, "Registration Successful!", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            } else {
-                Toast.makeText(this, "Registration Failed!", Toast.LENGTH_LONG).show();
-            }
-        });
+        mReal.getReference("QMobility")
+                .child("Businesses")
+                .child(businessInfo.getBusinessID())
+                .child("BusinessDetails")
+                .setValue(businessInfo).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(this, "Registration Successful!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(this, "Registration Failed!", Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
     public void getLocationUsingGPSClicked(View view) {
-        if (binding.GetGpsBusinessAddressCheckBox.isChecked()) {
+        if (binding.getGpsBusinessAddressCheckBox.isChecked()) {
             getGPSLocation();
             binding.businessLatitudeEditText.setEnabled(false);
             binding.businessLongitudeEditText.setEnabled(false);
@@ -127,43 +127,55 @@ public class RegisterBusinessActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private void getGPSLocation() {
-        final LocationListener locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(@NonNull Location location) {
-                Location mLocation = location;
-                Log.d("Location Coordinates", location.toString());
-                binding.businessLatitudeEditText.setText("" + location.getLatitude());
-                binding.businessLongitudeEditText.setText("" + location.getLongitude());
+        // Get the location manager
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-            }
+        // Create a criteria with your requirements
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setHorizontalAccuracy(Criteria.ACCURACY_HIGH);
+        criteria.setVerticalAccuracy(Criteria.ACCURACY_HIGH);
 
-            @Override
-            public void onProviderDisabled(String provider) {
-                Log.d("Provider Disabled", provider);
-                Toast.makeText(getApplicationContext(), "Please enable your location", Toast.LENGTH_LONG).show();
-            }
-        };
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // Request the permission if it is not granted
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
-        } else {
-            // Get the location manager
-            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-            // Create a criteria with your requirements
-            Criteria criteria = new Criteria();
-            criteria.setAccuracy(Criteria.ACCURACY_FINE);
-            criteria.setHorizontalAccuracy(Criteria.ACCURACY_HIGH);
-            criteria.setVerticalAccuracy(Criteria.ACCURACY_HIGH);
-
-            // Request location updates with the criteria and the location listener
-            locationManager.requestSingleUpdate(criteria, locationListener, null);
-        }
+        // Request location updates with the criteria and the location listener
+        locationManager.requestSingleUpdate(criteria, this, null);
     }
 
 
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        Log.i("Location Coordinates", location.toString());
+        binding.businessLatitudeEditText.setText("" + location.getLatitude());
+        binding.businessLongitudeEditText.setText("" + location.getLongitude());
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+        Log.i("Provider Disabled", provider);
+        Toast.makeText(getApplicationContext(), "Please enable your location", Toast.LENGTH_LONG).show();
+    }
+
+    private void permissions() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    LOCATION_PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length != 0) {
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "Oops!! You didn't allow permissions!", Toast.LENGTH_SHORT).show();
+                    binding.getGpsBusinessAddressCheckBox.setEnabled(false);
+                }
+            }
+        }
+    }
 }
 
 

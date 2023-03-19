@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
     tools:context=".LoginActivity">
+
     <TextView
         android:id="@+id/headerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-       android:text="QMobility"
+        android:text="QMobility"
         android:textColor="#FF6E40"
         android:textSize="48sp"
         android:textStyle="bold"
@@ -34,14 +35,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginBottom="200dp"
         android:background="@drawable/edit_text_corners"
         android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/smallHeaderTextView">
@@ -92,6 +91,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loginTextView"
             tools:ignore="TextContrastCheck,TextContrastCheck" />
+
         <EditText
             android:id="@+id/businessNameEditText"
             android:layout_width="0dp"
@@ -146,6 +146,8 @@
             android:id="@+id/registerUserButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
             android:clickable="true"
             android:contentDescription="@string/login"
             android:focusable="true"
@@ -164,13 +166,14 @@
         android:id="@+id/registerBusinessTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:onClick="RegisterBusinessActivity"
         android:text="@string/click_to_register_your_business"
-        android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textColor="#FF6E40"
+        android:textSize="24sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
