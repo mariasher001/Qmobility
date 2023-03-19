@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mariasher.qmobilitybusiness.Utils.enums.AccessType;
 import com.mariasher.qmobilitybusiness.database.BusinessInfo;
@@ -32,6 +33,7 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
     private ActivityRegisterBusinessBinding binding;
+    private FirebaseAuth mAuth;
     private FirebaseDatabase mReal;
 
 
@@ -41,6 +43,7 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
         binding = ActivityRegisterBusinessBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         permissions();
+        mAuth = FirebaseAuth.getInstance();
         mReal = FirebaseDatabase.getInstance();
     }
 
@@ -60,14 +63,13 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
         String adminName = binding.adminNameEditText.getText().toString();
         String adminEmail = binding.adminEmailEditText.getText().toString();
         String adminPassword = binding.adminPasswordEditText.getText().toString();
-        String employeeId = UUID.randomUUID().toString();
 
         if (checkBusinessInformation(businessName, businessPhoneNumber, businessAddress,
                 businessLatitude, businessLongitude, businessType) &&
                 checkEmployeeDetails(adminName, adminEmail, adminPassword)) {
             BusinessInfo businessInfo = new BusinessInfo(businessID, businessName, businessPhoneNumber, businessAddress, businessLatitude, businessLongitude, businessType);
-            Employee employee = new Employee(employeeId, adminName, adminEmail, businessID, "", AccessType.ADMIN);
-            createRealtimeDataBase(businessInfo, employee);
+            Employee employee = new Employee("", adminName, adminEmail, businessID, "", AccessType.ADMIN);
+            registerEmployeeWithFirebaseAuth(businessInfo, employee, adminPassword);
         }
     }
 
@@ -108,6 +110,19 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
         return false;
     }
 
+    private void registerEmployeeWithFirebaseAuth(BusinessInfo businessInfo, Employee employee, String password) {
+        mAuth.createUserWithEmailAndPassword(employee.getEmailAddress(), password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        String employeeId = task.getResult().getUser().getUid();
+                        employee.setEmployeeId(employeeId);
+                        createRealtimeDataBase(businessInfo, employee);
+                        mAuth.signOut();
+                    } else {
+                        Toast.makeText(this, "Registration Unsuccessful!", Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
 
     private void createRealtimeDataBase(BusinessInfo businessInfo, Employee employee) {
         mReal.getReference("QMobility")
