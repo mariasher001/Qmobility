@@ -1,15 +1,8 @@
 package com.mariasher.qmobilitybusiness;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
-
 import android.content.Context;
 import android.content.Intent;
-
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -22,21 +15,22 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.mariasher.qmobilitybusiness.database.BusinessInfo;
 import com.mariasher.qmobilitybusiness.databinding.ActivityRegisterBusinessBinding;
 
-import java.util.List;
 import java.util.UUID;
 
 public class RegisterBusinessActivity extends AppCompatActivity {
 
-    private ActivityRegisterBusinessBinding binding;
-
-    private LocationManager locationManager;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 123;
-
+    private ActivityRegisterBusinessBinding binding;
+    private LocationManager locationManager;
     private FirebaseDatabase mReal;
 
 
@@ -68,19 +62,15 @@ public class RegisterBusinessActivity extends AppCompatActivity {
         String locationManagersName = binding.locationManagerNameEditText.getText().toString();
         String businessID = businessName + "-" + UUID.randomUUID().toString();
 
-        if (checkBusinessInformation(businessName, businessPhoneNumber, businessEmail, businessAddress, businessLatitude,
-                businessLongitude, businessType, locationManagersName)) {
+        if (checkBusinessInformation(businessName, businessPhoneNumber, businessEmail, businessAddress, businessLatitude, businessLongitude, businessType, locationManagersName)) {
 
-            BusinessInfo businessInfo = new BusinessInfo(businessName, businessPhoneNumber, businessEmail,
-                    businessAddress, businessLatitude, businessLongitude, businessType, locationManagersName, businessID);
+            BusinessInfo businessInfo = new BusinessInfo(businessName, businessPhoneNumber, businessEmail, businessAddress, businessLatitude, businessLongitude, businessType, locationManagersName, businessID);
 
             createRealtimeDataBase(businessInfo);
         }
     }
 
-    private boolean checkBusinessInformation(String businessName, String businessPhoneNumber, String businessEmail,
-                                             String businessAddress, String businessLatitude, String businessLongitude,
-                                             String businessType, String locationManagersName) {
+    private boolean checkBusinessInformation(String businessName, String businessPhoneNumber, String businessEmail, String businessAddress, String businessLatitude, String businessLongitude, String businessType, String locationManagersName) {
         if (businessName.isEmpty())
             return setError(binding.businessNameEditText, " Business Name is Required!");
         if (businessPhoneNumber.isEmpty())
@@ -111,21 +101,16 @@ public class RegisterBusinessActivity extends AppCompatActivity {
 
 
     private void createRealtimeDataBase(BusinessInfo businessInfo) {
-        mReal.getReference("QMobility")
-                .child("Businesses")
-                .child(businessInfo.getBusinessID())
-                .child("BusinessDetails")
-                .setValue(businessInfo)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(this, "Registration Successful!", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(this, "Registration Failed!", Toast.LENGTH_LONG).show();
-                    }
-                });
+        mReal.getReference("QMobility").child("Businesses").child(businessInfo.getBusinessID()).child("BusinessDetails").setValue(businessInfo).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(this, "Registration Successful!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(this, "Registration Failed!", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public void getLocationUsingGPSClicked(View view) {
@@ -160,11 +145,9 @@ public class RegisterBusinessActivity extends AppCompatActivity {
             }
         };
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Request the permission if it is not granted
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         } else {
             // Get the location manager
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
