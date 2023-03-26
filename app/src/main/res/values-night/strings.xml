@@ -17,4 +17,8 @@
     <string name="email_address">email_address</string>
     <string name="emailicon">emailIcon</string>
     <string name="smart_queue_system">smart_queue_system</string>
+    <string name="add_employee">Add Employee</string>
+    <string name="read_employees_data">Read Employees Data</string>
+    <string name="update_employee_data">Update Employee Data</string>
+    <string name="delete_employee">Delete Employee</string>
 </resources>

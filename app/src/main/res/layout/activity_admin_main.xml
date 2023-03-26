@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    tools:context=".adminactivities.AdminMainActivity">
+
+    <TextView
+        android:id="@+id/headerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="QMobility"
+        android:textColor="#FF6E40"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/smallHeaderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/smart_queue_system"
+        android:textColor="#FF6E40"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@+id/headerTextView"
+        app:layout_constraintStart_toStartOf="@+id/headerTextView"
+        app:layout_constraintTop_toBottomOf="@+id/headerTextView" />
+
+    <Button
+        android:id="@+id/manageQueuesButton"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/edit_text_corners"
+        android:onClick="manageQueuesButtonClicked"
+        android:text="Manage Queues"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/manageEmployeesButton2" />
+
+    <Button
+        android:id="@+id/viewAnalyticsButton"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/edit_text_corners"
+        android:onClick="viewAnalyticsButtonClicked"
+        android:text="View Analytics"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/manageQueuesButton" />
+
+    <Button
+        android:id="@+id/manageEmployeesButton2"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/edit_text_corners"
+        android:onClick="manageEmployeesButtonClicked"
+        android:text="Manage Employees"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/smallHeaderTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
