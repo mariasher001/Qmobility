@@ -11,7 +11,8 @@ import com.mariasher.qmobilitybusiness.R;
 import com.mariasher.qmobilitybusiness.databinding.ActivityAdminMainBinding;
 
 public class AdminMainActivity extends AppCompatActivity {
-ActivityAdminMainBinding binding;
+    ActivityAdminMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,13 +27,13 @@ ActivityAdminMainBinding binding;
 
     //TODO: Change the class name from ManageEmployeeActivity to ManageQueueActivity
     public void manageQueuesButtonClicked(View view) {
-        Intent intent = new Intent(this, ManageEmployeesActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, ManageEmployeesActivity.class);
+//        startActivity(intent);
     }
 
     //TODO: Change the class name from ManageEmployeeActivity to ManageAnalyticsActivity
     public void viewAnalyticsButtonClicked(View view) {
-        Intent intent = new Intent(this, ManageEmployeesActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, ManageEmployeesActivity.class);
+//        startActivity(intent);
     }
 }

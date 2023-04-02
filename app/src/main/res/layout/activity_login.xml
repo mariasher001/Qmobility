@@ -93,7 +93,7 @@
             tools:ignore="TextContrastCheck,TextContrastCheck" />
 
         <EditText
-            android:id="@+id/businessNameEditText"
+            android:id="@+id/passwordLoginEditText"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="20dp"
@@ -140,7 +140,7 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/businessNameEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/passwordLoginEditText" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/registerUserButton"
