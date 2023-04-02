@@ -42,8 +42,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
             android:orientation="vertical">
 
             <EditText
@@ -53,15 +53,14 @@
                 android:layout_marginTop="40dp"
                 android:autofillHints=""
                 android:background="@drawable/edit_text_corners"
-                android:ems="10"
                 android:enabled="false"
                 android:hint="@string/business_id"
                 android:inputType="text"
                 android:paddingStart="20dp"
-                android:paddingEnd="1dp"
+                android:paddingEnd="20dp"
                 android:textColor="#FF6E40"
-                android:textColorHint="#F44336"
-                android:textSize="24sp"
+                android:textColorHint="#917B79"
+                android:textSize="20sp"
                 tools:ignore="TextContrastCheck" />
 
             <EditText
@@ -71,15 +70,14 @@
                 android:layout_marginTop="30dp"
                 android:autofillHints=""
                 android:background="@drawable/edit_text_corners"
-                android:ems="10"
                 android:enabled="false"
                 android:hint="Employee ID (Auto generated)"
                 android:inputType="text"
                 android:paddingStart="20dp"
                 android:paddingEnd="1dp"
                 android:textColor="#FF6E40"
-                android:textColorHint="#F44336"
-                android:textSize="24sp"
+                android:textColorHint="#917B79"
+                android:textSize="20sp"
                 tools:ignore="TextContrastCheck" />
 
             <EditText
@@ -89,14 +87,13 @@
                 android:layout_marginTop="30dp"
                 android:autofillHints=""
                 android:background="@drawable/edit_text_corners"
-                android:ems="10"
                 android:hint="@string/employee_name"
                 android:inputType="text"
                 android:paddingStart="20dp"
                 android:paddingEnd="1dp"
                 android:textColor="#FF6E40"
-                android:textColorHint="#F44336"
-                android:textSize="24sp"
+                android:textColorHint="#917B79"
+                android:textSize="20sp"
                 tools:ignore="TextContrastCheck" />
 
             <EditText
@@ -106,14 +103,13 @@
                 android:layout_marginTop="30dp"
                 android:autofillHints=""
                 android:background="@drawable/edit_text_corners"
-                android:ems="10"
                 android:hint="@string/employee_email"
                 android:inputType="textEmailAddress"
                 android:paddingStart="20dp"
                 android:paddingEnd="1dp"
                 android:textColor="#FF6E40"
-                android:textColorHint="#F44336"
-                android:textSize="24sp"
+                android:textColorHint="#917B79"
+                android:textSize="20sp"
                 tools:ignore="TextContrastCheck" />
 
             <EditText
@@ -123,14 +119,13 @@
                 android:layout_marginTop="30dp"
                 android:autofillHints=""
                 android:background="@drawable/edit_text_corners"
-                android:ems="10"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:paddingStart="20dp"
                 android:paddingEnd="1dp"
                 android:textColor="#FF6E40"
-                android:textColorHint="#F44336"
-                android:textSize="24sp"
+                android:textColorHint="#917B79"
+                android:textSize="20sp"
                 tools:ignore="TextContrastCheck" />
 
             <EditText
@@ -140,13 +135,12 @@
                 android:layout_marginTop="30dp"
                 android:autofillHints=""
                 android:background="@drawable/edit_text_corners"
-                android:ems="10"
                 android:hint="@string/phonenumber"
                 android:inputType="text"
                 android:paddingStart="20dp"
                 android:paddingEnd="1dp"
-                android:textColorHint="#F44336"
-                android:textSize="24sp"
+                android:textColorHint="#917B79"
+                android:textSize="20sp"
                 tools:ignore="TextContrastCheck" />
 
             <EditText
@@ -156,23 +150,22 @@
                 android:layout_marginTop="30dp"
                 android:autofillHints=""
                 android:background="@drawable/edit_text_corners"
-                android:ems="10"
                 android:hint="@string/accesstype"
                 android:inputType="text"
                 android:paddingStart="20dp"
                 android:paddingEnd="1dp"
                 android:textColor="#FF6E40"
-                android:textColorHint="#F44336"
-                android:textSize="24sp"
+                android:textColorHint="#917B79"
+                android:textSize="20sp"
                 tools:ignore="TextContrastCheck" />
 
             <Button
                 android:id="@+id/registerEmployeeButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="50dp"
                 android:layout_marginTop="40dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="50dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/edit_text_corners"
                 android:onClick="registerEmployeeButtonClicked"

@@ -41,8 +41,8 @@
         android:onClick="manageQueuesButtonClicked"
         android:text="Manage Queues"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/manageEmployeesButton2"
+        app:layout_constraintStart_toStartOf="@+id/manageEmployeesButton2"
         app:layout_constraintTop_toBottomOf="@+id/manageEmployeesButton2" />
 
     <Button
@@ -54,16 +54,17 @@
         android:onClick="viewAnalyticsButtonClicked"
         android:text="View Analytics"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/manageQueuesButton"
+        app:layout_constraintStart_toStartOf="@+id/manageQueuesButton"
         app:layout_constraintTop_toBottomOf="@+id/manageQueuesButton" />
 
     <Button
         android:id="@+id/manageEmployeesButton2"
         android:layout_width="0dp"
         android:layout_height="55dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="48dp"
+        android:layout_marginEnd="50dp"
         android:background="@drawable/edit_text_corners"
         android:onClick="manageEmployeesButtonClicked"
         android:text="Manage Employees"
