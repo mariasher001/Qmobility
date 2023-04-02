@@ -246,7 +246,7 @@
             tools:ignore="TextContrastCheck" />
 
         <Button
-            android:id="@+id/registerbusinessButton"
+            android:id="@+id/registerEmployeeButton"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_marginStart="60dp"

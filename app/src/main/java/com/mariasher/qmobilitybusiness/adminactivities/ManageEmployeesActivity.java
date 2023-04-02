@@ -11,10 +11,12 @@ import com.mariasher.qmobilitybusiness.databinding.ActivityManageEmployeesBindin
 
 public class ManageEmployeesActivity extends AppCompatActivity {
 
+    private ActivityManageEmployeesBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_employees);
+        binding = ActivityManageEmployeesBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
     }
 
 

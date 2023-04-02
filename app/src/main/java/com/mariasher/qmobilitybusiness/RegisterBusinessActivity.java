@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mariasher.qmobilitybusiness.Utils.enums.AccessType;
 import com.mariasher.qmobilitybusiness.database.BusinessInfo;
@@ -36,6 +37,9 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
     private FirebaseAuth mAuth;
     private FirebaseDatabase mReal;
 
+    // Get the location manager
+    LocationManager locationManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,14 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
         permissions();
         mAuth = FirebaseAuth.getInstance();
         mReal = FirebaseDatabase.getInstance();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (locationManager != null) {
+            locationManager.removeUpdates(this);
+        }
     }
 
     public void registerBusinessButtonClicked(View view) {
@@ -75,31 +87,31 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
 
     private boolean checkBusinessInformation(String businessName, String businessPhoneNumber, String businessAddress, String businessLatitude, String businessLongitude, String businessType) {
         if (businessName.isEmpty())
-            return setError(binding.businessNameEditText, " Business Name is Required!");
+            return setError(this.binding.businessNameEditText, " Business Name is Required!");
         if (businessPhoneNumber.isEmpty())
-            return setError(binding.businessPhoneNumberEditText, "Business PhoneNumber is Required!");
+            return setError(this.binding.businessPhoneNumberEditText, "Business PhoneNumber is Required!");
         if (businessAddress.isEmpty())
-            return setError(binding.businessAddressEditText, "BusinessAddress is Required!");
+            return setError(this.binding.businessAddressEditText, "BusinessAddress is Required!");
         if (businessLatitude.isEmpty())
-            return setError(binding.businessLatitudeEditText, "Business Latitude Coordinates are required!");
+            return setError(this.binding.businessLatitudeEditText, "Business Latitude Coordinates are required!");
         if (businessLongitude.isEmpty())
-            return setError(binding.businessLongitudeEditText, "BusinessLongitude Coordinates are Required!");
+            return setError(this.binding.businessLongitudeEditText, "BusinessLongitude Coordinates are Required!");
         if (businessType.isEmpty())
-            return setError(binding.businessTypeEditText, "BusinessType is Required!");
+            return setError(this.binding.businessTypeEditText, "BusinessType is Required!");
         return true;
     }
 
-    private boolean checkEmployeeDetails(String adminName, String adminEmail, String adminPassword) {
+    public boolean checkEmployeeDetails(String adminName, String adminEmail, String adminPassword) {
         if (adminName.isEmpty())
-            return setError(binding.adminNameEditText, "Admin Name is Required!");
+            return setError(this.binding.adminNameEditText, "Admin Name is Required!");
         if (adminEmail.isEmpty())
-            return setError(binding.adminEmailEditText, "Admin Email is Required!");
+            return setError(this.binding.adminEmailEditText, "Admin Email is Required!");
         if (!Patterns.EMAIL_ADDRESS.matcher(adminEmail).matches())
-            return setError(binding.adminEmailEditText, "Enter correct email!");
+            return setError(this.binding.adminEmailEditText, "Enter correct email!");
         if (adminPassword.isEmpty())
-            return setError(binding.adminPasswordEditText, "Password is required!");
+            return setError(this.binding.adminPasswordEditText, "Password is required!");
         if (adminPassword.length() < 6)
-            return setError(binding.adminPasswordEditText, "Password length should be more than 6");
+            return setError(this.binding.adminPasswordEditText, "Password length should be more than 6");
 
         return true;
     }
@@ -114,8 +126,11 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
         mAuth.createUserWithEmailAndPassword(employee.getEmailAddress(), password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        String employeeId = task.getResult().getUser().getUid();
+                        String employeeId = businessInfo.getBusinessName() + "@" + task.getResult().getUser().getUid();
                         employee.setEmployeeId(employeeId);
+
+                        //TODO addBusinessIdToEmployeeInFirebaseAuth();
+
                         createRealtimeDataBase(businessInfo, employee);
                         mAuth.signOut();
                     } else {
@@ -178,9 +193,7 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
 
     @SuppressLint("MissingPermission")
     private void getGPSLocation() {
-        // Get the location manager
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         // Create a criteria with your requirements
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
@@ -204,6 +217,7 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
     public void onProviderDisabled(@NonNull String provider) {
         Log.i("Provider Disabled", provider);
         Toast.makeText(getApplicationContext(), "Please enable your location", Toast.LENGTH_LONG).show();
+        locationManager.removeUpdates(this);
     }
 
     private void permissions() {

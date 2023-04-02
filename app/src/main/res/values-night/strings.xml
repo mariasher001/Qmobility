@@ -21,4 +21,10 @@
     <string name="read_employees_data">Read Employees Data</string>
     <string name="update_employee_data">Update Employee Data</string>
     <string name="delete_employee">Delete Employee</string>
+    <string name="employee_email">Employee email</string>
+    <string name="accesstype">AccessType</string>
+    <string name="phonenumber">PhoneNumber</string>
+    <string name="employee_name">Employee name</string>
+    <string name="employee_id">Employee ID</string>
+    <string name="business_id">Business ID</string>
 </resources>
