@@ -21,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mariasher.qmobilitybusiness.Utils.enums.AccessType;
 import com.mariasher.qmobilitybusiness.database.BusinessInfo;
@@ -85,6 +84,69 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
         }
     }
 
+    private void registerEmployeeWithFirebaseAuth(BusinessInfo businessInfo, Employee employee, String password) {
+
+        mAuth.createUserWithEmailAndPassword(employee.getEmailAddress(), password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        String employeeId = task.getResult().getUser().getUid();
+                        employee.setEmployeeId(employeeId);
+
+                        createBusinessInRealtimeDataBase(businessInfo, employee);
+                        createEmployeeBusinessLinkInRealtimeDatabase(employee);
+
+                        mAuth.signOut();
+                    } else {
+                        Toast.makeText(this, "Registration Unsuccessful!", Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+    private void createEmployeeBusinessLinkInRealtimeDatabase(Employee employee) {
+        mReal.getReference("QMobility")
+                .child("EmployeeBusinessLink")
+                .child(employee.getEmployeeId())
+                .setValue(employee.getBusinessId());
+    }
+
+    private void createBusinessInRealtimeDataBase(BusinessInfo businessInfo, Employee employee) {
+        mReal.getReference("QMobility")
+                .child("Businesses")
+                .child(businessInfo.getBusinessID())
+                .child("BusinessDetails")
+                .setValue(businessInfo)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        addFirstEmployee(employee);
+                    } else {
+                        Toast.makeText(this, "Business Registration Unsuccessful!", Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+    private void addFirstEmployee(Employee employee) {
+        mReal.getReference("QMobility")
+                .child("Businesses")
+                .child(employee.getBusinessId())
+                .child("EmployeeDetails")
+                .child(employee.getEmployeeId())
+                .setValue(employee)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(this, "Registration Successful!", Toast.LENGTH_LONG).show();
+                        startLoginActivity();
+                    } else {
+                        Toast.makeText(this, "Registration Unsuccessful!", Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+    private void startLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private boolean checkBusinessInformation(String businessName, String businessPhoneNumber, String businessAddress, String businessLatitude, String businessLongitude, String businessType) {
         if (businessName.isEmpty())
             return setError(this.binding.businessNameEditText, " Business Name is Required!");
@@ -120,61 +182,6 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
         editText.setError(message);
         editText.requestFocus();
         return false;
-    }
-
-    private void registerEmployeeWithFirebaseAuth(BusinessInfo businessInfo, Employee employee, String password) {
-        mAuth.createUserWithEmailAndPassword(employee.getEmailAddress(), password)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        String employeeId = businessInfo.getBusinessName() + "@" + task.getResult().getUser().getUid();
-                        employee.setEmployeeId(employeeId);
-
-                        //TODO addBusinessIdToEmployeeInFirebaseAuth();
-
-                        createRealtimeDataBase(businessInfo, employee);
-                        mAuth.signOut();
-                    } else {
-                        Toast.makeText(this, "Registration Unsuccessful!", Toast.LENGTH_LONG).show();
-                    }
-                });
-    }
-
-    private void createRealtimeDataBase(BusinessInfo businessInfo, Employee employee) {
-        mReal.getReference("QMobility")
-                .child("Businesses")
-                .child(businessInfo.getBusinessID())
-                .child("BusinessDetails")
-                .setValue(businessInfo)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        addFirstEmployee(employee);
-                    } else {
-                        Toast.makeText(this, "Registration Unsuccessful!", Toast.LENGTH_LONG).show();
-                    }
-                });
-    }
-
-    private void addFirstEmployee(Employee employee) {
-        mReal.getReference("QMobility")
-                .child("Businesses")
-                .child(employee.getBusinessId())
-                .child("EmployeeDetails")
-                .child(employee.getEmployeeId())
-                .setValue(employee)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(this, "Registration Successful!", Toast.LENGTH_LONG).show();
-                        startLoginActivity();
-                    } else {
-                        Toast.makeText(this, "Registration Unsuccessful!", Toast.LENGTH_LONG).show();
-                    }
-                });
-    }
-
-    private void startLoginActivity() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     public void getLocationUsingGPSClicked(View view) {

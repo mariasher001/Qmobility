@@ -7,16 +7,16 @@ public class BusinessInfo {
     @NonNull
     private String businessID;
     private String businessName;
-    private String phoneNumber;
+    private String businessPhoneNumber;
     private String businessAddress;
     private String businessLatitude;
     private String businessLongitude;
     private String businessType;
 
-    public BusinessInfo(@NonNull String businessID, String businessName, String phoneNumber, String businessAddress, String businessLatitude, String businessLongitude, String businessType) {
+    public BusinessInfo(@NonNull String businessID, String businessName, String businessPhoneNumber, String businessAddress, String businessLatitude, String businessLongitude, String businessType) {
         this.businessID = businessID;
         this.businessName = businessName;
-        this.phoneNumber = phoneNumber;
+        this.businessPhoneNumber = businessPhoneNumber;
         this.businessAddress = businessAddress;
         this.businessLatitude = businessLatitude;
         this.businessLongitude = businessLongitude;
@@ -34,12 +34,12 @@ public class BusinessInfo {
         this.businessName = businessName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getBusinessPhoneNumber() {
+        return businessPhoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setBusinessPhoneNumber(String businessPhoneNumber) {
+        this.businessPhoneNumber = businessPhoneNumber;
     }
 
     public String getBusinessAddress() {
