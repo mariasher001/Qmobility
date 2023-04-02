@@ -15,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mariasher.qmobilitybusiness.Utils.FirebaseRealtimeUtils;
 import com.mariasher.qmobilitybusiness.Utils.Interfaces.Callback;
 import com.mariasher.qmobilitybusiness.database.Employee;
 import com.mariasher.qmobilitybusiness.databinding.ActivityAddEmployeeBinding;
@@ -22,7 +23,7 @@ import com.mariasher.qmobilitybusiness.databinding.ActivityAddEmployeeBinding;
 public class AddEmployeeActivity extends AppCompatActivity {
     private ActivityAddEmployeeBinding binding;
     private FirebaseAuth mAuth;
-    private FirebaseDatabase mReal;
+    private FirebaseRealtimeUtils firebaseRealtimeUtils;
 
 
     @Override
@@ -36,29 +37,15 @@ public class AddEmployeeActivity extends AppCompatActivity {
 
     private void init(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
-        mReal = FirebaseDatabase.getInstance();
-        getBusinessInfoFromFirebase(businessId -> {
-            binding.employeeBusinessIdEditText.setText(businessId);
+        firebaseRealtimeUtils = new FirebaseRealtimeUtils(this);
+
+        firebaseRealtimeUtils.getBusinessIdFromEmployeeBusinessLink(mAuth.getCurrentUser().getUid(), businessId -> {
+            firebaseRealtimeUtils.getBusinessNameFromBusinessDetails(businessId, businessName -> {
+                binding.businessNameAddEmployeesHeaderTextView.setText(businessName);
+                binding.employeeBusinessIdEditText.setText(businessId);
+            });
         });
 
-    }
-
-    private void getBusinessInfoFromFirebase(Callback<String> callback) {
-        mReal.getReference("QMobility")
-                .child("EmployeeBusinessLink")
-                .child(mAuth.getCurrentUser().getUid())
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String businessId = snapshot.getValue(String.class);
-                        callback.onSuccess(businessId);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(AddEmployeeActivity.this, "Error retrieving Business Info: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
     }
 
     public void registerEmployeeButtonClicked(View view) {
@@ -86,8 +73,11 @@ public class AddEmployeeActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         String employeeId = task.getResult().getUser().getUid();
                         employee.setEmployeeId(employeeId);
-                        createEmployeeBusinessLinkInRealtimeDatabase(employee);
-                        addEmployeeToBusinessInRealtimeDatabase(employee);
+                        firebaseRealtimeUtils.createEmployeeBusinessLinkInRealtimeDatabase(employee.getEmployeeId(), employee.getBusinessId());
+                        firebaseRealtimeUtils.addEmployeeToBusinessInRealtimeDatabase(employee, isSuccessful -> {
+                            if (isSuccessful)
+                                changeActivity();
+                        });
                         mAuth.signOut();
                     } else {
                         Toast.makeText(this, "FirebaseAuth Registration Unsuccessful!", Toast.LENGTH_LONG).show();
@@ -95,31 +85,7 @@ public class AddEmployeeActivity extends AppCompatActivity {
                 });
     }
 
-    private void createEmployeeBusinessLinkInRealtimeDatabase(Employee employee) {
-        mReal.getReference("QMobility")
-                .child("EmployeeBusinessLink")
-                .child(employee.getEmployeeId())
-                .setValue(employee.getBusinessId());
-    }
-
-    private void addEmployeeToBusinessInRealtimeDatabase(Employee employee) {
-        mReal.getReference("QMobility")
-                .child("Businesses")
-                .child(employee.getBusinessId())
-                .child("EmployeeDetails")
-                .child(employee.getEmployeeId())
-                .setValue(employee)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(this, "Registration Successful!", Toast.LENGTH_LONG).show();
-                        ChangeActivity();
-                    } else {
-                        Toast.makeText(this, "Firebase RealTime Registration Unsuccessful!", Toast.LENGTH_LONG).show();
-                    }
-                });
-    }
-
-    private void ChangeActivity() {
+    private void changeActivity() {
         Intent intent = new Intent(this, ManageEmployeesActivity.class);
         startActivity(intent);
         finish();

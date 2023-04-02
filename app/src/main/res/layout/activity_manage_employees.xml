@@ -8,7 +8,7 @@
     tools:context=".adminactivities.ManageEmployeesActivity">
 
     <TextView
-        android:id="@+id/headerTextView"
+        android:id="@+id/businessNameManageEmployeesHeaderTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -28,9 +28,9 @@
         android:textColor="#FF6E40"
         android:textSize="16sp"
         android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="@+id/headerTextView"
-        app:layout_constraintStart_toStartOf="@+id/headerTextView"
-        app:layout_constraintTop_toBottomOf="@+id/headerTextView" />
+        app:layout_constraintEnd_toEndOf="@+id/businessNameManageEmployeesHeaderTextView"
+        app:layout_constraintStart_toStartOf="@+id/businessNameManageEmployeesHeaderTextView"
+        app:layout_constraintTop_toBottomOf="@+id/businessNameManageEmployeesHeaderTextView" />
 
     <Button
         android:id="@+id/addEmployeeButton"

@@ -14,12 +14,12 @@
         android:textColor="#FF6E40"
         android:textSize="16sp"
         android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="@+id/headerTextView"
-        app:layout_constraintStart_toStartOf="@+id/headerTextView"
-        app:layout_constraintTop_toBottomOf="@+id/headerTextView" />
+        app:layout_constraintEnd_toEndOf="@+id/businessNameAddEmployeesHeaderTextView"
+        app:layout_constraintStart_toStartOf="@+id/businessNameAddEmployeesHeaderTextView"
+        app:layout_constraintTop_toBottomOf="@+id/businessNameAddEmployeesHeaderTextView" />
 
     <TextView
-        android:id="@+id/headerTextView"
+        android:id="@+id/businessNameAddEmployeesHeaderTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"

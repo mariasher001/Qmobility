@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.mariasher.qmobilitybusiness.Utils.FirebaseRealtimeUtils;
 import com.mariasher.qmobilitybusiness.Utils.enums.AccessType;
 import com.mariasher.qmobilitybusiness.database.BusinessInfo;
 import com.mariasher.qmobilitybusiness.database.Employee;
@@ -35,6 +36,7 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
     private ActivityRegisterBusinessBinding binding;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mReal;
+    private FirebaseRealtimeUtils firebaseRealtimeUtils;
 
     // Get the location manager
     LocationManager locationManager;
@@ -46,8 +48,13 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
         binding = ActivityRegisterBusinessBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         permissions();
+        init(savedInstanceState);
+    }
+
+    private void init(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
         mReal = FirebaseDatabase.getInstance();
+        firebaseRealtimeUtils = new FirebaseRealtimeUtils(this);
     }
 
     @Override
@@ -85,28 +92,19 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
     }
 
     private void registerEmployeeWithFirebaseAuth(BusinessInfo businessInfo, Employee employee, String password) {
-
         mAuth.createUserWithEmailAndPassword(employee.getEmailAddress(), password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         String employeeId = task.getResult().getUser().getUid();
                         employee.setEmployeeId(employeeId);
 
+                        firebaseRealtimeUtils.createEmployeeBusinessLinkInRealtimeDatabase(employee.getEmployeeId(), employee.getBusinessId());
                         createBusinessInRealtimeDataBase(businessInfo, employee);
-                        createEmployeeBusinessLinkInRealtimeDatabase(employee);
-
                         mAuth.signOut();
                     } else {
                         Toast.makeText(this, "Registration Unsuccessful!", Toast.LENGTH_LONG).show();
                     }
                 });
-    }
-
-    private void createEmployeeBusinessLinkInRealtimeDatabase(Employee employee) {
-        mReal.getReference("QMobility")
-                .child("EmployeeBusinessLink")
-                .child(employee.getEmployeeId())
-                .setValue(employee.getBusinessId());
     }
 
     private void createBusinessInRealtimeDataBase(BusinessInfo businessInfo, Employee employee) {
