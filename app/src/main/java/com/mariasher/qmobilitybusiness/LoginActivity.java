@@ -1,8 +1,5 @@
 package com.mariasher.qmobilitybusiness;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -10,13 +7,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mariasher.qmobilitybusiness.Utils.Interfaces.Callback;
-import com.mariasher.qmobilitybusiness.Utils.enums.AccessType;
 import com.mariasher.qmobilitybusiness.adminactivities.AdminMainActivity;
 import com.mariasher.qmobilitybusiness.databinding.ActivityLoginBinding;
 
@@ -130,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                 intent = new Intent(this, AdminMainActivity.class);
         }
         startActivity(intent);
+        finish();
     }
 
     public void RegisterBusinessActivity(View view) {

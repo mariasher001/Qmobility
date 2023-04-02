@@ -1,17 +1,15 @@
 package com.mariasher.qmobilitybusiness.adminactivities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.mariasher.qmobilitybusiness.R;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.mariasher.qmobilitybusiness.databinding.ActivityAdminMainBinding;
 
 public class AdminMainActivity extends AppCompatActivity {
-    ActivityAdminMainBinding binding;
+    private ActivityAdminMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
