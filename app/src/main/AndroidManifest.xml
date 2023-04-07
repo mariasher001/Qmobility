@@ -20,10 +20,6 @@
             android:name=".EmployeeProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".adminactivities.DeleteEmployeeActivity"
-            android:exported="false"
-            android:parentActivityName=".adminactivities.AdminMainActivity" />
-        <activity
             android:name=".adminactivities.ReadEmployeeDataActivity"
             android:exported="false"
             android:parentActivityName=".adminactivities.AdminMainActivity" />

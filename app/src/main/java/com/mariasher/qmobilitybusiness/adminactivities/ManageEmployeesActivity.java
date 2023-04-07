@@ -56,7 +56,8 @@ public class ManageEmployeesActivity extends AppCompatActivity {
     }
 
     public void deleteEmployeeButtonClicked(View view) {
-        Intent intent = new Intent(this, DeleteEmployeeActivity.class);
+        Intent intent = new Intent(this, ReadEmployeeDataActivity.class);
+        intent.putExtra("CRUD", "DELETE");
         startActivity(intent);
     }
 }
