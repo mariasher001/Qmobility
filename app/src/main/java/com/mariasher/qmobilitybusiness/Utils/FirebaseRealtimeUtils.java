@@ -1,7 +1,6 @@
 package com.mariasher.qmobilitybusiness.Utils;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -76,10 +75,8 @@ public class FirebaseRealtimeUtils {
                 .setValue(employee)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(context, "Registration Successful!", Toast.LENGTH_LONG).show();
                         callback.onSuccess(true);
                     } else {
-                        Toast.makeText(context, "Firebase RealTime Registration Unsuccessful!", Toast.LENGTH_LONG).show();
                         callback.onSuccess(false);
                     }
                 });

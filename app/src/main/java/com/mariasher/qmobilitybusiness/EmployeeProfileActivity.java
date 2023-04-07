@@ -4,7 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Patterns;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +46,11 @@ public class EmployeeProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         businessId = intent.getStringExtra("businessId");
         employeeId = intent.getStringExtra("employeeId");
+        String CRUD = intent.getStringExtra("CRUD");
+
+        if (CRUD.equals("UPDATE")) {
+            binding.updateProfileImageView.setVisibility(View.VISIBLE);
+        }
 
         mAuth = FirebaseAuth.getInstance();
         mReal = FirebaseDatabase.getInstance();
@@ -92,5 +101,65 @@ public class EmployeeProfileActivity extends AppCompatActivity {
             Toast.makeText(this, "Intent Data Transfer incomplete", Toast.LENGTH_SHORT).show();
             finish();
         }
+    }
+
+    public void updateProfileImageViewClicked(View view) {
+        //name, email, phone, access type enable, color
+        //button visible
+        setEnabledAndColorForUpdateProfile(binding.employeeProfileNameEditText);
+        setEnabledAndColorForUpdateProfile(binding.employeeProfileEmailEditText);
+        setEnabledAndColorForUpdateProfile(binding.employeeProfilePhoneNumberEditText);
+        setEnabledAndColorForUpdateProfile(binding.employeeProfileAccessTypeEditText);
+
+        binding.updateProfileButton.setVisibility(View.VISIBLE);
+    }
+
+    public void updateProfileButtonClicked(View view) {
+        String name = binding.employeeProfileNameEditText.getText().toString();
+        String emailAddress = binding.employeeProfileEmailEditText.getText().toString();
+        String phoneNumber = binding.employeeProfilePhoneNumberEditText.getText().toString();
+        String businessId = binding.employeeProfileBusinessIdEditText.getText().toString();
+        String employeeId = binding.employeeProfileEmployeeIdEditText.getText().toString();
+        String accessType = binding.employeeProfileAccessTypeEditText.getText().toString().toUpperCase();
+
+        if (checkEmployeeInfo(name, emailAddress, phoneNumber, accessType)) {
+            Employee employee = new Employee(employeeId, name, emailAddress, businessId, phoneNumber, accessType);
+            firebaseRealtimeUtils.addEmployeeToBusinessInRealtimeDatabase(employee, isSuccessful -> {
+                if (isSuccessful) {
+                    Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(this, "Error Updating Profile", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private boolean checkEmployeeInfo(String name, String emailAddress, String phoneNumber, String accessType) {
+        if (name.isEmpty())
+            return setError(this.binding.employeeProfileNameEditText, "Name is Required!");
+        if (emailAddress.isEmpty())
+            return setError(this.binding.employeeProfileEmailEditText, "Email is Required!");
+        if (!Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches())
+            return setError(this.binding.employeeProfileEmailEditText, "Enter correct email!");
+        if (phoneNumber.isEmpty())
+            return setError(this.binding.employeeProfilePhoneNumberEditText, "Phone Number is required!");
+        if (accessType.isEmpty())
+            return setError(this.binding.employeeProfileAccessTypeEditText, "Access Type is required!");
+        if ((!accessType.equals("ADMIN")) && (!accessType.equals("MANAGER")) && (!accessType.equals("OPERATOR")))
+            return setError(binding.employeeProfileAccessTypeEditText, "Enter Correct Access Type");
+
+        return true;
+    }
+
+    private boolean setError(EditText editText, String message) {
+        editText.setError(message);
+        editText.requestFocus();
+        return false;
+    }
+
+    private void setEnabledAndColorForUpdateProfile(EditText editText) {
+        editText.setEnabled(true);
+        editText.setTextColor(Color.WHITE);
     }
 }

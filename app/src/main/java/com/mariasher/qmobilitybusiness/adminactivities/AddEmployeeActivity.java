@@ -75,8 +75,12 @@ public class AddEmployeeActivity extends AppCompatActivity {
                         employee.setEmployeeId(employeeId);
                         firebaseRealtimeUtils.createEmployeeBusinessLinkInRealtimeDatabase(employee.getEmployeeId(), employee.getBusinessId());
                         firebaseRealtimeUtils.addEmployeeToBusinessInRealtimeDatabase(employee, isSuccessful -> {
-                            if (isSuccessful)
+                            if (isSuccessful) {
+                                Toast.makeText(this, "Registration Successful!", Toast.LENGTH_LONG).show();
                                 changeActivity();
+                            } else {
+                                Toast.makeText(this, "Firebase RealTime Registration Unsuccessful!", Toast.LENGTH_LONG).show();
+                            }
                         });
                         mAuth.signOut();
                     } else {

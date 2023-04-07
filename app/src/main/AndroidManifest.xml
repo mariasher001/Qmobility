@@ -24,10 +24,6 @@
             android:exported="false"
             android:parentActivityName=".adminactivities.AdminMainActivity" />
         <activity
-            android:name=".adminactivities.UpdateEmployeeDataActivity"
-            android:exported="false"
-            android:parentActivityName=".adminactivities.AdminMainActivity" />
-        <activity
             android:name=".adminactivities.ReadEmployeeDataActivity"
             android:exported="false"
             android:parentActivityName=".adminactivities.AdminMainActivity" />

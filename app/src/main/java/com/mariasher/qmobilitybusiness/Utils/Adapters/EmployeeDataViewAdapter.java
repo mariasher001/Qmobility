@@ -21,10 +21,12 @@ public class EmployeeDataViewAdapter extends RecyclerView.Adapter<EmployeeDataVi
 
     private List<Employee> employees;
     private Context context;
+    private String CRUD;
 
-    public EmployeeDataViewAdapter(List<Employee> employees, Context context) {
+    public EmployeeDataViewAdapter(List<Employee> employees, Context context, String CRUD) {
         this.employees = employees;
         this.context = context;
+        this.CRUD = CRUD;
     }
 
     public class EmployeeDataViewHolder extends RecyclerView.ViewHolder {
@@ -63,6 +65,7 @@ public class EmployeeDataViewAdapter extends RecyclerView.Adapter<EmployeeDataVi
         Intent intent = new Intent(context, EmployeeProfileActivity.class);
         intent.putExtra("businessId", businessId);
         intent.putExtra("employeeId", employeeId);
+        intent.putExtra("CRUD", CRUD);
         context.startActivity(intent);
 
         //TODO finish the activity

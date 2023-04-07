@@ -1,5 +1,6 @@
 package com.mariasher.qmobilitybusiness.adminactivities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -36,13 +37,15 @@ public class ReadEmployeeDataActivity extends AppCompatActivity {
     }
 
     private void init(Bundle savedInstanceState) {
+        Intent intent = getIntent();
+        String CRUD = intent.getStringExtra("CRUD");
         mAuth = FirebaseAuth.getInstance();
         mReal = FirebaseDatabase.getInstance();
         firebaseRealtimeUtils = new FirebaseRealtimeUtils(this);
         setHeader();
 
         getAllEmployeesFromBusiness(employees -> {
-            binding.readEmployeeDataRecyclerView.setAdapter(new EmployeeDataViewAdapter(employees, this));
+            binding.readEmployeeDataRecyclerView.setAdapter(new EmployeeDataViewAdapter(employees, this, CRUD));
         });
     }
 
