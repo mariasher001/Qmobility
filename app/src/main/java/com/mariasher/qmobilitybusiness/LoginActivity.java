@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mariasher.qmobilitybusiness.Utils.Interfaces.Callback;
-import com.mariasher.qmobilitybusiness.adminactivities.AdminMainActivity;
+import com.mariasher.qmobilitybusiness.AdminActivities.AdminMainActivity;
 import com.mariasher.qmobilitybusiness.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {

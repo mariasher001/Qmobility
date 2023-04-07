@@ -1,4 +1,4 @@
-package com.mariasher.qmobilitybusiness.adminactivities;
+package com.mariasher.qmobilitybusiness.AdminActivities;
 
 import android.content.Intent;
 import android.os.Bundle;

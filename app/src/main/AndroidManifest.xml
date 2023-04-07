@@ -20,22 +20,22 @@
             android:name=".EmployeeProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".adminactivities.ReadEmployeeDataActivity"
+            android:name=".AdminActivities.ReadEmployeeDataActivity"
             android:exported="false"
-            android:parentActivityName=".adminactivities.ManageEmployeesActivity"
+            android:parentActivityName=".AdminActivities.ManageEmployeesActivity"
             android:theme="@style/Theme.MaterialComponents.DayNight.ActionBar" />
         <activity
-            android:name=".adminactivities.AddEmployeeActivity"
+            android:name=".AdminActivities.AddEmployeeActivity"
             android:exported="false"
-            android:parentActivityName=".adminactivities.ManageEmployeesActivity"
+            android:parentActivityName=".AdminActivities.ManageEmployeesActivity"
             android:theme="@style/Theme.MaterialComponents.DayNight.ActionBar" />
         <activity
-            android:name=".adminactivities.ManageEmployeesActivity"
+            android:name=".AdminActivities.ManageEmployeesActivity"
             android:exported="false"
-            android:parentActivityName=".adminactivities.AdminMainActivity"
+            android:parentActivityName=".AdminActivities.AdminMainActivity"
             android:theme="@style/Theme.MaterialComponents.DayNight.ActionBar" />
         <activity
-            android:name=".adminactivities.AdminMainActivity"
+            android:name=".AdminActivities.AdminMainActivity"
             android:exported="false"
             android:theme="@style/Theme.MaterialComponents.DayNight.ActionBar" />
         <activity

@@ -39,7 +39,7 @@ public class RegisterBusinessActivity extends AppCompatActivity implements Locat
     private FirebaseRealtimeUtils firebaseRealtimeUtils;
 
     // Get the location manager
-    LocationManager locationManager;
+    private LocationManager locationManager;
 
 
     @Override
