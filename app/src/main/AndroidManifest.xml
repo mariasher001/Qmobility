@@ -22,18 +22,22 @@
         <activity
             android:name=".adminactivities.ReadEmployeeDataActivity"
             android:exported="false"
-            android:parentActivityName=".adminactivities.AdminMainActivity" />
+            android:parentActivityName=".adminactivities.ManageEmployeesActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.ActionBar" />
         <activity
             android:name=".adminactivities.AddEmployeeActivity"
             android:exported="false"
-            android:parentActivityName=".adminactivities.AdminMainActivity" />
+            android:parentActivityName=".adminactivities.ManageEmployeesActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.ActionBar" />
         <activity
             android:name=".adminactivities.ManageEmployeesActivity"
             android:exported="false"
-            android:parentActivityName=".adminactivities.AdminMainActivity" />
+            android:parentActivityName=".adminactivities.AdminMainActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.ActionBar" />
         <activity
             android:name=".adminactivities.AdminMainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.DayNight.ActionBar" />
         <activity
             android:name=".LoginActivity"
             android:exported="false">
@@ -44,8 +48,7 @@
         <activity
             android:name=".RegisterBusinessActivity"
             android:exported="false"
-            android:parentActivityName=".LoginActivity"
-            android:theme="@style/Theme.MaterialComponents.DayNight.ActionBar">
+            android:parentActivityName=".LoginActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
