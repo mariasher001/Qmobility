@@ -17,6 +17,9 @@
         android:theme="@style/Theme.QMobilityBusiness"
         tools:targetApi="31">
         <activity
+            android:name=".EmployeeProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".adminactivities.DeleteEmployeeActivity"
             android:exported="false"
             android:parentActivityName=".adminactivities.AdminMainActivity" />

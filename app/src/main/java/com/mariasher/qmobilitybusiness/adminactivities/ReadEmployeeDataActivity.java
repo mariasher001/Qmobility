@@ -42,7 +42,7 @@ public class ReadEmployeeDataActivity extends AppCompatActivity {
         setHeader();
 
         getAllEmployeesFromBusiness(employees -> {
-            binding.readEmployeeDataRecyclerView.setAdapter(new EmployeeDataViewAdapter(employees));
+            binding.readEmployeeDataRecyclerView.setAdapter(new EmployeeDataViewAdapter(employees, this));
         });
     }
 
