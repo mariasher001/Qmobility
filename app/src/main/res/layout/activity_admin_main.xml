@@ -46,19 +46,6 @@
         app:layout_constraintTop_toBottomOf="@+id/manageEmployeesButton2" />
 
     <Button
-        android:id="@+id/viewAnalyticsButton"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="45dp"
-        android:background="@drawable/edit_text_corners"
-        android:onClick="viewAnalyticsButtonClicked"
-        android:text="View Analytics"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/manageQueuesButton"
-        app:layout_constraintStart_toStartOf="@+id/manageQueuesButton"
-        app:layout_constraintTop_toBottomOf="@+id/manageQueuesButton" />
-
-    <Button
         android:id="@+id/manageEmployeesButton2"
         android:layout_width="0dp"
         android:layout_height="55dp"

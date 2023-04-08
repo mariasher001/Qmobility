@@ -51,12 +51,6 @@ public class AdminMainActivity extends AppCompatActivity {
 //        startActivity(intent);
     }
 
-    //TODO: Change the class name from ManageEmployeeActivity to ManageAnalyticsActivity
-    public void viewAnalyticsButtonClicked(View view) {
-//        Intent intent = new Intent(this, ManageEmployeesActivity.class);
-//        startActivity(intent);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.logout_admin_options_menu, menu);
