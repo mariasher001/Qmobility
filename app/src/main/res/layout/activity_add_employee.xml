@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminActivities.AddEmployeeActivity">
+
+    <TextView
+        android:id="@+id/smallHeaderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="smart_queue_system"
+        android:textColor="#FF6E40"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@+id/businessNameAddEmployeesHeaderTextView"
+        app:layout_constraintStart_toStartOf="@+id/businessNameAddEmployeesHeaderTextView"
+        app:layout_constraintTop_toBottomOf="@+id/businessNameAddEmployeesHeaderTextView" />
+
+    <TextView
+        android:id="@+id/businessNameAddEmployeesHeaderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/qmobility"
+        android:textColor="#FF6E40"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/smallHeaderTextView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/employeeBusinessIdEditText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="40dp"
+                android:autofillHints=""
+                android:background="@drawable/edit_text_corners"
+                android:enabled="false"
+                android:hint="@string/business_id"
+                android:inputType="text"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textColor="#FF6E40"
+                android:textColorHint="#917B79"
+                android:textSize="20sp"
+                tools:ignore="TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/employeeIdEditText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="30dp"
+                android:autofillHints=""
+                android:background="@drawable/edit_text_corners"
+                android:enabled="false"
+                android:hint="Employee ID (Auto generated)"
+                android:inputType="text"
+                android:paddingStart="20dp"
+                android:paddingEnd="1dp"
+                android:textColor="#FF6E40"
+                android:textColorHint="#917B79"
+                android:textSize="20sp"
+                tools:ignore="TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/employeeNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="30dp"
+                android:autofillHints=""
+                android:background="@drawable/edit_text_corners"
+                android:hint="@string/employee_name"
+                android:inputType="text"
+                android:paddingStart="20dp"
+                android:paddingEnd="1dp"
+                android:textColor="#FF6E40"
+                android:textColorHint="#917B79"
+                android:textSize="20sp"
+                tools:ignore="TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/employeeEmailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="30dp"
+                android:autofillHints=""
+                android:background="@drawable/edit_text_corners"
+                android:hint="@string/employee_email"
+                android:inputType="textEmailAddress"
+                android:paddingStart="20dp"
+                android:paddingEnd="1dp"
+                android:textColor="#FF6E40"
+                android:textColorHint="#917B79"
+                android:textSize="20sp"
+                tools:ignore="TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/employeePasswordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="30dp"
+                android:autofillHints=""
+                android:background="@drawable/edit_text_corners"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingStart="20dp"
+                android:paddingEnd="1dp"
+                android:textColor="#FF6E40"
+                android:textColorHint="#917B79"
+                android:textSize="20sp"
+                tools:ignore="TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/employeePhonenumberEditText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="30dp"
+                android:autofillHints=""
+                android:background="@drawable/edit_text_corners"
+                android:hint="@string/phonenumber"
+                android:inputType="text"
+                android:paddingStart="20dp"
+                android:paddingEnd="1dp"
+                android:textColorHint="#917B79"
+                android:textSize="20sp"
+                tools:ignore="TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/employeeAccessTypeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="30dp"
+                android:autofillHints=""
+                android:background="@drawable/edit_text_corners"
+                android:hint="@string/accesstype"
+                android:inputType="text"
+                android:paddingStart="20dp"
+                android:paddingEnd="1dp"
+                android:textColor="#FF6E40"
+                android:textColorHint="#917B79"
+                android:textSize="20sp"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/registerEmployeeButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/edit_text_corners"
+                android:onClick="registerEmployeeButtonClicked"
+                android:text="@string/register"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
