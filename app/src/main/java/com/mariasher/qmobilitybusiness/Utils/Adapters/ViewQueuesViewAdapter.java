@@ -1,6 +1,7 @@
 package com.mariasher.qmobilitybusiness.Utils.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mariasher.qmobilitybusiness.Queues.QueueDetailsActivity;
 import com.mariasher.qmobilitybusiness.R;
 import com.mariasher.qmobilitybusiness.database.Queue;
 import com.mariasher.qmobilitybusiness.databinding.QueueDetailsCardLayoutBinding;
@@ -52,11 +54,13 @@ public class ViewQueuesViewAdapter extends RecyclerView.Adapter<ViewQueuesViewAd
         holder.binding.activeCountersCardTextView.setText("" + queues.get(position).getNumberOfActiveCounters());
 
         holder.binding.queueDetailsCardView.setOnClickListener(v -> {
-            queueDetailsCardViewClicked();
+            queueDetailsCardViewClicked(queues.get(position).getQueueId());
         });
     }
 
-    private void queueDetailsCardViewClicked() {
-        //Intent intent = new Intent(context, QueueDataActivity.class);
+    private void queueDetailsCardViewClicked(String queueId) {
+        Intent intent = new Intent(context, QueueDetailsActivity.class);
+        intent.putExtra("queueId", queueId);
+        context.startActivity(intent);
     }
 }
