@@ -33,14 +33,14 @@
         app:layout_constraintTop_toBottomOf="@+id/queueMainHeaderTextView" />
 
     <Button
-        android:id="@+id/createQueueButton"
+        android:id="@+id/createQueueMainButton"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/edit_text_corners"
-        android:onClick="createQueueButtonClicked"
+        android:onClick="createQueueMainButtonClicked"
         android:text="Create Queue"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,51 +49,51 @@
         app:layout_constraintTop_toBottomOf="@+id/smallHeaderTextView" />
 
     <Button
-        android:id="@+id/viewQueueDetailsButton"
+        android:id="@+id/viewQueueDetailsMainButton"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="45dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/edit_text_corners"
-        android:onClick="viewQueueDetailsButtonClicked"
+        android:onClick="viewQueueDetailsMainButtonClicked"
         android:text="View Queue Details"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createQueueButton" />
+        app:layout_constraintTop_toBottomOf="@+id/createQueueMainButton" />
 
     <Button
-        android:id="@+id/queueControlsButton"
+        android:id="@+id/queueControlsMainButton"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="45dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/edit_text_corners"
-        android:onClick="queueControlsButtonClicked"
+        android:onClick="queueControlsMainButtonClicked"
         android:text="Queue Controls"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewQueueDetailsButton" />
+        app:layout_constraintTop_toBottomOf="@+id/viewQueueDetailsMainButton" />
 
     <Button
-        android:id="@+id/queueAnalyticsButton"
+        android:id="@+id/queueAnalyticsMainButton"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="45dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/edit_text_corners"
-        android:onClick="queueAnalyticsButtonClicked"
+        android:onClick="queueAnalyticsMainButtonClicked"
         android:text="Queue Analytics"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/queueControlsButton" />
+        app:layout_constraintTop_toBottomOf="@+id/queueControlsMainButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.mariasher.qmobilitybusiness.LoginActivity;
+import com.mariasher.qmobilitybusiness.Queues.QueueMainActivity;
 import com.mariasher.qmobilitybusiness.R;
 import com.mariasher.qmobilitybusiness.Utils.FirebaseRealtimeUtils;
 import com.mariasher.qmobilitybusiness.databinding.ActivityAdminMainBinding;
@@ -47,8 +48,8 @@ public class AdminMainActivity extends AppCompatActivity {
 
     //TODO: Change the class name from ManageEmployeeActivity to ManageQueueActivity
     public void manageQueuesButtonClicked(View view) {
-//        Intent intent = new Intent(this, ManageEmployeesActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, QueueMainActivity.class);
+        startActivity(intent);
     }
 
     @Override
