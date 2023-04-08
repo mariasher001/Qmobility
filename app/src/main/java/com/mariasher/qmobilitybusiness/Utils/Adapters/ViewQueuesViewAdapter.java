@@ -1,5 +1,6 @@
 package com.mariasher.qmobilitybusiness.Utils.Adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +14,20 @@ import com.mariasher.qmobilitybusiness.databinding.QueueDetailsCardLayoutBinding
 
 import java.util.List;
 
-public class QueueDetailsViewAdapter extends RecyclerView.Adapter<QueueDetailsViewAdapter.QueueDetailsViewHolder> {
+public class ViewQueuesViewAdapter extends RecyclerView.Adapter<ViewQueuesViewAdapter.ViewQueuesViewHolder> {
 
     private List<Queue> queues;
+    private Context context;
 
-    public QueueDetailsViewAdapter(List<Queue> queues) {
+    public ViewQueuesViewAdapter(List<Queue> queues, Context context) {
         this.queues = queues;
+        this.context = context;
     }
 
-    public class QueueDetailsViewHolder extends RecyclerView.ViewHolder {
+    public class ViewQueuesViewHolder extends RecyclerView.ViewHolder {
         QueueDetailsCardLayoutBinding binding;
 
-        public QueueDetailsViewHolder(@NonNull View itemView) {
+        public ViewQueuesViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = QueueDetailsCardLayoutBinding.bind(itemView);
         }
@@ -37,17 +40,23 @@ public class QueueDetailsViewAdapter extends RecyclerView.Adapter<QueueDetailsVi
 
     @NonNull
     @Override
-    public QueueDetailsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewQueuesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.queue_details_card_layout, parent, false);
-        return new QueueDetailsViewHolder(view);
+        return new ViewQueuesViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull QueueDetailsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewQueuesViewHolder holder, int position) {
         holder.binding.queueNameCardTextView.setText(queues.get(position).getQueueName());
         holder.binding.queueStatusCardTextView.setText(queues.get(position).getQueueStatus());
         holder.binding.activeCountersCardTextView.setText("" + queues.get(position).getNumberOfActiveCounters());
 
-        //TODO set onclicklistener for cardview
+        holder.binding.queueDetailsCardView.setOnClickListener(v -> {
+            queueDetailsCardViewClicked();
+        });
+    }
+
+    private void queueDetailsCardViewClicked() {
+        //Intent intent = new Intent(context, QueueDataActivity.class);
     }
 }

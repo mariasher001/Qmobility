@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    tools:context=".Queues.QueueDetailsActivity">
+    tools:context=".Queues.ViewQueuesActivity">
 
     <TextView
-        android:id="@+id/queueDetailsHeaderTextView"
+        android:id="@+id/viewQueuesHeaderTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -28,12 +28,12 @@
         android:textColor="#FF6E40"
         android:textSize="16sp"
         android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="@+id/queueDetailsHeaderTextView"
-        app:layout_constraintStart_toStartOf="@+id/queueDetailsHeaderTextView"
-        app:layout_constraintTop_toBottomOf="@+id/queueDetailsHeaderTextView" />
+        app:layout_constraintEnd_toEndOf="@+id/viewQueuesHeaderTextView"
+        app:layout_constraintStart_toStartOf="@+id/viewQueuesHeaderTextView"
+        app:layout_constraintTop_toBottomOf="@+id/viewQueuesHeaderTextView" />
 
     <SearchView
-        android:id="@+id/searchView2"
+        android:id="@+id/viewQueuesSearchView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/smallHeaderTextView4" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/queueDetailsRecyclerView"
+        android:id="@+id/viewQueuesRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
@@ -54,5 +54,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView2" />
+        app:layout_constraintTop_toBottomOf="@+id/viewQueuesSearchView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,18 +10,18 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.mariasher.qmobilitybusiness.Utils.Adapters.QueueDetailsViewAdapter;
+import com.mariasher.qmobilitybusiness.Utils.Adapters.ViewQueuesViewAdapter;
 import com.mariasher.qmobilitybusiness.Utils.FirebaseRealtimeUtils;
 import com.mariasher.qmobilitybusiness.Utils.Interfaces.Callback;
 import com.mariasher.qmobilitybusiness.database.Queue;
-import com.mariasher.qmobilitybusiness.databinding.ActivityQueueDetailsBinding;
+import com.mariasher.qmobilitybusiness.databinding.ActivityViewQueuesBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class QueueDetailsActivity extends AppCompatActivity {
+public class ViewQueuesActivity extends AppCompatActivity {
 
-    private ActivityQueueDetailsBinding binding;
+    private ActivityViewQueuesBinding binding;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mReal;
     private FirebaseRealtimeUtils firebaseRealtimeUtils;
@@ -29,7 +29,7 @@ public class QueueDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityQueueDetailsBinding.inflate(getLayoutInflater());
+        binding = ActivityViewQueuesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         init(savedInstanceState);
@@ -41,7 +41,7 @@ public class QueueDetailsActivity extends AppCompatActivity {
         firebaseRealtimeUtils = new FirebaseRealtimeUtils(this);
 
         getQueuesFromFirebaseDatabase(queues -> {
-            binding.queueDetailsRecyclerView.setAdapter(new QueueDetailsViewAdapter(queues));
+            binding.viewQueuesRecyclerView.setAdapter(new ViewQueuesViewAdapter(queues, this));
         });
     }
 
