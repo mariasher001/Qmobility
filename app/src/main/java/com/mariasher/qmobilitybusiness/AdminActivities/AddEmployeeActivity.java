@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.mariasher.qmobilitybusiness.LoginActivity;
 import com.mariasher.qmobilitybusiness.Utils.FirebaseRealtimeUtils;
 import com.mariasher.qmobilitybusiness.database.Employee;
 import com.mariasher.qmobilitybusiness.databinding.ActivityAddEmployeeBinding;
@@ -84,7 +85,7 @@ public class AddEmployeeActivity extends AppCompatActivity {
     }
 
     private void changeActivity() {
-        Intent intent = new Intent(this, ManageEmployeesActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
