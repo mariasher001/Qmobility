@@ -3,6 +3,7 @@ package com.mariasher.qmobilitybusiness.database;
 import androidx.annotation.NonNull;
 
 import com.mariasher.qmobilitybusiness.Utils.DateTimeUtils;
+import com.mariasher.qmobilitybusiness.Utils.enums.QueueStatus;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,8 +16,7 @@ public class Queue {
     private String queueName;
     private String queueStartTime;
     private String queueEndTime;
-    private boolean isQueueStarted;
-    private boolean isQueueActive;
+    private String queueStatus;
     private int numberOfActiveCounters;
     private String averageCustomerTime;
     private List<String> activeCounterIds;
@@ -30,34 +30,31 @@ public class Queue {
         this.queueName = queueName;
         queueStartTime = "";
         queueEndTime = "";
-        isQueueStarted = false;
-        isQueueActive = false;
+        queueStatus = QueueStatus.INACTIVE.toString();
         numberOfActiveCounters = 0;
         averageCustomerTime = "";
         activeCounterIds = new ArrayList<>();
     }
 
-    public Queue(@NonNull String queueId, String creatorId, String queueName, LocalDateTime queueStartTime, LocalDateTime queueEndTime, boolean isQueueStarted, boolean isQueueActive, int numberOfActiveCounters, LocalDateTime averageCustomerTime, List<String> activeCounterIds) {
+    public Queue(@NonNull String queueId, String creatorId, String queueName, LocalDateTime queueStartTime, LocalDateTime queueEndTime, String queueStatus, int numberOfActiveCounters, LocalDateTime averageCustomerTime, List<String> activeCounterIds) {
         this.queueId = queueId;
         this.creatorId = creatorId;
         this.queueName = queueName;
         this.queueStartTime = DateTimeUtils.convertDateAndTimeToString(queueStartTime);
         this.queueEndTime = DateTimeUtils.convertDateAndTimeToString(queueEndTime);
-        this.isQueueStarted = isQueueStarted;
-        this.isQueueActive = isQueueActive;
+        this.queueStatus = queueStatus;
         this.numberOfActiveCounters = numberOfActiveCounters;
         this.averageCustomerTime = DateTimeUtils.convertDateAndTimeToString(averageCustomerTime);
         this.activeCounterIds = activeCounterIds;
     }
 
-    public Queue(@NonNull String queueId, String creatorId, String queueName, String queueStartTime, String queueEndTime, boolean isQueueStarted, boolean isQueueActive, int numberOfActiveCounters, String averageCustomerTime, List<String> activeCounterIds) {
+    public Queue(@NonNull String queueId, String creatorId, String queueName, String queueStartTime, String queueEndTime, String queueStatus, int numberOfActiveCounters, String averageCustomerTime, List<String> activeCounterIds) {
         this.queueId = queueId;
         this.creatorId = creatorId;
         this.queueName = queueName;
         this.queueStartTime = queueStartTime;
         this.queueEndTime = queueEndTime;
-        this.isQueueStarted = isQueueStarted;
-        this.isQueueActive = isQueueActive;
+        this.queueStatus = queueStatus;
         this.numberOfActiveCounters = numberOfActiveCounters;
         this.averageCustomerTime = averageCustomerTime;
         this.activeCounterIds = activeCounterIds;
@@ -104,20 +101,12 @@ public class Queue {
         this.queueEndTime = queueEndTime;
     }
 
-    public boolean isQueueStarted() {
-        return isQueueStarted;
+    public String getQueueStatus() {
+        return queueStatus;
     }
 
-    public void setQueueStarted(boolean queueStarted) {
-        isQueueStarted = queueStarted;
-    }
-
-    public boolean isQueueActive() {
-        return isQueueActive;
-    }
-
-    public void setQueueActive(boolean queueActive) {
-        isQueueActive = queueActive;
+    public void setQueueStatus(String queueStatus) {
+        this.queueStatus = queueStatus;
     }
 
     public int getNumberOfActiveCounters() {

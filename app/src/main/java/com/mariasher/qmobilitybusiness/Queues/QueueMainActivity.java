@@ -25,6 +25,8 @@ public class QueueMainActivity extends AppCompatActivity {
     }
 
     public void viewQueueDetailsMainButtonClicked(View view) {
+        Intent intent = new Intent(this, QueueDetailsActivity.class);
+        startActivity(intent);
     }
 
     public void queueControlsMainButtonClicked(View view) {

@@ -62,8 +62,7 @@ public class CreateQueueActivity extends AppCompatActivity {
         queueMap.put("queueName", queue.getQueueName());
         queueMap.put("queueStartTime", queue.getQueueStartTime());
         queueMap.put("queueEndTime", queue.getQueueEndTime());
-        queueMap.put("isQueueStarted", queue.isQueueStarted());
-        queueMap.put("isQueueActive", queue.isQueueActive());
+        queueMap.put("queueStatus", queue.getQueueStatus());
         queueMap.put("numberOfActiveCounters", queue.getNumberOfActiveCounters());
         queueMap.put("averageCustomerTime", queue.getAverageCustomerTime());
         queueMap.put("activeCounterIds", new HashMap<String, Object>());
