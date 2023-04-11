@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    tools:context=".Queues.QueueControlsActivity">
+
+    <TextView
+        android:id="@+id/queueControlsHeaderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Queue Controls"
+        android:textColor="#FF6E40"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/queueNameControlsHeaderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Queue Name"
+        android:textColor="#FF6E40"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@+id/queueControlsHeaderTextView"
+        app:layout_constraintStart_toStartOf="@+id/queueControlsHeaderTextView"
+        app:layout_constraintTop_toBottomOf="@+id/queueControlsHeaderTextView" />
+
+    <TextView
+        android:id="@+id/queueStatusTextTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Queue Status: "
+        android:textColor="#FF6E40"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/queueNameControlsHeaderTextView" />
+
+    <TextView
+        android:id="@+id/queueStatusControlsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Queue Status"
+        android:textColor="#FF6E40"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@+id/queueStatusTextTextView"
+        app:layout_constraintTop_toTopOf="@+id/queueStatusTextTextView" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/inner_layout_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/queueStatusTextTextView">
+
+        <Button
+            android:id="@+id/startQueueControlsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:enabled="true"
+            android:onClick="startQueueControlsButtonClicked"
+            android:text="start"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/pauseQueueControlsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:enabled="false"
+            android:onClick="pauseQueueControlsButtonClicked"
+            android:text="pause"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/resetQueueControlsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:enabled="false"
+            android:onClick="resetQueueControlsButtonClicked"
+            android:text="Reset"
+            app:layout_constraintStart_toStartOf="@+id/startQueueControlsButton"
+            app:layout_constraintTop_toBottomOf="@+id/startQueueControlsButton" />
+
+        <Button
+            android:id="@+id/deleteQueueControlsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:onClick="deleteQueueControlsButtonClicked"
+            android:text="Delete"
+            app:layout_constraintEnd_toEndOf="@+id/pauseQueueControlsButton"
+            app:layout_constraintTop_toBottomOf="@+id/pauseQueueControlsButton" />
+
+        <Button
+            android:id="@+id/queueDetailsControlsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:onClick="queueDetailsControlsButtonClicked"
+            android:text="Queue Details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/resetQueueControlsButton" />
+
+        <Button
+            android:id="@+id/queueAnalyticsControlsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:onClick="queueAnalyticsControlsButtonClicked"
+            android:text="Queue Analytics"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/queueDetailsControlsButton" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mariasher.qmobilitybusiness.Utils.Interfaces.Callback;
 import com.mariasher.qmobilitybusiness.database.Employee;
+import com.mariasher.qmobilitybusiness.database.Queue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FirebaseRealtimeUtils {
 
@@ -80,5 +84,44 @@ public class FirebaseRealtimeUtils {
                         callback.onSuccess(false);
                     }
                 });
+    }
+
+    public void getQueueDataFromFirebaseDatabase(String userId, String queueId, Callback<Queue> callback) {
+        getBusinessIdFromEmployeeBusinessLink(userId, businessId -> {
+            mReal.getReference("QMobility")
+                    .child("Businesses")
+                    .child(businessId)
+                    .child("Queues")
+                    .child(queueId)
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String queueId = snapshot.child("queueId").getValue(String.class);
+                            String creatorId = snapshot.child("creatorId").getValue(String.class);
+                            String queueName = snapshot.child("queueName").getValue(String.class);
+                            String queueStartTime = snapshot.child("queueStartTime").getValue(String.class);
+                            String queueEndTime = snapshot.child("queueEndTime").getValue(String.class);
+                            String queueStatus = snapshot.child("queueStatus").getValue(String.class);
+                            Integer numberOfActiveCounters = snapshot.child("numberOfActiveCounters").getValue(Integer.class);
+                            String averageCustomerTime = snapshot.child("averageCustomerTime").getValue(String.class);
+
+                            List<String> activeCounterIds = new ArrayList<>();
+                            for (DataSnapshot activeCounterSnapshot : snapshot.child("activeCounterIds").getChildren()) {
+                                String activeCounterId = activeCounterSnapshot.getKey();
+                                Integer counterNumber = activeCounterSnapshot.getValue(Integer.class);
+                                activeCounterIds.add(activeCounterId);
+                            }
+                            Queue queue = new Queue(queueId, creatorId, queueName, queueStartTime, queueEndTime, queueStatus,
+                                    numberOfActiveCounters, averageCustomerTime, activeCounterIds);
+
+                            callback.onSuccess(queue);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+        });
     }
 }

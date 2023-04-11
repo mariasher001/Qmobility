@@ -1,9 +1,12 @@
 package com.mariasher.qmobilitybusiness.Queues;
 
+import static com.mariasher.qmobilitybusiness.Queues.QueueMainActivity.QUEUE_OPERATIONS;
+
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -36,12 +39,15 @@ public class ViewQueuesActivity extends AppCompatActivity {
     }
 
     private void init(Bundle savedInstanceState) {
+        Intent intent = getIntent();
+        String queueOperations = intent.getStringExtra(QUEUE_OPERATIONS);
+
         mAuth = FirebaseAuth.getInstance();
         mReal = FirebaseDatabase.getInstance();
         firebaseRealtimeUtils = new FirebaseRealtimeUtils(this);
 
         getQueuesFromFirebaseDatabase(queues -> {
-            binding.viewQueuesRecyclerView.setAdapter(new ViewQueuesViewAdapter(queues, this));
+            binding.viewQueuesRecyclerView.setAdapter(new ViewQueuesViewAdapter(queues, this, queueOperations));
         });
     }
 
