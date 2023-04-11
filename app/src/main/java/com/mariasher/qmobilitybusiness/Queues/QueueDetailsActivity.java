@@ -11,6 +11,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mariasher.qmobilitybusiness.Utils.DateTimeUtils;
 import com.mariasher.qmobilitybusiness.Utils.FirebaseRealtimeUtils;
 import com.mariasher.qmobilitybusiness.Utils.Interfaces.Callback;
 import com.mariasher.qmobilitybusiness.database.Queue;
@@ -54,9 +55,11 @@ public class QueueDetailsActivity extends AppCompatActivity {
             binding.creatorNameQueueDetailsTextView.setText(creatorName);
         });
 
+        String startTime = DateTimeUtils.getDateAndTimeAsStringForViews(DateTimeUtils.convertStringToLocalDateTime(queue.getQueueStartTime()));
+        String endTime = DateTimeUtils.getDateAndTimeAsStringForViews(DateTimeUtils.convertStringToLocalDateTime(queue.getQueueEndTime()));
         binding.queueNameQueueDetailsTextView.setText(queue.getQueueName());
-        binding.queueStartTimeQueueDetailsTextView.setText(queue.getQueueStartTime());
-        binding.queueEndTimeQueueDetailsTextView.setText(queue.getQueueEndTime());
+        binding.queueStartTimeQueueDetailsTextView.setText(startTime);
+        binding.queueEndTimeQueueDetailsTextView.setText(endTime);
         binding.queueStatusQueueDetailsTextView.setText(queue.getQueueStatus());
         binding.numberOfActiveCountersQueueDetailsTextView.setText("" + queue.getNumberOfActiveCounters());
         binding.averageCustomerTimeQueueDetailsTextView.setText(queue.getAverageCustomerTime());

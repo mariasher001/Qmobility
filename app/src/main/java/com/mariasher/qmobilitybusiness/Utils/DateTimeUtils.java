@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 
 public class DateTimeUtils {
     public static String convertDateAndTimeToString(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return "";
+        }
+
         StringBuilder resultDateTime = new StringBuilder();
         resultDateTime.append("")
                 .append(dateTime.getDayOfMonth())
@@ -24,6 +28,10 @@ public class DateTimeUtils {
     }
 
     public static LocalDateTime convertStringToLocalDateTime(String dateTime) {
+        if (dateTime.isEmpty()) {
+            return null;
+        }
+
         String date = dateTime.split("T")[0];
         String time = dateTime.split("T")[1];
 
@@ -40,5 +48,39 @@ public class DateTimeUtils {
         int nano = Integer.parseInt(splitTime[3]);
 
         return LocalDateTime.of(year, month, dayOfMonth, hour, minutes, seconds, nano);
+    }
+
+    public static String getDateAndTimeAsStringForViews(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return "";
+        }
+
+        StringBuilder resultDateTime = new StringBuilder();
+        resultDateTime.append("")
+                .append(dateTime.getDayOfMonth())
+                .append(".")
+                .append(dateTime.getMonthValue())
+                .append(".")
+                .append(dateTime.getYear());
+
+        int hour = dateTime.getHour();
+        String amPm = "am";
+        if (hour > 12) {
+            hour = hour - 12;
+            amPm = "pm";
+        }
+        int min = dateTime.getMinute();
+        String minute = "" + min;
+        if (min < 10) {
+            minute = "0" + min;
+        }
+
+        resultDateTime.append(" ")
+                .append(hour)
+                .append(":")
+                .append(minute)
+                .append(" ")
+                .append(amPm);
+        return resultDateTime.toString();
     }
 }
