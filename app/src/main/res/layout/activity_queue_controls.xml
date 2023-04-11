@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Queue Name"
-        android:textColor="#FF6E40"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/queueControlsHeaderTextView"
@@ -74,10 +74,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/edit_text_corners"
             android:enabled="true"
             android:onClick="startQueueControlsButtonClicked"
             android:text="start"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,22 +87,25 @@
             android:id="@+id/pauseQueueControlsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:layout_marginEnd="30dp"
+            android:background="@drawable/edit_text_corners"
             android:enabled="false"
             android:onClick="pauseQueueControlsButtonClicked"
             android:text="pause"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/startQueueControlsButton" />
 
         <Button
             android:id="@+id/resetQueueControlsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/edit_text_corners"
             android:enabled="false"
             android:onClick="resetQueueControlsButtonClicked"
             android:text="Reset"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/startQueueControlsButton"
             app:layout_constraintTop_toBottomOf="@+id/startQueueControlsButton" />
 
@@ -108,19 +113,22 @@
             android:id="@+id/deleteQueueControlsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:background="@drawable/edit_text_corners"
             android:onClick="deleteQueueControlsButtonClicked"
             android:text="Delete"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/pauseQueueControlsButton"
-            app:layout_constraintTop_toBottomOf="@+id/pauseQueueControlsButton" />
+            app:layout_constraintTop_toTopOf="@+id/resetQueueControlsButton" />
 
         <Button
             android:id="@+id/queueDetailsControlsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/edit_text_corners"
             android:onClick="queueDetailsControlsButtonClicked"
             android:text="Queue Details"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/resetQueueControlsButton" />
@@ -129,10 +137,12 @@
             android:id="@+id/queueAnalyticsControlsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/edit_text_corners"
             android:onClick="queueAnalyticsControlsButtonClicked"
             android:text="Queue Analytics"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
