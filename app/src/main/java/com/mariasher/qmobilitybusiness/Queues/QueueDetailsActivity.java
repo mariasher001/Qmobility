@@ -1,10 +1,12 @@
 package com.mariasher.qmobilitybusiness.Queues;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import static com.mariasher.qmobilitybusiness.Utils.Adapters.ViewQueuesViewAdapter.QUEUE_ID;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -16,9 +18,6 @@ import com.mariasher.qmobilitybusiness.Utils.FirebaseRealtimeUtils;
 import com.mariasher.qmobilitybusiness.Utils.Interfaces.Callback;
 import com.mariasher.qmobilitybusiness.database.Queue;
 import com.mariasher.qmobilitybusiness.databinding.ActivityQueueDetailsBinding;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class QueueDetailsActivity extends AppCompatActivity {
 
@@ -39,7 +38,7 @@ public class QueueDetailsActivity extends AppCompatActivity {
 
     private void init(Bundle savedInstanceState) {
         Intent intent = getIntent();
-        queueId = intent.getStringExtra("queueId");
+        queueId = intent.getStringExtra(QUEUE_ID);
 
         mAuth = FirebaseAuth.getInstance();
         mReal = FirebaseDatabase.getInstance();

@@ -44,7 +44,7 @@ public class QueueControlsActivity extends AppCompatActivity {
 
     private void init(Bundle savedInstanceState) {
         Intent intent = getIntent();
-        queueId = intent.getStringExtra("queueId");
+        queueId = intent.getStringExtra(QUEUE_ID);
 
         mAuth = FirebaseAuth.getInstance();
         mReal = FirebaseDatabase.getInstance();

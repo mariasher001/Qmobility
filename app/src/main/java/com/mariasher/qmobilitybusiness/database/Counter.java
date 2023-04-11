@@ -3,6 +3,7 @@ package com.mariasher.qmobilitybusiness.database;
 import androidx.annotation.NonNull;
 
 import com.mariasher.qmobilitybusiness.Utils.DateTimeUtils;
+import com.mariasher.qmobilitybusiness.Utils.enums.CounterStatus;
 
 import java.time.LocalDateTime;
 
@@ -11,33 +12,29 @@ public class Counter {
     private String counterId;
     private String queueId;
     private String counterNumber;
-    private boolean isCounterStarted;
-    private boolean isCounterActive;
+    private String counterStatus;
     private int customerNumberOnCall;
     private int nextNumber;
-
     private String averageCustomerTime;
 
     public Counter() {
     }
 
-    public Counter(@NonNull String counterId, String queueId, String counterNumber, boolean isCounterStarted, boolean isCounterActive, int customerNumberOnCall, int nextNumber, LocalDateTime averageCustomerTime) {
+    public Counter(@NonNull String counterId, String queueId, String counterNumber, CounterStatus counterStatus, int customerNumberOnCall, int nextNumber, LocalDateTime averageCustomerTime) {
         this.counterId = counterId;
         this.queueId = queueId;
         this.counterNumber = counterNumber;
-        this.isCounterStarted = isCounterStarted;
-        this.isCounterActive = isCounterActive;
+        this.counterStatus = counterStatus.toString();
         this.customerNumberOnCall = customerNumberOnCall;
         this.nextNumber = nextNumber;
         this.averageCustomerTime = DateTimeUtils.convertDateAndTimeToString(averageCustomerTime);
     }
 
-    public Counter(@NonNull String counterId, String queueId, String counterNumber, boolean isCounterStarted, boolean isCounterActive, int customerNumberOnCall, int nextNumber, String averageCustomerTime) {
+    public Counter(@NonNull String counterId, String queueId, String counterNumber, String counterStatus, int customerNumberOnCall, int nextNumber, String averageCustomerTime) {
         this.counterId = counterId;
         this.queueId = queueId;
         this.counterNumber = counterNumber;
-        this.isCounterStarted = isCounterStarted;
-        this.isCounterActive = isCounterActive;
+        this.counterStatus = counterStatus;
         this.customerNumberOnCall = customerNumberOnCall;
         this.nextNumber = nextNumber;
         this.averageCustomerTime = averageCustomerTime;
@@ -84,20 +81,12 @@ public class Counter {
         this.counterNumber = counterNumber;
     }
 
-    public boolean isCounterStarted() {
-        return isCounterStarted;
+    public String getCounterStatus() {
+        return counterStatus;
     }
 
-    public void setCounterStarted(boolean counterStarted) {
-        isCounterStarted = counterStarted;
-    }
-
-    public boolean isCounterActive() {
-        return isCounterActive;
-    }
-
-    public void setCounterActive(boolean counterActive) {
-        isCounterActive = counterActive;
+    public void setCounterStatus(String counterStatus) {
+        this.counterStatus = counterStatus;
     }
 
     public int getCustomerNumberOnCall() {

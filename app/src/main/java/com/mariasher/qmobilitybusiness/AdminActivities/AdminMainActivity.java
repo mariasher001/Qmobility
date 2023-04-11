@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.mariasher.qmobilitybusiness.Counters.CounterMainActivity;
 import com.mariasher.qmobilitybusiness.LoginActivity;
 import com.mariasher.qmobilitybusiness.Queues.QueueMainActivity;
 import com.mariasher.qmobilitybusiness.R;
@@ -41,14 +42,18 @@ public class AdminMainActivity extends AppCompatActivity {
         });
     }
 
-    public void manageEmployeesButtonClicked(View view) {
+    public void manageEmployeesAdminButtonClicked(View view) {
         Intent intent = new Intent(this, ManageEmployeesActivity.class);
         startActivity(intent);
     }
 
-    //TODO: Change the class name from ManageEmployeeActivity to ManageQueueActivity
-    public void manageQueuesButtonClicked(View view) {
+    public void manageQueuesAdminButtonClicked(View view) {
         Intent intent = new Intent(this, QueueMainActivity.class);
+        startActivity(intent);
+    }
+
+    public void manageCounterAdminButtonClicked(View view) {
+        Intent intent = new Intent(this, CounterMainActivity.class);
         startActivity(intent);
     }
 

@@ -1,5 +1,6 @@
 package com.mariasher.qmobilitybusiness.Utils.Adapters;
 
+import static com.mariasher.qmobilitybusiness.Counters.CounterMainActivity.CREATE_COUNTER;
 import static com.mariasher.qmobilitybusiness.Queues.QueueMainActivity.QUEUE_CONTROLS;
 import static com.mariasher.qmobilitybusiness.Queues.QueueMainActivity.VIEW_QUEUE_DETAILS;
 
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mariasher.qmobilitybusiness.Counters.CreateCounterActivity;
 import com.mariasher.qmobilitybusiness.Queues.QueueControlsActivity;
 import com.mariasher.qmobilitybusiness.Queues.QueueDetailsActivity;
 import com.mariasher.qmobilitybusiness.R;
@@ -81,6 +83,12 @@ public class ViewQueuesViewAdapter extends RecyclerView.Adapter<ViewQueuesViewAd
                 });
                 break;
             }
+            case CREATE_COUNTER: {
+                holder.binding.queueDetailsCardView.setOnClickListener(v -> {
+                    navigateToCreateCounterInQueue(queues.get(position).getQueueId());
+                });
+                break;
+            }
             default:
                 Toast.makeText(context, "Can't access queue information.", Toast.LENGTH_SHORT).show();
         }
@@ -94,6 +102,12 @@ public class ViewQueuesViewAdapter extends RecyclerView.Adapter<ViewQueuesViewAd
 
     private void navigateToQueueControls(String queueId) {
         Intent intent = new Intent(context, QueueControlsActivity.class);
+        intent.putExtra(QUEUE_ID, queueId);
+        context.startActivity(intent);
+    }
+
+    private void navigateToCreateCounterInQueue(String queueId) {
+        Intent intent = new Intent(context, CreateCounterActivity.class);
         intent.putExtra(QUEUE_ID, queueId);
         context.startActivity(intent);
     }
