@@ -19,7 +19,7 @@ public class Queue {
     private String queueStatus;
     private int numberOfActiveCounters;
     private String averageCustomerTime;
-    private List<String> activeCounterIds;
+    private List<String> queueCounters;
 
     public Queue() {
     }
@@ -33,10 +33,10 @@ public class Queue {
         queueStatus = QueueStatus.INACTIVE.toString();
         numberOfActiveCounters = 0;
         averageCustomerTime = "";
-        activeCounterIds = new ArrayList<>();
+        queueCounters = new ArrayList<>();
     }
 
-    public Queue(@NonNull String queueId, String creatorId, String queueName, LocalDateTime queueStartTime, LocalDateTime queueEndTime, String queueStatus, int numberOfActiveCounters, LocalDateTime averageCustomerTime, List<String> activeCounterIds) {
+    public Queue(@NonNull String queueId, String creatorId, String queueName, LocalDateTime queueStartTime, LocalDateTime queueEndTime, String queueStatus, int numberOfActiveCounters, LocalDateTime averageCustomerTime, List<String> queueCounters) {
         this.queueId = queueId;
         this.creatorId = creatorId;
         this.queueName = queueName;
@@ -45,10 +45,10 @@ public class Queue {
         this.queueStatus = queueStatus;
         this.numberOfActiveCounters = numberOfActiveCounters;
         this.averageCustomerTime = DateTimeUtils.convertDateAndTimeToString(averageCustomerTime);
-        this.activeCounterIds = activeCounterIds;
+        this.queueCounters = queueCounters;
     }
 
-    public Queue(@NonNull String queueId, String creatorId, String queueName, String queueStartTime, String queueEndTime, String queueStatus, int numberOfActiveCounters, String averageCustomerTime, List<String> activeCounterIds) {
+    public Queue(@NonNull String queueId, String creatorId, String queueName, String queueStartTime, String queueEndTime, String queueStatus, int numberOfActiveCounters, String averageCustomerTime, List<String> queueCounters) {
         this.queueId = queueId;
         this.creatorId = creatorId;
         this.queueName = queueName;
@@ -57,7 +57,7 @@ public class Queue {
         this.queueStatus = queueStatus;
         this.numberOfActiveCounters = numberOfActiveCounters;
         this.averageCustomerTime = averageCustomerTime;
-        this.activeCounterIds = activeCounterIds;
+        this.queueCounters = queueCounters;
     }
 
     @NonNull
@@ -133,11 +133,11 @@ public class Queue {
         this.averageCustomerTime = DateTimeUtils.convertDateAndTimeToString(averageCustomerTime);
     }
 
-    public List<String> getActiveCounterIds() {
-        return activeCounterIds;
+    public List<String> getQueueCounters() {
+        return queueCounters;
     }
 
-    public void setActiveCounterIds(List<String> activeCounterIds) {
-        this.activeCounterIds = activeCounterIds;
+    public void setQueueCounters(List<String> queueCounters) {
+        this.queueCounters = queueCounters;
     }
 }

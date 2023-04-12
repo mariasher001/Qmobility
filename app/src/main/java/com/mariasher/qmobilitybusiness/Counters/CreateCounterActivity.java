@@ -101,7 +101,7 @@ public class CreateCounterActivity extends AppCompatActivity {
                 .child(businessId)
                 .child("Queues")
                 .child(counter.getQueueId())
-                .child("activeCounterIds")
+                .child("queueCounters")
                 .child(counter.getCounterId())
                 .setValue(counter.getCounterNumber())
                 .addOnCompleteListener(task -> {
