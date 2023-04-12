@@ -74,7 +74,7 @@ public class ViewQueuesActivity extends AppCompatActivity {
                                 List<String> activeCounterIds = new ArrayList<>();
                                 for (DataSnapshot activeCounterSnapshot : queueSnapshot.child("activeCounterIds").getChildren()) {
                                     String activeCounterId = activeCounterSnapshot.getKey();
-                                    Integer counterNumber = activeCounterSnapshot.getValue(Integer.class);
+                                    String counterNumber = activeCounterSnapshot.getValue(String.class);
                                     activeCounterIds.add(activeCounterId);
                                 }
 

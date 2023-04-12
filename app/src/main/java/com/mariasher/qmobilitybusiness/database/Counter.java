@@ -14,29 +14,40 @@ public class Counter {
     private String counterNumber;
     private String counterStatus;
     private int customerNumberOnCall;
-    private int nextNumber;
+    private int nextNumberOnCall;
     private String averageCustomerTime;
 
     public Counter() {
     }
 
-    public Counter(@NonNull String counterId, String queueId, String counterNumber, CounterStatus counterStatus, int customerNumberOnCall, int nextNumber, LocalDateTime averageCustomerTime) {
+    public Counter(@NonNull String counterId, String queueId, String counterNumber) {
+        this.counterId = counterId;
+        this.queueId = queueId;
+        this.counterNumber = counterNumber;
+        this.counterStatus = CounterStatus.INACTIVE.toString();
+        this.customerNumberOnCall = 0;
+        this.nextNumberOnCall = 0;
+        this.averageCustomerTime = "";
+
+    }
+
+    public Counter(@NonNull String counterId, String queueId, String counterNumber, CounterStatus counterStatus, int customerNumberOnCall, int nextNumberOnCall, String averageCustomerTime) {
         this.counterId = counterId;
         this.queueId = queueId;
         this.counterNumber = counterNumber;
         this.counterStatus = counterStatus.toString();
         this.customerNumberOnCall = customerNumberOnCall;
-        this.nextNumber = nextNumber;
-        this.averageCustomerTime = DateTimeUtils.convertDateAndTimeToString(averageCustomerTime);
+        this.nextNumberOnCall = nextNumberOnCall;
+        this.averageCustomerTime = averageCustomerTime;
     }
 
-    public Counter(@NonNull String counterId, String queueId, String counterNumber, String counterStatus, int customerNumberOnCall, int nextNumber, String averageCustomerTime) {
+    public Counter(@NonNull String counterId, String queueId, String counterNumber, String counterStatus, int customerNumberOnCall, int nextNumberOnCall, String averageCustomerTime) {
         this.counterId = counterId;
         this.queueId = queueId;
         this.counterNumber = counterNumber;
         this.counterStatus = counterStatus;
         this.customerNumberOnCall = customerNumberOnCall;
-        this.nextNumber = nextNumber;
+        this.nextNumberOnCall = nextNumberOnCall;
         this.averageCustomerTime = averageCustomerTime;
     }
 
@@ -97,11 +108,11 @@ public class Counter {
         this.customerNumberOnCall = customerNumberOnCall;
     }
 
-    public int getNextNumber() {
-        return nextNumber;
+    public int getNextNumberOnCall() {
+        return nextNumberOnCall;
     }
 
-    public void setNextNumber(int nextNumber) {
-        this.nextNumber = nextNumber;
+    public void setNextNumberOnCall(int nextNumberOnCall) {
+        this.nextNumberOnCall = nextNumberOnCall;
     }
 }
