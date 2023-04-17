@@ -30,7 +30,8 @@ public class CounterMainActivity extends AppCompatActivity {
     }
 
     public void viewCounterDetailsMainButtonClicked(View view) {
-        //TODO
+        Intent intent = new Intent(this, ViewCountersActivity.class);
+        startActivity(intent);
     }
 
     public void counterControlsMainButtonClicked(View view) {

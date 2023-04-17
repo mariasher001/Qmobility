@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mariasher.qmobilitybusiness.Utils.Interfaces.Callback;
+import com.mariasher.qmobilitybusiness.database.Counter;
 import com.mariasher.qmobilitybusiness.database.Employee;
 import com.mariasher.qmobilitybusiness.database.Queue;
 
@@ -135,6 +136,43 @@ public class FirebaseRealtimeUtils {
                         }
                     });
         });
+    }
+
+    public void getAllCounters(String userId, Callback<List<Counter>> callback) {
+        getBusinessIdFromEmployeeBusinessLink(userId, businessId -> {
+            mReal.getReference("QMobility")
+                    .child("Businesses")
+                    .child(businessId)
+                    .child("Counters")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            List<Counter> counters = new ArrayList<>();
+                            for (DataSnapshot counterSnapshot : snapshot.getChildren()) {
+                                Counter counter = getCounterFields(counterSnapshot);
+                                counters.add(counter);
+                            }
+                            callback.onSuccess(counters);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+        });
+    }
+
+    private Counter getCounterFields(DataSnapshot counterSnapshot) {
+        String counterId = counterSnapshot.child("counterId").getValue(String.class);
+        String queueId = counterSnapshot.child("queueId").getValue(String.class);
+        String counterNumber = counterSnapshot.child("counterNumber").getValue(String.class);
+        String counterStatus = counterSnapshot.child("counterStatus").getValue(String.class);
+        Integer customerNumberOnCall = counterSnapshot.child("customerNumberOnCall").getValue(Integer.class);
+        Integer nextNumberOnCall = counterSnapshot.child("nextNumberOnCall").getValue(Integer.class);
+        String averageCustomerTime = counterSnapshot.child("averageCustomerTime").getValue(String.class);
+
+        return new Counter(counterId, queueId, counterNumber, counterStatus, customerNumberOnCall, nextNumberOnCall, averageCustomerTime);
     }
 
     public void isCounterNumberAlreadyInDatabase(String userId, String counterNumber, Callback<Boolean> callback) {
