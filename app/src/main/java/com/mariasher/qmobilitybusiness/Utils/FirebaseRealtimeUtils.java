@@ -163,6 +163,28 @@ public class FirebaseRealtimeUtils {
         });
     }
 
+    public void getCounterDetailsFromFirebase(String userId, String counterId, Callback<Counter> callback) {
+        getBusinessIdFromEmployeeBusinessLink(userId, businessId -> {
+            mReal.getReference("QMobility")
+                    .child("Businesses")
+                    .child(businessId)
+                    .child("Counters")
+                    .child(counterId)
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Counter counter = getCounterFields(snapshot);
+                            callback.onSuccess(counter);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+        });
+    }
+
     private Counter getCounterFields(DataSnapshot counterSnapshot) {
         String counterId = counterSnapshot.child("counterId").getValue(String.class);
         String queueId = counterSnapshot.child("queueId").getValue(String.class);

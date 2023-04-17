@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    tools:context=".Counters.CounterDetailsActivity">
+
+    <TextView
+        android:id="@+id/counterDetailsHeaderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Counter Details"
+        android:textColor="#FF6E40"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/smallHeaderTextView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="smart_queue_system"
+        android:textColor="#FF6E40"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@+id/counterDetailsHeaderTextView"
+        app:layout_constraintStart_toStartOf="@+id/counterDetailsHeaderTextView"
+        app:layout_constraintTop_toBottomOf="@+id/counterDetailsHeaderTextView" />
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/inner_layout_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/smallHeaderTextView6"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/counterNumberPlaceHolderTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:text="Counter Number"
+                android:textColor="#FF6E40"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/counterNumberCounterDetailsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Counter Number"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/counterNumberPlaceHolderTextView2"
+                app:layout_constraintTop_toBottomOf="@+id/counterNumberPlaceHolderTextView2" />
+
+            <TextView
+                android:id="@+id/queueNamePlaceHolderTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Queue Name"
+                android:textColor="#FF6E40"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/counterNumberCounterDetailsTextView" />
+
+            <TextView
+                android:id="@+id/queueNameCounterDetailsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Queue Name"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/queueNamePlaceHolderTextView2"
+                app:layout_constraintTop_toBottomOf="@+id/queueNamePlaceHolderTextView2" />
+
+            <TextView
+                android:id="@+id/counterStatusPlaceHolderTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Counter Status"
+                android:textColor="#FF6E40"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/queueNameCounterDetailsTextView" />
+
+            <TextView
+                android:id="@+id/counterStatusCounterDetailsTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Counter Status"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/counterStatusPlaceHolderTextView2"
+                app:layout_constraintTop_toBottomOf="@+id/counterStatusPlaceHolderTextView2" />
+
+            <TextView
+                android:id="@+id/customerNumberOnCallPlaceHolderTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Customer Number on call"
+                android:textColor="#FF6E40"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/counterStatusCounterDetailsTextView2" />
+
+            <TextView
+                android:id="@+id/customerNumberOnCallCounterDetailsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Customer Number on call"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/customerNumberOnCallPlaceHolderTextView"
+                app:layout_constraintTop_toBottomOf="@+id/customerNumberOnCallPlaceHolderTextView" />
+
+            <TextView
+                android:id="@+id/nextNumberOnCallPlaceHolderTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Next Number on call"
+                android:textColor="#FF6E40"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/customerNumberOnCallCounterDetailsTextView" />
+
+            <TextView
+                android:id="@+id/nextNumberOnCallCounterDetailsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next Number on call"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/nextNumberOnCallPlaceHolderTextView"
+                app:layout_constraintTop_toBottomOf="@+id/nextNumberOnCallPlaceHolderTextView" />
+
+            <TextView
+                android:id="@+id/averageCustomerTimePlaceHolderTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Average Customer Time"
+                android:textColor="#FF6E40"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nextNumberOnCallCounterDetailsTextView" />
+
+            <TextView
+                android:id="@+id/averageCustomerTimeCounterDetailsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:text="-"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/averageCustomerTimePlaceHolderTextView2"
+                app:layout_constraintTop_toBottomOf="@+id/averageCustomerTimePlaceHolderTextView2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

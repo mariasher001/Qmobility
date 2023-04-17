@@ -17,6 +17,9 @@
         android:theme="@style/Theme.QMobilityBusiness"
         tools:targetApi="31">
         <activity
+            android:name=".Counters.CounterDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".Counters.ViewCountersActivity"
             android:exported="false" />
         <activity
