@@ -1,8 +1,11 @@
 package com.mariasher.qmobilitybusiness.Counters;
 
+import static com.mariasher.qmobilitybusiness.Counters.CounterMainActivity.COUNTER_OPERATIONS;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +30,7 @@ public class ViewCountersActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase mReal;
     private FirebaseRealtimeUtils firebaseRealtimeUtils;
+    private String counterOperations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +42,15 @@ public class ViewCountersActivity extends AppCompatActivity {
     }
 
     private void init(Bundle savedInstanceState) {
+        Intent intent = getIntent();
+        counterOperations = intent.getStringExtra(COUNTER_OPERATIONS);
         mAuth = FirebaseAuth.getInstance();
         mReal = FirebaseDatabase.getInstance();
         firebaseRealtimeUtils = new FirebaseRealtimeUtils(this);
 
         firebaseRealtimeUtils.getAllCounters(mAuth.getCurrentUser().getUid(), counters -> {
             getQueueNamesFromQueueIdsFromFirebase(counters, queueNames -> {
-                binding.viewCountersRecyclerView.setAdapter(new ViewCountersViewAdapter(counters, queueNames, this));
+                binding.viewCountersRecyclerView.setAdapter(new ViewCountersViewAdapter(counters, queueNames, this, counterOperations));
             });
         });
     }

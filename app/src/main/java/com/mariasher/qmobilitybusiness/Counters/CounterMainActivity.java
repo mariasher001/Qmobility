@@ -14,6 +14,9 @@ import com.mariasher.qmobilitybusiness.databinding.ActivityCounterMainBinding;
 public class CounterMainActivity extends AppCompatActivity {
 
     public static final String CREATE_COUNTER = "CreateCounter";
+    public static final String COUNTER_OPERATIONS = "CounterOperations";
+    public static final String COUNTER_DETAILS = "CounterDetails";
+    public static final String COUNTER_CONTROLS = "CounterControls";
     private ActivityCounterMainBinding binding;
 
     @Override
@@ -31,11 +34,14 @@ public class CounterMainActivity extends AppCompatActivity {
 
     public void viewCounterDetailsMainButtonClicked(View view) {
         Intent intent = new Intent(this, ViewCountersActivity.class);
+        intent.putExtra(COUNTER_OPERATIONS, COUNTER_DETAILS);
         startActivity(intent);
     }
 
     public void counterControlsMainButtonClicked(View view) {
-        //TODO
+        Intent intent = new Intent(this, ViewCountersActivity.class);
+        intent.putExtra(COUNTER_OPERATIONS, COUNTER_CONTROLS);
+        startActivity(intent);
     }
 
     public void counterAnalyticsMainButtonClicked(View view) {
