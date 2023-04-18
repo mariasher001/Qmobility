@@ -24,6 +24,7 @@ public class CounterDetailsActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase mReal;
     private FirebaseRealtimeUtils firebaseRealtimeUtils;
+    private String businessId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,40 +47,41 @@ public class CounterDetailsActivity extends AppCompatActivity {
     }
 
     private void setCounterDetailsInView() {
-        firebaseRealtimeUtils.getCounterDetailsFromFirebase(mAuth.getCurrentUser().getUid(), counterId, counter -> {
-            getQueueNameFromFirebase(counter.getQueueId(), queueName -> {
-                binding.counterNumberCounterDetailsTextView.setText(counter.getCounterNumber());
-                binding.queueNameCounterDetailsTextView.setText(queueName);
-                binding.counterStatusCounterDetailsTextView2.setText(counter.getCounterStatus());
-                binding.customerNumberOnCallCounterDetailsTextView.setText("" + counter.getCustomerNumberOnCall());
-                binding.nextNumberOnCallCounterDetailsTextView.setText("" + counter.getNextNumberOnCall());
-                binding.averageCustomerTimeCounterDetailsTextView.setText(counter.getAverageCustomerTime());
+        firebaseRealtimeUtils.getBusinessIdFromEmployeeBusinessLink(mAuth.getCurrentUser().getUid(), businessId -> {
+            this.businessId = businessId;
+
+            firebaseRealtimeUtils.getCounterDetailsFromFirebase(businessId, counterId, counter -> {
+                getQueueNameFromFirebase(businessId, counter.getQueueId(), queueName -> {
+                    binding.counterNumberCounterDetailsTextView.setText(counter.getCounterNumber());
+                    binding.queueNameCounterDetailsTextView.setText(queueName);
+                    binding.counterStatusCounterDetailsTextView2.setText(counter.getCounterStatus());
+                    binding.customerNumberOnCallCounterDetailsTextView.setText("" + counter.getCustomerNumberOnCall());
+                    binding.nextNumberOnCallCounterDetailsTextView.setText("" + counter.getNextNumberOnCall());
+                    binding.averageCustomerTimeCounterDetailsTextView.setText(counter.getAverageCustomerTime());
+                });
             });
         });
     }
 
-    private void getQueueNameFromFirebase(String queueId, Callback<String> callback) {
-        firebaseRealtimeUtils.getBusinessIdFromEmployeeBusinessLink(mAuth.getCurrentUser().getUid(), businessId -> {
-            mReal.getReference("QMobility")
-                    .child("Businesses")
-                    .child(businessId)
-                    .child("Queues")
-                    .child(queueId)
-                    .child("queueName")
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String queueName = snapshot.getValue(String.class);
-                            callback.onSuccess(queueName);
-                        }
+    public void getQueueNameFromFirebase(String businessId, String queueId, Callback<String> callback) {
+        mReal.getReference("QMobility")
+                .child("Businesses")
+                .child(businessId)
+                .child("Queues")
+                .child(queueId)
+                .child("queueName")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String queueName = snapshot.getValue(String.class);
+                        callback.onSuccess(queueName);
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
-        });
+                    }
+                });
     }
-
 
 }

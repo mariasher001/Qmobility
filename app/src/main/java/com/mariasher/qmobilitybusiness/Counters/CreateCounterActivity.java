@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mariasher.qmobilitybusiness.Utils.FirebaseRealtimeUtils;
-import com.mariasher.qmobilitybusiness.Utils.Interfaces.Callback;
 import com.mariasher.qmobilitybusiness.database.Counter;
 import com.mariasher.qmobilitybusiness.databinding.ActivityCreateCounterBinding;
 
@@ -69,29 +68,14 @@ public class CreateCounterActivity extends AppCompatActivity {
 
     private void addCounterToFirebase(Counter counter) {
         firebaseRealtimeUtils.getBusinessIdFromEmployeeBusinessLink(mAuth.getCurrentUser().getUid(), businessId -> {
-            addCounterToCountersInFirebase(businessId, counter, isCounterAddedToCountersInFirebase -> {
+            firebaseRealtimeUtils.updateCounterInFirebase(businessId, counter, isCounterAddedToCountersInFirebase -> {
                 if (isCounterAddedToCountersInFirebase) {
                     addCounterToQueue(businessId, counter);
+                } else {
+                    Toast.makeText(this, "Error creating counter", Toast.LENGTH_SHORT).show();
                 }
             });
         });
-    }
-
-    private void addCounterToCountersInFirebase(String businessId, Counter counter, Callback<Boolean> callback) {
-        mReal.getReference("QMobility")
-                .child("Businesses")
-                .child(businessId)
-                .child("Counters")
-                .child(counter.getCounterId())
-                .setValue(counter)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        callback.onSuccess(true);
-                    } else {
-                        Toast.makeText(this, "Error creating counter", Toast.LENGTH_SHORT).show();
-                        callback.onSuccess(false);
-                    }
-                });
     }
 
 
@@ -109,7 +93,7 @@ public class CreateCounterActivity extends AppCompatActivity {
                         Toast.makeText(this, "Counter Created Successfully!", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
-                        Toast.makeText(this, "Error creating counter!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Error adding counter to queue!", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

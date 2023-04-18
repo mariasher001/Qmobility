@@ -8,14 +8,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mariasher.qmobilitybusiness.Utils.DateTimeUtils;
 import com.mariasher.qmobilitybusiness.Utils.FirebaseRealtimeUtils;
+import com.mariasher.qmobilitybusiness.Utils.Interfaces.Callback;
+import com.mariasher.qmobilitybusiness.Utils.enums.CounterStatus;
 import com.mariasher.qmobilitybusiness.Utils.enums.QueueStatus;
+import com.mariasher.qmobilitybusiness.database.Counter;
 import com.mariasher.qmobilitybusiness.database.Queue;
 import com.mariasher.qmobilitybusiness.databinding.ActivityQueueControlsBinding;
 
@@ -96,7 +104,7 @@ public class QueueControlsActivity extends AppCompatActivity {
 
     public void startQueueControlsButtonClicked(View view) {
 
-        if(queue.getQueueStatus().equals(QueueStatus.INACTIVE.toString())) {
+        if (queue.getQueueStatus().equals(QueueStatus.INACTIVE.toString())) {
             queue.setQueueStartTime(DateTimeUtils.convertDateAndTimeToString(LocalDateTime.now()));
         }
         queue.setQueueEndTime("");
@@ -108,13 +116,21 @@ public class QueueControlsActivity extends AppCompatActivity {
 
     public void pauseQueueControlsButtonClicked(View view) {
         queue.setQueueStatus(QueueStatus.PAUSED.toString());
-        updateQueueInFirebase("Queue Paused");
+        pauseAllCountersInQueue(areAllCountersPaused -> {
+            if (areAllCountersPaused) {
+                updateQueueInFirebase("Queue Paused");
+            }
+        });
     }
 
     public void resetQueueControlsButtonClicked(View view) {
         queue.setQueueStatus(QueueStatus.INACTIVE.toString());
         queue.setQueueEndTime(DateTimeUtils.convertDateAndTimeToString(LocalDateTime.now()));
-        updateQueueInFirebase("Queue Reset Successful");
+        resetAllCountersInQueue(areAllCountersReset -> {
+            if (areAllCountersReset) {
+                updateQueueInFirebase("Queue Reset Successful");
+            }
+        });
     }
 
 
@@ -122,7 +138,9 @@ public class QueueControlsActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setCancelable(true)
                 .setTitle("Are you sure you want to delete " + queue.getQueueName() + " queue?")
+                .setMessage("Warning: All the counters will be deleted in the queue!")
                 .setPositiveButton("YES", (dialog, i) -> {
+                    deleteCountersFromFirebase();
                     deleteQueueFromFirebase();
                 })
                 .setNegativeButton("NO", (dialog, i) -> {
@@ -140,6 +158,32 @@ public class QueueControlsActivity extends AppCompatActivity {
         //TODO
     }
 
+    private void pauseAllCountersInQueue(Callback<Boolean> callback) {
+        firebaseRealtimeUtils.getAllCountersOnce(businessId, counters -> {
+            for (Counter counter : counters) {
+                if (queue.getQueueCounters().contains(counter.getCounterId()) && counter.getCounterStatus().equals(CounterStatus.ACTIVE.toString())) {
+                    counter.setCounterStatus(CounterStatus.PAUSED.toString());
+                    firebaseRealtimeUtils.updateCounterInFirebase(businessId, counter, isCounterUpdated -> {
+                    });
+                }
+            }
+            callback.onSuccess(true);
+        });
+    }
+
+    private void resetAllCountersInQueue(Callback<Boolean> callback) {
+        firebaseRealtimeUtils.getAllCountersOnce(businessId, counters -> {
+            for (Counter counter : counters) {
+                if (queue.getQueueCounters().contains(counter.getCounterId())) {
+                    counter.setCounterStatus(CounterStatus.INACTIVE.toString());
+                    firebaseRealtimeUtils.updateCounterInFirebase(businessId, counter, isCounterUpdated -> {
+                    });
+                }
+            }
+            callback.onSuccess(true);
+        });
+    }
+
     private void updateQueueInFirebase(String queueToast) {
         Map<String, Object> queueMap = new HashMap<>();
         queueMap.put("queueId", queue.getQueueId());
@@ -151,19 +195,56 @@ public class QueueControlsActivity extends AppCompatActivity {
         queueMap.put("numberOfActiveCounters", queue.getNumberOfActiveCounters());
         queueMap.put("averageCustomerTime", queue.getAverageCustomerTime());
 
+        DatabaseReference mRef = mReal.getReference("QMobility")
+                .child("Businesses")
+                .child(businessId)
+                .child("Queues")
+                .child(queueId);
+
+        getQueueCountersMapFromFirebase(queueCountersMap -> {
+            mRef.setValue(queueMap);
+            mRef.child("queueCounters").setValue(queueCountersMap)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(this, queueToast, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(this, "Unable to update queue", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        });
+    }
+
+    private void getQueueCountersMapFromFirebase(Callback<Map<String, Object>> callback) {
         mReal.getReference("QMobility")
                 .child("Businesses")
                 .child(businessId)
                 .child("Queues")
                 .child(queueId)
-                .setValue(queueMap)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(this, queueToast, Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(this, "Unable to update queue", Toast.LENGTH_SHORT).show();
+                .child("queueCounters")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Map<String, Object> queueCountersMap = (Map<String, Object>) snapshot.getValue();
+                        callback.onSuccess(queueCountersMap);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
                     }
                 });
+    }
+
+    private void deleteCountersFromFirebase() {
+        DatabaseReference mRef = mReal.getReference("QMobility")
+                .child("Businesses")
+                .child(businessId)
+                .child("Counters");
+
+        for (String counterId : queue.getQueueCounters()) {
+            mRef.child(counterId)
+                    .removeValue();
+        }
     }
 
     private void deleteQueueFromFirebase() {
@@ -176,6 +257,7 @@ public class QueueControlsActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Queue deleted successfully!", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
                     } else {
                         Toast.makeText(this, "Error deleting the queue!", Toast.LENGTH_SHORT).show();
                     }

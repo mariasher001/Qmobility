@@ -102,8 +102,10 @@ public class FirebaseRealtimeUtils {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Queue queue = getQueueFields(snapshot);
-                        callback.onSuccess(queue);
+                        if (snapshot.getValue() != null) {
+                            Queue queue = getQueueFields(snapshot);
+                            callback.onSuccess(queue);
+                        }
                     }
 
                     @Override
@@ -138,51 +140,72 @@ public class FirebaseRealtimeUtils {
         });
     }
 
-    public void getAllCounters(String userId, Callback<List<Counter>> callback) {
-        getBusinessIdFromEmployeeBusinessLink(userId, businessId -> {
-            mReal.getReference("QMobility")
-                    .child("Businesses")
-                    .child(businessId)
-                    .child("Counters")
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            List<Counter> counters = new ArrayList<>();
-                            for (DataSnapshot counterSnapshot : snapshot.getChildren()) {
-                                Counter counter = getCounterFields(counterSnapshot);
-                                counters.add(counter);
-                            }
-                            callback.onSuccess(counters);
+    public void getAllCounters(String businessId, Callback<List<Counter>> callback) {
+        mReal.getReference("QMobility")
+                .child("Businesses")
+                .child(businessId)
+                .child("Counters")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        List<Counter> counters = new ArrayList<>();
+                        for (DataSnapshot counterSnapshot : snapshot.getChildren()) {
+                            Counter counter = getCounterFields(counterSnapshot);
+                            counters.add(counter);
                         }
+                        callback.onSuccess(counters);
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
-        });
+                    }
+                });
     }
 
-    public void getCounterDetailsFromFirebase(String userId, String counterId, Callback<Counter> callback) {
-        getBusinessIdFromEmployeeBusinessLink(userId, businessId -> {
-            mReal.getReference("QMobility")
-                    .child("Businesses")
-                    .child(businessId)
-                    .child("Counters")
-                    .child(counterId)
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+    public void getAllCountersOnce(String businessId, Callback<List<Counter>> callback) {
+        mReal.getReference("QMobility")
+                .child("Businesses")
+                .child(businessId)
+                .child("Counters")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        List<Counter> counters = new ArrayList<>();
+                        for (DataSnapshot counterSnapshot : snapshot.getChildren()) {
+                            Counter counter = getCounterFields(counterSnapshot);
+                            counters.add(counter);
+                        }
+                        callback.onSuccess(counters);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
+    public void getCounterDetailsFromFirebase(String businessId, String counterId, Callback<Counter> callback) {
+        mReal.getReference("QMobility")
+                .child("Businesses")
+                .child(businessId)
+                .child("Counters")
+                .child(counterId)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.getValue() != null) {
                             Counter counter = getCounterFields(snapshot);
                             callback.onSuccess(counter);
                         }
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
-        });
+                    }
+                });
     }
 
     private Counter getCounterFields(DataSnapshot counterSnapshot) {
@@ -245,5 +268,21 @@ public class FirebaseRealtimeUtils {
                 numberOfActiveCounters, averageCustomerTime, queueCounters);
 
         return queue;
+    }
+
+    public void updateCounterInFirebase(String businessId, Counter counter, Callback<Boolean> callback) {
+        mReal.getReference("QMobility")
+                .child("Businesses")
+                .child(businessId)
+                .child("Counters")
+                .child(counter.getCounterId())
+                .setValue(counter)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        callback.onSuccess(true);
+                    } else {
+                        callback.onSuccess(false);
+                    }
+                });
     }
 }

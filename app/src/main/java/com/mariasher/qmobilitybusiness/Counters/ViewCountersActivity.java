@@ -31,6 +31,7 @@ public class ViewCountersActivity extends AppCompatActivity {
     private FirebaseDatabase mReal;
     private FirebaseRealtimeUtils firebaseRealtimeUtils;
     private String counterOperations;
+    private String businessId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,43 +49,44 @@ public class ViewCountersActivity extends AppCompatActivity {
         mReal = FirebaseDatabase.getInstance();
         firebaseRealtimeUtils = new FirebaseRealtimeUtils(this);
 
-        firebaseRealtimeUtils.getAllCounters(mAuth.getCurrentUser().getUid(), counters -> {
-            getQueueNamesFromQueueIdsFromFirebase(counters, queueNames -> {
-                binding.viewCountersRecyclerView.setAdapter(new ViewCountersViewAdapter(counters, queueNames, this, counterOperations));
+        firebaseRealtimeUtils.getBusinessIdFromEmployeeBusinessLink(mAuth.getCurrentUser().getUid(), businessId -> {
+            this.businessId = businessId;
+            firebaseRealtimeUtils.getAllCounters(businessId, counters -> {
+                getQueueNamesFromQueueIdsFromFirebase(counters, queueNames -> {
+                    binding.viewCountersRecyclerView.setAdapter(new ViewCountersViewAdapter(counters, queueNames, this, counterOperations));
+                });
             });
         });
     }
 
     private void getQueueNamesFromQueueIdsFromFirebase(List<Counter> counters, Callback<List<String>> callback) {
-        firebaseRealtimeUtils.getBusinessIdFromEmployeeBusinessLink(mAuth.getCurrentUser().getUid(), businessId -> {
-            mReal.getReference("QMobility")
-                    .child("Businesses")
-                    .child(businessId)
-                    .child("Queues")
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            Map<String, String> queueIdToNameMap = new HashMap<>();
-                            for (DataSnapshot queueSnapshot : snapshot.getChildren()) {
-                                String queueId = queueSnapshot.child("queueId").getValue(String.class);
-                                String queueName = queueSnapshot.child("queueName").getValue(String.class);
-                                queueIdToNameMap.put(queueId, queueName);
-                            }
-                            List<String> queueNames = new ArrayList<>();
-                            for (Counter counter : counters) {
-                                String queueName = queueIdToNameMap.get(counter.getQueueId());
-                                if (queueName != null) {
-                                    queueNames.add(queueName);
-                                }
-                            }
-                            callback.onSuccess(queueNames);
+        mReal.getReference("QMobility")
+                .child("Businesses")
+                .child(businessId)
+                .child("Queues")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Map<String, String> queueIdToNameMap = new HashMap<>();
+                        for (DataSnapshot queueSnapshot : snapshot.getChildren()) {
+                            String queueId = queueSnapshot.child("queueId").getValue(String.class);
+                            String queueName = queueSnapshot.child("queueName").getValue(String.class);
+                            queueIdToNameMap.put(queueId, queueName);
                         }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
+                        List<String> queueNames = new ArrayList<>();
+                        for (Counter counter : counters) {
+                            String queueName = queueIdToNameMap.get(counter.getQueueId());
+                            if (queueName != null) {
+                                queueNames.add(queueName);
+                            }
                         }
-                    });
-        });
+                        callback.onSuccess(queueNames);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 }
