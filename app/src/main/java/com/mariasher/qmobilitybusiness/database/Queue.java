@@ -7,7 +7,9 @@ import com.mariasher.qmobilitybusiness.Utils.enums.QueueStatus;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Queue {
     @NonNull
@@ -19,7 +21,7 @@ public class Queue {
     private String queueStatus;
     private int numberOfActiveCounters;
     private String averageCustomerTime;
-    private List<String> queueCounters;
+    private Map<String, Object> queueCounters;
 
     public Queue() {
     }
@@ -33,10 +35,10 @@ public class Queue {
         queueStatus = QueueStatus.INACTIVE.toString();
         numberOfActiveCounters = 0;
         averageCustomerTime = "";
-        queueCounters = new ArrayList<>();
+        queueCounters = new HashMap<>();
     }
 
-    public Queue(@NonNull String queueId, String creatorId, String queueName, LocalDateTime queueStartTime, LocalDateTime queueEndTime, String queueStatus, int numberOfActiveCounters, LocalDateTime averageCustomerTime, List<String> queueCounters) {
+    public Queue(@NonNull String queueId, String creatorId, String queueName, LocalDateTime queueStartTime, LocalDateTime queueEndTime, String queueStatus, int numberOfActiveCounters, LocalDateTime averageCustomerTime, Map<String, Object> queueCounters) {
         this.queueId = queueId;
         this.creatorId = creatorId;
         this.queueName = queueName;
@@ -48,7 +50,7 @@ public class Queue {
         this.queueCounters = queueCounters;
     }
 
-    public Queue(@NonNull String queueId, String creatorId, String queueName, String queueStartTime, String queueEndTime, String queueStatus, int numberOfActiveCounters, String averageCustomerTime, List<String> queueCounters) {
+    public Queue(@NonNull String queueId, String creatorId, String queueName, String queueStartTime, String queueEndTime, String queueStatus, int numberOfActiveCounters, String averageCustomerTime, Map<String, Object> queueCounters) {
         this.queueId = queueId;
         this.creatorId = creatorId;
         this.queueName = queueName;
@@ -133,11 +135,11 @@ public class Queue {
         this.averageCustomerTime = DateTimeUtils.convertDateAndTimeToString(averageCustomerTime);
     }
 
-    public List<String> getQueueCounters() {
+    public Map<String, Object> getQueueCounters() {
         return queueCounters;
     }
 
-    public void setQueueCounters(List<String> queueCounters) {
+    public void setQueueCounters(Map<String, Object> queueCounters) {
         this.queueCounters = queueCounters;
     }
 }

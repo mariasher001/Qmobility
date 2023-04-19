@@ -14,7 +14,9 @@ import com.mariasher.qmobilitybusiness.database.Employee;
 import com.mariasher.qmobilitybusiness.database.Queue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FirebaseRealtimeUtils {
 
@@ -258,11 +260,11 @@ public class FirebaseRealtimeUtils {
         Integer numberOfActiveCounters = snapshot.child("numberOfActiveCounters").getValue(Integer.class);
         String averageCustomerTime = snapshot.child("averageCustomerTime").getValue(String.class);
 
-        List<String> queueCounters = new ArrayList<>();
+        Map<String, Object> queueCounters = new HashMap<>();
         for (DataSnapshot queueCounterSnapshot : snapshot.child("queueCounters").getChildren()) {
             String queueCounterId = queueCounterSnapshot.getKey();
             String counterNumber = queueCounterSnapshot.getValue(String.class);
-            queueCounters.add(queueCounterId);
+            queueCounters.put(queueCounterId, counterNumber);
         }
         Queue queue = new Queue(queueId, creatorId, queueName, queueStartTime, queueEndTime, queueStatus,
                 numberOfActiveCounters, averageCustomerTime, queueCounters);

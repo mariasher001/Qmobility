@@ -161,7 +161,7 @@ public class QueueControlsActivity extends AppCompatActivity {
     private void pauseAllCountersInQueue(Callback<Boolean> callback) {
         firebaseRealtimeUtils.getAllCountersOnce(businessId, counters -> {
             for (Counter counter : counters) {
-                if (queue.getQueueCounters().contains(counter.getCounterId()) && counter.getCounterStatus().equals(CounterStatus.ACTIVE.toString())) {
+                if (queue.getQueueCounters().containsKey(counter.getCounterId()) && counter.getCounterStatus().equals(CounterStatus.ACTIVE.toString())) {
                     counter.setCounterStatus(CounterStatus.PAUSED.toString());
                     firebaseRealtimeUtils.updateCounterInFirebase(businessId, counter, isCounterUpdated -> {
                     });
@@ -174,7 +174,7 @@ public class QueueControlsActivity extends AppCompatActivity {
     private void resetAllCountersInQueue(Callback<Boolean> callback) {
         firebaseRealtimeUtils.getAllCountersOnce(businessId, counters -> {
             for (Counter counter : counters) {
-                if (queue.getQueueCounters().contains(counter.getCounterId())) {
+                if (queue.getQueueCounters().containsKey(counter.getCounterId())) {
                     counter.setCounterStatus(CounterStatus.INACTIVE.toString());
                     firebaseRealtimeUtils.updateCounterInFirebase(businessId, counter, isCounterUpdated -> {
                     });
@@ -194,43 +194,19 @@ public class QueueControlsActivity extends AppCompatActivity {
         queueMap.put("queueStatus", queue.getQueueStatus());
         queueMap.put("numberOfActiveCounters", queue.getNumberOfActiveCounters());
         queueMap.put("averageCustomerTime", queue.getAverageCustomerTime());
+        queueMap.put("queueCounters", queue.getQueueCounters());
 
-        DatabaseReference mRef = mReal.getReference("QMobility")
-                .child("Businesses")
-                .child(businessId)
-                .child("Queues")
-                .child(queueId);
-
-        getQueueCountersMapFromFirebase(queueCountersMap -> {
-            mRef.setValue(queueMap);
-            mRef.child("queueCounters").setValue(queueCountersMap)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(this, queueToast, Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(this, "Unable to update queue", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        });
-    }
-
-    private void getQueueCountersMapFromFirebase(Callback<Map<String, Object>> callback) {
         mReal.getReference("QMobility")
                 .child("Businesses")
                 .child(businessId)
                 .child("Queues")
                 .child(queueId)
-                .child("queueCounters")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Map<String, Object> queueCountersMap = (Map<String, Object>) snapshot.getValue();
-                        callback.onSuccess(queueCountersMap);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
+                .setValue(queueMap)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(this, queueToast, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "Unable to update queue", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -241,10 +217,10 @@ public class QueueControlsActivity extends AppCompatActivity {
                 .child(businessId)
                 .child("Counters");
 
-        for (String counterId : queue.getQueueCounters()) {
+        queue.getQueueCounters().forEach((counterId, counterNumber) -> {
             mRef.child(counterId)
                     .removeValue();
-        }
+        });
     }
 
     private void deleteQueueFromFirebase() {
