@@ -67,5 +67,6 @@ public class AdminMainActivity extends AppCompatActivity {
         mAuth.signOut();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+        finish();
     }
 }
