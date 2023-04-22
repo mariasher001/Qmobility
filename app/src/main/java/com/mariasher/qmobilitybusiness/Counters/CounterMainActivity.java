@@ -4,11 +4,17 @@ import static com.mariasher.qmobilitybusiness.Queues.QueueMainActivity.QUEUE_OPE
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.mariasher.qmobilitybusiness.LoginActivity;
 import com.mariasher.qmobilitybusiness.Queues.ViewQueuesActivity;
+import com.mariasher.qmobilitybusiness.R;
 import com.mariasher.qmobilitybusiness.databinding.ActivityCounterMainBinding;
 
 public class CounterMainActivity extends AppCompatActivity {
@@ -18,12 +24,15 @@ public class CounterMainActivity extends AppCompatActivity {
     public static final String COUNTER_DETAILS = "CounterDetails";
     public static final String COUNTER_CONTROLS = "CounterControls";
     private ActivityCounterMainBinding binding;
+    public FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCounterMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        mAuth = FirebaseAuth.getInstance();
     }
 
     public void createCounterMainButtonClicked(View view) {
@@ -42,6 +51,19 @@ public class CounterMainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ViewCountersActivity.class);
         intent.putExtra(COUNTER_OPERATIONS, COUNTER_CONTROLS);
         startActivity(intent);
+    }
+
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.logout_options_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public void logoutItemClicked(@NonNull MenuItem item) {
+        mAuth.signOut();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void counterAnalyticsMainButtonClicked(View view) {

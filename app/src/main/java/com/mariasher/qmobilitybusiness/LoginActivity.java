@@ -2,6 +2,7 @@ package com.mariasher.qmobilitybusiness;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ import com.mariasher.qmobilitybusiness.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public static final String ACCESS_TYPE = "ACCESS_TYPE";
     private ActivityLoginBinding binding;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mReal;
@@ -114,20 +116,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void login(String accessType) {
-        Intent intent;
-        switch (accessType) {
-            case "ADMIN":
-                intent = new Intent(this, AdminMainActivity.class);
-                break;
-//            case "MANAGER":
-//                intent = new Intent(this, AdminMainActivity.class);
-//                break;
-//            case "OPERATOR":
-//                intent = new Intent(this, AdminMainActivity.class);
-//                break;
-            default:
-                intent = new Intent(this, AdminMainActivity.class);
-        }
+        Intent intent = new Intent(this, AdminMainActivity.class);
+        intent.putExtra(ACCESS_TYPE, accessType);
         startActivity(intent);
         finish();
     }

@@ -3,6 +3,6 @@
 
     <item
         android:id="@+id/logoutItem"
-        android:onClick="logoutAdminItemClicked"
+        android:onClick="logoutItemClicked"
         android:title="Logout" />
 </menu>
