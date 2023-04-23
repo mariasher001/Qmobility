@@ -6,9 +6,7 @@ import com.mariasher.qmobilitybusiness.Utils.DateTimeUtils;
 import com.mariasher.qmobilitybusiness.Utils.enums.QueueStatus;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Queue {
@@ -22,6 +20,7 @@ public class Queue {
     private int numberOfActiveCounters;
     private String averageCustomerTime;
     private Map<String, Object> queueCounters;
+    private Map<String, Object> clientsInQueue;
 
     public Queue() {
     }
@@ -36,9 +35,10 @@ public class Queue {
         numberOfActiveCounters = 0;
         averageCustomerTime = "";
         queueCounters = new HashMap<>();
+        clientsInQueue = new HashMap<>();
     }
 
-    public Queue(@NonNull String queueId, String creatorId, String queueName, LocalDateTime queueStartTime, LocalDateTime queueEndTime, String queueStatus, int numberOfActiveCounters, LocalDateTime averageCustomerTime, Map<String, Object> queueCounters) {
+    public Queue(@NonNull String queueId, String creatorId, String queueName, LocalDateTime queueStartTime, LocalDateTime queueEndTime, String queueStatus, int numberOfActiveCounters, LocalDateTime averageCustomerTime, Map<String, Object> queueCounters, Map<String, Object> clientsInQueue) {
         this.queueId = queueId;
         this.creatorId = creatorId;
         this.queueName = queueName;
@@ -48,9 +48,10 @@ public class Queue {
         this.numberOfActiveCounters = numberOfActiveCounters;
         this.averageCustomerTime = DateTimeUtils.convertDateAndTimeToString(averageCustomerTime);
         this.queueCounters = queueCounters;
+        this.clientsInQueue = clientsInQueue;
     }
 
-    public Queue(@NonNull String queueId, String creatorId, String queueName, String queueStartTime, String queueEndTime, String queueStatus, int numberOfActiveCounters, String averageCustomerTime, Map<String, Object> queueCounters) {
+    public Queue(@NonNull String queueId, String creatorId, String queueName, String queueStartTime, String queueEndTime, String queueStatus, int numberOfActiveCounters, String averageCustomerTime, Map<String, Object> queueCounters, Map<String, Object> clientsInQueue) {
         this.queueId = queueId;
         this.creatorId = creatorId;
         this.queueName = queueName;
@@ -60,6 +61,7 @@ public class Queue {
         this.numberOfActiveCounters = numberOfActiveCounters;
         this.averageCustomerTime = averageCustomerTime;
         this.queueCounters = queueCounters;
+        this.clientsInQueue = clientsInQueue;
     }
 
     @NonNull
@@ -141,5 +143,13 @@ public class Queue {
 
     public void setQueueCounters(Map<String, Object> queueCounters) {
         this.queueCounters = queueCounters;
+    }
+
+    public Map<String, Object> getClientsInQueue() {
+        return clientsInQueue;
+    }
+
+    public void setClientsInQueue(Map<String, Object> clientsInQueue) {
+        this.clientsInQueue = clientsInQueue;
     }
 }

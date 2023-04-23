@@ -191,6 +191,29 @@
                 app:layout_constraintTop_toBottomOf="@+id/numberOfActiveCountersPlaceHolderTextView" />
 
             <TextView
+                android:id="@+id/numberOfClientsInQueueDetailsPlaceHolderTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Number of clients"
+                android:textColor="#FF6E40"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/numberOfActiveCountersQueueDetailsTextView" />
+
+            <TextView
+                android:id="@+id/numberOfClientsInQueueDetailsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/numberOfClientsInQueueDetailsPlaceHolderTextView"
+                app:layout_constraintTop_toBottomOf="@+id/numberOfClientsInQueueDetailsPlaceHolderTextView" />
+
+            <TextView
                 android:id="@+id/averageCustomerTimePlaceHolderTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -201,7 +224,7 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/numberOfActiveCountersQueueDetailsTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/numberOfClientsInQueueDetailsTextView" />
 
             <TextView
                 android:id="@+id/averageCustomerTimeQueueDetailsTextView"

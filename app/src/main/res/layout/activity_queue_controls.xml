@@ -57,6 +57,31 @@
         app:layout_constraintStart_toEndOf="@+id/queueStatusTextTextView"
         app:layout_constraintTop_toTopOf="@+id/queueStatusTextTextView" />
 
+    <TextView
+        android:id="@+id/clientsInQueueTextTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Clients in Queue: "
+        android:textColor="#FF6E40"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/queueStatusTextTextView" />
+
+    <TextView
+        android:id="@+id/clientsInQueueControlsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Clients in queue"
+        android:textColor="#FF6E40"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@+id/clientsInQueueTextTextView"
+        app:layout_constraintTop_toTopOf="@+id/clientsInQueueTextTextView" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -67,7 +92,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/queueStatusTextTextView">
+        app:layout_constraintTop_toBottomOf="@+id/clientsInQueueTextTextView">
 
         <Button
             android:id="@+id/startQueueControlsButton"

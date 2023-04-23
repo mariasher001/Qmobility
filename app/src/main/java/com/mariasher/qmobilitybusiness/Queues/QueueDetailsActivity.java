@@ -61,6 +61,7 @@ public class QueueDetailsActivity extends AppCompatActivity {
         binding.queueEndTimeQueueDetailsTextView.setText(endTime);
         binding.queueStatusQueueDetailsTextView.setText(queue.getQueueStatus());
         binding.numberOfActiveCountersQueueDetailsTextView.setText("" + queue.getNumberOfActiveCounters());
+        binding.numberOfClientsInQueueDetailsTextView.setText("" + queue.getClientsInQueue().size());
         binding.averageCustomerTimeQueueDetailsTextView.setText(queue.getAverageCustomerTime());
     }
 

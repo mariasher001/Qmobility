@@ -56,7 +56,7 @@ public class CounterControlsActivity extends AppCompatActivity {
 
             firebaseRealtimeUtils.getCounterDetailsFromFirebase(this.businessId, counterId, counter -> {
                 this.counter = counter;
-                firebaseRealtimeUtils.getQueueDataFromFirebaseDatabaseWithBusinessId(this.businessId, this.counter.getQueueId(), queue -> {
+                firebaseRealtimeUtils.getQueueDataFromFirebaseWithBusinessId(this.businessId, this.counter.getQueueId(), queue -> {
                     this.queue = queue;
 
                     setViewValues();
@@ -98,6 +98,9 @@ public class CounterControlsActivity extends AppCompatActivity {
                 break;
             case PAUSED:
                 if (queue.getQueueStatus().equals(QueueStatus.ACTIVE.toString())) {
+                    binding.startCounterControlsButton.setEnabled(true);
+                }
+                if (queue.getQueueStatus().equals(QueueStatus.PAUSED.toString())) {
                     binding.startCounterControlsButton.setEnabled(true);
                 }
                 binding.resetCounterControlsButton.setEnabled(true);

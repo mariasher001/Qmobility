@@ -120,11 +120,19 @@ public class Client {
         this.queueEntryTime = queueEntryTime;
     }
 
+    public void setQueueEntryTime(LocalDateTime queueEntryTime) {
+        this.queueEntryTime = DateTimeUtils.convertDateAndTimeToString(queueEntryTime);
+    }
+
     public String getQueueExitTime() {
         return queueExitTime;
     }
 
     public void setQueueExitTime(String queueExitTime) {
         this.queueExitTime = queueExitTime;
+    }
+
+    public void setQueueExitTime(LocalDateTime queueExitTime) {
+        this.queueExitTime = DateTimeUtils.convertDateAndTimeToString(queueExitTime);
     }
 }
