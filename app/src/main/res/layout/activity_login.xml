@@ -39,35 +39,25 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="50dp"
-        android:background="@drawable/edit_text_corners"
+        android:background="@drawable/inner_layout_bg"
         android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/smallHeaderTextView">
 
-        <ImageView
-            android:id="@+id/emailIcon"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/loginTextView"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:contentDescription="@string/emailicon"
-            app:layout_constraintBottom_toBottomOf="@+id/emailAddressLoginEditText"
-            app:layout_constraintStart_toStartOf="@+id/emailAddressLoginEditText"
-            app:layout_constraintTop_toTopOf="@+id/emailAddressLoginEditText"
-            app:layout_constraintVertical_bias="0.517"
-            app:srcCompat="@drawable/ic_baseline_email_icon_orange" />
-
-        <ImageView
-            android:id="@+id/passwordIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:contentDescription="@string/passwordicon"
-            app:layout_constraintBottom_toBottomOf="@+id/businessNameEditText"
-            app:layout_constraintStart_toStartOf="@+id/businessNameEditText"
-            app:layout_constraintTop_toTopOf="@+id/businessNameEditText"
-            app:layout_constraintVertical_bias="0.517"
-            app:srcCompat="@drawable/ic_baseline_lock_open_24" />
+            android:background="@drawable/textview_corners"
+            android:text="@string/login"
+            android:textAlignment="center"
+            android:textColor="#5D4037"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/emailAddressLoginEditText"
@@ -83,7 +73,7 @@
             android:inputType="textEmailAddress"
             android:paddingStart="40dp"
             android:paddingEnd="1dp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textColorHint="#F44336"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -91,6 +81,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loginTextView"
             tools:ignore="TextContrastCheck,TextContrastCheck" />
+
+        <ImageView
+            android:id="@+id/emailIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@string/emailicon"
+            app:layout_constraintBottom_toBottomOf="@+id/emailAddressLoginEditText"
+            app:layout_constraintStart_toStartOf="@+id/emailAddressLoginEditText"
+            app:layout_constraintTop_toTopOf="@+id/emailAddressLoginEditText"
+            app:layout_constraintVertical_bias="0.517"
+            app:srcCompat="@drawable/ic_baseline_email_icon_orange" />
 
         <EditText
             android:id="@+id/passwordLoginEditText"
@@ -106,7 +108,7 @@
             android:inputType="textPassword"
             android:paddingStart="40dp"
             android:paddingEnd="1dp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textColorHint="#F44336"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -115,20 +117,17 @@
             app:layout_constraintTop_toBottomOf="@+id/emailAddressLoginEditText"
             tools:ignore="TextContrastCheck" />
 
-
-        <TextView
-            android:id="@+id/loginTextView"
-            android:layout_width="0dp"
+        <ImageView
+            android:id="@+id/passwordIcon"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/textview_corners"
-            android:text="@string/login"
-            android:textAlignment="center"
-            android:textColor="#5D4037"
-            android:textSize="40sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginStart="10dp"
+            android:contentDescription="@string/passwordicon"
+            app:layout_constraintBottom_toBottomOf="@+id/passwordLoginEditText"
+            app:layout_constraintStart_toStartOf="@+id/passwordLoginEditText"
+            app:layout_constraintTop_toTopOf="@+id/passwordLoginEditText"
+            app:layout_constraintVertical_bias="0.517"
+            app:srcCompat="@drawable/ic_baseline_lock_open_24" />
 
         <TextView
             android:id="@+id/forgotPasswordTextView"

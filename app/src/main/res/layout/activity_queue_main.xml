@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    tools:context=".AdminActivities.ManageEmployeesActivity">
+    tools:context=".Queues.QueueMainActivity">
 
     <TextView
-        android:id="@+id/businessNameManageEmployeesHeaderTextView"
+        android:id="@+id/queueMainHeaderTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="QMobility"
+        android:text="Queue Management"
         android:textColor="#FF6E40"
-        android:textSize="48sp"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,73 +28,72 @@
         android:textColor="#FF6E40"
         android:textSize="16sp"
         android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="@+id/businessNameManageEmployeesHeaderTextView"
-        app:layout_constraintStart_toStartOf="@+id/businessNameManageEmployeesHeaderTextView"
-        app:layout_constraintTop_toBottomOf="@+id/businessNameManageEmployeesHeaderTextView" />
+        app:layout_constraintEnd_toEndOf="@+id/queueMainHeaderTextView"
+        app:layout_constraintStart_toStartOf="@+id/queueMainHeaderTextView"
+        app:layout_constraintTop_toBottomOf="@+id/queueMainHeaderTextView" />
 
     <Button
-        android:id="@+id/addEmployeeButton"
+        android:id="@+id/createQueueMainButton"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/edit_text_corners"
-        android:onClick="addEmployeeButtonClicked"
-        android:text="@string/add_employee"
+        android:onClick="createQueueMainButtonClicked"
+        android:text="Create Queue"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/smallHeaderTextView" />
 
     <Button
-        android:id="@+id/readEmployeesDataButton"
+        android:id="@+id/viewQueueDetailsMainButton"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/edit_text_corners"
-        android:onClick="readEmployeesDataButtonClicked"
-        android:text="@string/read_employees_data"
+        android:onClick="viewQueueDetailsMainButtonClicked"
+        android:text="View Queue Details"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addEmployeeButton" />
+        app:layout_constraintTop_toBottomOf="@+id/createQueueMainButton" />
 
     <Button
-        android:id="@+id/updateEmployeeData"
-        android:layout_width="0dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="50dp"
-        android:background="@drawable/edit_text_corners"
-        android:onClick="updateEmployeeDataButtonClicked"
-        android:text="@string/update_employee_data"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/readEmployeesDataButton" />
-
-    <Button
-        android:id="@+id/deleteEmployeeButton"
+        android:id="@+id/queueControlsMainButton"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/edit_text_corners"
-        android:onClick="deleteEmployeeButtonClicked"
-        android:text="@string/delete_employee"
+        android:onClick="queueControlsMainButtonClicked"
+        android:text="Queue Controls"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/updateEmployeeData" />
+        app:layout_constraintTop_toBottomOf="@+id/viewQueueDetailsMainButton" />
 
+    <Button
+        android:id="@+id/queueAnalyticsMainButton"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/edit_text_corners"
+        android:onClick="queueAnalyticsMainButtonClicked"
+        android:text="Queue Analytics"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/queueControlsMainButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

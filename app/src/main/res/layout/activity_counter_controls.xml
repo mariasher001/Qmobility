@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    tools:context=".Counters.CounterControlsActivity">
+
+    <TextView
+        android:id="@+id/counterControlsHeaderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Counter Controls"
+        android:textColor="#FF6E40"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/queueNameCounterControlsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Queue Name"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/counterControlsHeaderTextView"
+        app:layout_constraintTop_toBottomOf="@+id/counterControlsHeaderTextView" />
+
+    <TextView
+        android:id="@+id/fillerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text=":"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/queueNameCounterControlsTextView"
+        app:layout_constraintTop_toTopOf="@+id/queueNameCounterControlsTextView" />
+
+    <TextView
+        android:id="@+id/counterNumberCounterControlsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Counter Number"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@+id/fillerTextView"
+        app:layout_constraintTop_toTopOf="@+id/fillerTextView" />
+
+    <TextView
+        android:id="@+id/counterStatusCounterControlsPlaceHolderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Counter Status: "
+        android:textColor="#FF6E40"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/queueNameCounterControlsTextView" />
+
+    <TextView
+        android:id="@+id/counterStatusCounterControlsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Counter Status"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@+id/counterStatusCounterControlsPlaceHolderTextView"
+        app:layout_constraintTop_toTopOf="@+id/counterStatusCounterControlsPlaceHolderTextView" />
+
+    <TextView
+        android:id="@+id/customerNumberOnCallCounterControlsPlaceHolder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Number on call: "
+        android:textColor="#FF6E40"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/counterStatusCounterControlsPlaceHolderTextView"
+        app:layout_constraintTop_toBottomOf="@+id/counterStatusCounterControlsPlaceHolderTextView" />
+
+    <TextView
+        android:id="@+id/customerNumberOnCallCounterControlsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Number on call"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toEndOf="@+id/customerNumberOnCallCounterControlsPlaceHolder"
+        app:layout_constraintTop_toTopOf="@+id/customerNumberOnCallCounterControlsPlaceHolder" />
+
+    <TextView
+        android:id="@+id/nextNumberOnCallCounterControlsPlaceHolder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Next number: "
+        android:textColor="#FF6E40"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/customerNumberOnCallCounterControlsPlaceHolder"
+        app:layout_constraintTop_toBottomOf="@+id/customerNumberOnCallCounterControlsPlaceHolder" />
+
+    <TextView
+        android:id="@+id/nextNumberOnCallCounterControlsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Next Number"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toEndOf="@+id/nextNumberOnCallCounterControlsPlaceHolder"
+        app:layout_constraintTop_toTopOf="@+id/nextNumberOnCallCounterControlsPlaceHolder" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/inner_layout_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nextNumberOnCallCounterControlsPlaceHolder">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/startCounterControlsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_corners"
+                android:enabled="true"
+                android:onClick="startCounterControlsButtonClicked"
+                android:text="start"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/pauseCounterControlsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/edit_text_corners"
+                android:enabled="false"
+                android:onClick="pauseCounterControlsButtonClicked"
+                android:text="pause"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/startCounterControlsButton" />
+
+            <Button
+                android:id="@+id/resetCounterControlsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/edit_text_corners"
+                android:enabled="false"
+                android:onClick="resetCounterControlsButtonClicked"
+                android:text="Reset"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/startCounterControlsButton"
+                app:layout_constraintTop_toBottomOf="@+id/startCounterControlsButton" />
+
+            <Button
+                android:id="@+id/deleteCounterControlsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_corners"
+                android:onClick="deleteCounterControlsButtonClicked"
+                android:text="Delete"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/pauseCounterControlsButton"
+                app:layout_constraintTop_toTopOf="@+id/resetCounterControlsButton" />
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="?android:attr/listDivider"
+                android:backgroundTint="@color/white"
+                android:foregroundTint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/resetCounterControlsButton" />
+
+            <Button
+                android:id="@+id/nextCustomerCounterControlsButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/edit_text_corners"
+                android:onClick="nextCustomerCounterControlsButtonClicked"
+                android:text="Next Customer"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider1" />
+
+            <Button
+                android:id="@+id/skipCustomerCounterControlsButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/edit_text_corners"
+                android:onClick="skipCustomerCounterControlsButtonClicked"
+                android:text="Skip Customer"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nextCustomerCounterControlsButton" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="?android:attr/listDivider"
+                android:backgroundTint="@color/white"
+                android:foregroundTint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/skipCustomerCounterControlsButton" />
+
+            <Button
+                android:id="@+id/counterDetailsCounterControlsButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/edit_text_corners"
+                android:onClick="counterDetailsCounterControlsButtonClicked"
+                android:text="Counter Details"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+            <Button
+                android:id="@+id/counterAnalyticsCounterControlsButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/edit_text_corners"
+                android:onClick="counterAnalyticsCounterControlsButtonClicked"
+                android:text="Counter Analytics"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/counterDetailsCounterControlsButton" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

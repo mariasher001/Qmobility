@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    tools:context=".AdminActivities.ManageEmployeesActivity">
+    tools:context=".Counters.CounterMainActivity">
 
     <TextView
-        android:id="@+id/businessNameManageEmployeesHeaderTextView"
+        android:id="@+id/counterMainHeaderTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="QMobility"
+        android:text="Counter Management"
         android:textColor="#FF6E40"
-        android:textSize="48sp"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,73 +28,72 @@
         android:textColor="#FF6E40"
         android:textSize="16sp"
         android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="@+id/businessNameManageEmployeesHeaderTextView"
-        app:layout_constraintStart_toStartOf="@+id/businessNameManageEmployeesHeaderTextView"
-        app:layout_constraintTop_toBottomOf="@+id/businessNameManageEmployeesHeaderTextView" />
+        app:layout_constraintEnd_toEndOf="@+id/counterMainHeaderTextView"
+        app:layout_constraintStart_toStartOf="@+id/counterMainHeaderTextView"
+        app:layout_constraintTop_toBottomOf="@+id/counterMainHeaderTextView" />
 
     <Button
-        android:id="@+id/addEmployeeButton"
+        android:id="@+id/createCounterMainButton"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/edit_text_corners"
-        android:onClick="addEmployeeButtonClicked"
-        android:text="@string/add_employee"
+        android:onClick="createCounterMainButtonClicked"
+        android:text="Create Counter"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/smallHeaderTextView" />
 
     <Button
-        android:id="@+id/readEmployeesDataButton"
+        android:id="@+id/viewCounterDetailsMainButton"
         android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_height="65dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/edit_text_corners"
-        android:onClick="readEmployeesDataButtonClicked"
-        android:text="@string/read_employees_data"
+        android:onClick="viewCounterDetailsMainButtonClicked"
+        android:text="View Counter Details"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addEmployeeButton" />
+        app:layout_constraintTop_toBottomOf="@+id/createCounterMainButton" />
 
     <Button
-        android:id="@+id/updateEmployeeData"
-        android:layout_width="0dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="50dp"
-        android:background="@drawable/edit_text_corners"
-        android:onClick="updateEmployeeDataButtonClicked"
-        android:text="@string/update_employee_data"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/readEmployeesDataButton" />
-
-    <Button
-        android:id="@+id/deleteEmployeeButton"
+        android:id="@+id/counterControlsMainButton"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/edit_text_corners"
-        android:onClick="deleteEmployeeButtonClicked"
-        android:text="@string/delete_employee"
+        android:onClick="counterControlsMainButtonClicked"
+        android:text="Counter Controls"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/updateEmployeeData" />
+        app:layout_constraintTop_toBottomOf="@+id/viewCounterDetailsMainButton" />
 
+    <Button
+        android:id="@+id/counterAnalyticsMainButton"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/edit_text_corners"
+        android:onClick="counterAnalyticsMainButtonClicked"
+        android:text="Counter Analytics"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/counterControlsMainButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
