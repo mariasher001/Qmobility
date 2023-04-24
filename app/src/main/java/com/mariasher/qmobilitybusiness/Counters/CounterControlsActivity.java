@@ -111,6 +111,11 @@ public class CounterControlsActivity extends AppCompatActivity {
 
     public void startCounterControlsButtonClicked(View view) {
         counter.setCounterStatus(CounterStatus.ACTIVE.toString());
+
+        queue.setNumberOfActiveCounters(queue.getNumberOfActiveCounters() + 1);
+        firebaseRealtimeUtils.updateQueueInFirebase(businessId, queue, isQueueUpdated -> {
+        });
+
         firebaseRealtimeUtils.updateCounterInFirebase(businessId, counter, isCounterUpdated -> {
             if (isCounterUpdated) {
                 Toast.makeText(this, "Counter updated successfully!", Toast.LENGTH_SHORT).show();
@@ -122,6 +127,11 @@ public class CounterControlsActivity extends AppCompatActivity {
 
     public void pauseCounterControlsButtonClicked(View view) {
         counter.setCounterStatus(CounterStatus.PAUSED.toString());
+
+        queue.setNumberOfActiveCounters(queue.getNumberOfActiveCounters() - 1);
+        firebaseRealtimeUtils.updateQueueInFirebase(businessId, queue, isQueueUpdated -> {
+        });
+
         firebaseRealtimeUtils.updateCounterInFirebase(businessId, counter, isCounterUpdated -> {
             if (isCounterUpdated) {
                 Toast.makeText(this, "Counter updated successfully!", Toast.LENGTH_SHORT).show();
@@ -137,6 +147,10 @@ public class CounterControlsActivity extends AppCompatActivity {
         counter.setCustomerNumberOnCall(0);
         counter.setNextNumberOnCall(0);
 
+        queue.setNumberOfActiveCounters(queue.getNumberOfActiveCounters() - 1);
+        firebaseRealtimeUtils.updateQueueInFirebase(businessId, queue, isQueueUpdated -> {
+        });
+
         firebaseRealtimeUtils.updateCounterInFirebase(businessId, counter, isCounterUpdated -> {
             if (isCounterUpdated) {
                 Toast.makeText(this, "Counter updated successfully!", Toast.LENGTH_SHORT).show();
@@ -151,6 +165,13 @@ public class CounterControlsActivity extends AppCompatActivity {
                 .setCancelable(true)
                 .setTitle("Are you sure you want to delete " + counter.getCounterNumber() + " counter?")
                 .setPositiveButton("YES", (dialog, i) -> {
+
+                    if (counter.getCounterStatus().equals(CounterStatus.ACTIVE.toString())) {
+                        queue.setNumberOfActiveCounters(queue.getNumberOfActiveCounters() - 1);
+                        firebaseRealtimeUtils.updateQueueInFirebase(businessId, queue, isQueueUpdated -> {
+                        });
+                    }
+
                     deleteCounterFromFirebase(isCounterDeleted -> {
                         if (isCounterDeleted) {
                             deleteCounterFromQueue();

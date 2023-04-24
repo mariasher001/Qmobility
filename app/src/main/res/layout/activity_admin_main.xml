@@ -34,44 +34,43 @@
 
     <Button
         android:id="@+id/manageEmployeesAdminButton"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="50dp"
+        android:layout_width="165dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/edit_text_corners"
         android:onClick="manageEmployeesAdminButtonClicked"
         android:text="Manage Employees"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/smallHeaderTextView" />
 
     <Button
         android:id="@+id/manageQueuesAdminButton"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="165dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/edit_text_corners"
         android:onClick="manageQueuesAdminButtonClicked"
         android:text="Manage Queues"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/manageEmployeesAdminButton"
-        app:layout_constraintStart_toStartOf="@+id/manageEmployeesAdminButton"
-        app:layout_constraintTop_toBottomOf="@+id/manageEmployeesAdminButton" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/manageEmployeesAdminButton"
+        app:layout_constraintTop_toBottomOf="@+id/smallHeaderTextView" />
 
     <Button
         android:id="@+id/manageCounterAdminButton"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="165dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/edit_text_corners"
         android:onClick="manageCounterAdminButtonClicked"
-        android:text="Manage Counter"
+        android:text="Manage Counters"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/manageQueuesAdminButton"
-        app:layout_constraintStart_toStartOf="@+id/manageQueuesAdminButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/manageQueuesAdminButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

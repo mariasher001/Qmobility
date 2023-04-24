@@ -2,13 +2,13 @@ package com.mariasher.qmobilitybusiness;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,8 +16,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.mariasher.qmobilitybusiness.Utils.Interfaces.Callback;
 import com.mariasher.qmobilitybusiness.AdminActivities.AdminMainActivity;
+import com.mariasher.qmobilitybusiness.Utils.Interfaces.Callback;
 import com.mariasher.qmobilitybusiness.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -67,10 +67,24 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUserWithAccessType(String employeeId) {
+        binding.progressBar.setVisibility(View.VISIBLE);
         getBusinessIdFromRealtimeDatabase(employeeId, businessId -> {
-            getAccessTypeFromRealtimeDatabase(businessId, employeeId, accessType -> {
-                login(accessType);
-            });
+            if (businessId != null) {
+                getAccessTypeFromRealtimeDatabase(businessId, employeeId, accessType -> {
+                    login(accessType);
+                    binding.progressBar.setVisibility(View.GONE);
+                });
+            } else {
+                binding.progressBar.setVisibility(View.GONE);
+                new AlertDialog.Builder(this)
+                        .setCancelable(false)
+                        .setTitle("Access Error!")
+                        .setMessage("You don't have the correct access type, please contact your administrator!")
+                        .setPositiveButton("Ok", (dialog, i) -> {
+                            logoutEmployee();
+                        })
+                        .show();
+            }
         });
     }
 
@@ -143,6 +157,10 @@ public class LoginActivity extends AppCompatActivity {
         editText.setError(message);
         editText.requestFocus();
         return false;
+    }
+
+    private void logoutEmployee() {
+        mAuth.signOut();
     }
 
 }

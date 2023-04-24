@@ -46,14 +46,27 @@ public class AdminMainActivity extends AppCompatActivity {
             });
         });
 
-        if (accessType.equals(AccessType.MANAGER.toString())) {
-            binding.manageEmployeesAdminButton.setVisibility(View.INVISIBLE);
-        } else if (accessType.equals(AccessType.OPERATOR.toString())) {
-            manageCounterAdminButtonClicked(binding.manageEmployeesAdminButton);
-        } else if (!accessType.equals(AccessType.ADMIN.toString())){
-            binding.manageEmployeesAdminButton.setVisibility(View.INVISIBLE);
-            binding.manageQueuesAdminButton.setVisibility(View.INVISIBLE);
-            binding.manageCounterAdminButton.setVisibility(View.INVISIBLE);
+
+        switch (AccessType.valueOf(accessType)) {
+            case ADMIN:
+                binding.manageEmployeesAdminButton.setVisibility(View.VISIBLE);
+                binding.manageQueuesAdminButton.setVisibility(View.VISIBLE);
+                binding.manageCounterAdminButton.setVisibility(View.VISIBLE);
+                break;
+            case MANAGER:
+                binding.manageEmployeesAdminButton.setVisibility(View.GONE);
+                binding.manageQueuesAdminButton.setVisibility(View.VISIBLE);
+                binding.manageCounterAdminButton.setVisibility(View.VISIBLE);
+                break;
+            case OPERATOR:
+                binding.manageEmployeesAdminButton.setVisibility(View.GONE);
+                binding.manageQueuesAdminButton.setVisibility(View.GONE);
+                binding.manageCounterAdminButton.setVisibility(View.VISIBLE);
+                break;
+            default:
+                binding.manageEmployeesAdminButton.setVisibility(View.GONE);
+                binding.manageQueuesAdminButton.setVisibility(View.GONE);
+                binding.manageCounterAdminButton.setVisibility(View.GONE);
         }
     }
 
@@ -79,6 +92,10 @@ public class AdminMainActivity extends AppCompatActivity {
     }
 
     public void logoutItemClicked(@NonNull MenuItem item) {
+        logoutEmployee();
+    }
+
+    private void logoutEmployee() {
         mAuth.signOut();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);

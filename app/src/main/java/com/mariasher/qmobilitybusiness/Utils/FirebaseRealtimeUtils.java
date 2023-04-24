@@ -143,6 +143,18 @@ public class FirebaseRealtimeUtils {
         });
     }
 
+    public void updateQueueInFirebase(String businessId, Queue queue, Callback<Boolean> callback) {
+        mReal.getReference("QMobility")
+                .child("Businesses")
+                .child(businessId)
+                .child("Queues")
+                .child(queue.getQueueId())
+                .setValue(queue)
+                .addOnCompleteListener(task -> {
+                    callback.onSuccess(task.isSuccessful());
+                });
+    }
+
     public void getAllCounters(String businessId, Callback<List<Counter>> callback) {
         mReal.getReference("QMobility")
                 .child("Businesses")

@@ -32,6 +32,7 @@ public class EmployeeProfileActivity extends AppCompatActivity {
     private FirebaseRealtimeUtils firebaseRealtimeUtils;
     private String businessId;
     private String employeeId;
+    private Employee employee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +62,8 @@ public class EmployeeProfileActivity extends AppCompatActivity {
         });
 
         getEmployeeDataFromFirebaseDatabase(employee -> {
-            binding.employeeProfileNameEditText.setText(employee.getName());
-            binding.employeeProfileEmailEditText.setText(employee.getEmailAddress());
-            binding.employeeProfilePhoneNumberEditText.setText(employee.getPhoneNumber());
-            binding.employeeProfileBusinessIdEditText.setText(employee.getBusinessId());
-            binding.employeeProfileEmployeeIdEditText.setText(employee.getEmployeeId());
-            binding.employeeProfileAccessTypeEditText.setText(employee.getAccessType());
+            this.employee = employee;
+            setEmployeeProfileDetails();
         });
     }
 
@@ -80,13 +77,12 @@ public class EmployeeProfileActivity extends AppCompatActivity {
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            Map<String, Object> employeeMap = (Map<String, Object>) snapshot.getValue();
-                            String name = (String) employeeMap.get("name");
-                            String emailAddress = (String) employeeMap.get("emailAddress");
-                            String phoneNumber = (String) employeeMap.get("phoneNumber");
-                            String businessId = (String) employeeMap.get("businessId");
-                            String employeeId = (String) employeeMap.get("employeeId");
-                            String accessType = (String) employeeMap.get("accessType");
+                            String name = snapshot.child("name").getValue(String.class);
+                            String emailAddress = snapshot.child("emailAddress").getValue(String.class);
+                            String phoneNumber = snapshot.child("phoneNumber").getValue(String.class);
+                            String businessId = snapshot.child("businessId").getValue(String.class);
+                            String employeeId = snapshot.child("employeeId").getValue(String.class);
+                            String accessType = snapshot.child("accessType").getValue(String.class);
 
                             Employee employee = new Employee(employeeId, name, emailAddress, businessId, phoneNumber, accessType);
                             callback.onSuccess(employee);
@@ -103,11 +99,17 @@ public class EmployeeProfileActivity extends AppCompatActivity {
         }
     }
 
+    private void setEmployeeProfileDetails() {
+        binding.employeeProfileNameEditText.setText(employee.getName());
+        binding.employeeProfileEmailEditText.setText(employee.getEmailAddress());
+        binding.employeeProfilePhoneNumberEditText.setText(employee.getPhoneNumber());
+        binding.employeeProfileBusinessIdEditText.setText(employee.getBusinessId());
+        binding.employeeProfileEmployeeIdEditText.setText(employee.getEmployeeId());
+        binding.employeeProfileAccessTypeEditText.setText(employee.getAccessType());
+    }
+
     public void updateProfileImageViewClicked(View view) {
-        //name, email, phone, access type enable, color
-        //button visible
         setEnabledAndColorForUpdateProfile(binding.employeeProfileNameEditText);
-        setEnabledAndColorForUpdateProfile(binding.employeeProfileEmailEditText);
         setEnabledAndColorForUpdateProfile(binding.employeeProfilePhoneNumberEditText);
         setEnabledAndColorForUpdateProfile(binding.employeeProfileAccessTypeEditText);
 
@@ -116,14 +118,13 @@ public class EmployeeProfileActivity extends AppCompatActivity {
 
     public void updateProfileButtonClicked(View view) {
         String name = binding.employeeProfileNameEditText.getText().toString();
-        String emailAddress = binding.employeeProfileEmailEditText.getText().toString();
         String phoneNumber = binding.employeeProfilePhoneNumberEditText.getText().toString();
-        String businessId = binding.employeeProfileBusinessIdEditText.getText().toString();
-        String employeeId = binding.employeeProfileEmployeeIdEditText.getText().toString();
         String accessType = binding.employeeProfileAccessTypeEditText.getText().toString().toUpperCase();
 
-        if (checkEmployeeInfo(name, emailAddress, phoneNumber, accessType)) {
-            Employee employee = new Employee(employeeId, name, emailAddress, businessId, phoneNumber, accessType);
+        if (checkEmployeeInfo(name, phoneNumber, accessType)) {
+            employee.setName(name);
+            employee.setPhoneNumber(phoneNumber);
+            employee.setAccessType(accessType);
             firebaseRealtimeUtils.addEmployeeToBusinessInRealtimeDatabase(employee, isSuccessful -> {
                 if (isSuccessful) {
                     Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
@@ -135,13 +136,9 @@ public class EmployeeProfileActivity extends AppCompatActivity {
         }
     }
 
-    private boolean checkEmployeeInfo(String name, String emailAddress, String phoneNumber, String accessType) {
+    private boolean checkEmployeeInfo(String name, String phoneNumber, String accessType) {
         if (name.isEmpty())
             return setError(this.binding.employeeProfileNameEditText, "Name is Required!");
-        if (emailAddress.isEmpty())
-            return setError(this.binding.employeeProfileEmailEditText, "Email is Required!");
-        if (!Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches())
-            return setError(this.binding.employeeProfileEmailEditText, "Enter correct email!");
         if (phoneNumber.isEmpty())
             return setError(this.binding.employeeProfilePhoneNumberEditText, "Phone Number is required!");
         if (accessType.isEmpty())
