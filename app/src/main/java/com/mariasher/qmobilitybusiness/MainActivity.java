@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
         };
 
-        binding.initialTextView.postDelayed(runnable, 1000);
+        binding.initialConstraintLayout.postDelayed(runnable, 1000);
     }
 
 }
