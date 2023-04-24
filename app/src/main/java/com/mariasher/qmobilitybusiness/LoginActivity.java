@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                         .setTitle("Access Error!")
                         .setMessage("You don't have the correct access type, please contact your administrator!")
                         .setPositiveButton("Ok", (dialog, i) -> {
-                            logoutEmployee();
+                            mAuth.signOut();
                         })
                         .show();
             }
@@ -158,9 +158,4 @@ public class LoginActivity extends AppCompatActivity {
         editText.requestFocus();
         return false;
     }
-
-    private void logoutEmployee() {
-        mAuth.signOut();
-    }
-
 }
