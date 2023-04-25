@@ -339,15 +339,15 @@ public class FirebaseRealtimeUtils {
 
     private Client getClientDetails(DataSnapshot clientSnapshot) {
         String clientId = clientSnapshot.child("clientId").getValue(String.class);
-        String clientName = clientSnapshot.child("clientId").getValue(String.class);
-        String clientEmail = clientSnapshot.child("clientId").getValue(String.class);
-        String clientPhoneNumber = clientSnapshot.child("clientId").getValue(String.class);
-        String clientStatus = clientSnapshot.child("clientId").getValue(String.class);
-        String businessId = clientSnapshot.child("clientId").getValue(String.class);
-        String queueId = clientSnapshot.child("clientId").getValue(String.class);
-        int assignedNumberInQueue = clientSnapshot.child("clientId").getValue(Integer.class);
-        String queueEntryTime = clientSnapshot.child("clientId").getValue(String.class);
-        String queueExitTime = clientSnapshot.child("clientId").getValue(String.class);
+        String clientName = clientSnapshot.child("clientName").getValue(String.class);
+        String clientEmail = clientSnapshot.child("clientEmail").getValue(String.class);
+        String clientPhoneNumber = clientSnapshot.child("clientPhoneNumber").getValue(String.class);
+        String clientStatus = clientSnapshot.child("clientStatus").getValue(String.class);
+        String businessId = clientSnapshot.child("businessId").getValue(String.class);
+        String queueId = clientSnapshot.child("queueId").getValue(String.class);
+        int assignedNumberInQueue = clientSnapshot.child("assignedNumberInQueue").getValue(Integer.class);
+        String queueEntryTime = clientSnapshot.child("queueEntryTime").getValue(String.class);
+        String queueExitTime = clientSnapshot.child("queueExitTime").getValue(String.class);
 
         return new Client(clientId, clientName, clientEmail, clientPhoneNumber, clientStatus, businessId,
                 queueId, assignedNumberInQueue, queueEntryTime, queueExitTime);
