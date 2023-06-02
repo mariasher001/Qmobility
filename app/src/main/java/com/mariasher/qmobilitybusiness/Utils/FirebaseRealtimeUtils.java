@@ -283,8 +283,8 @@ public class FirebaseRealtimeUtils {
         Map<String, Object> clientsInQueue = new HashMap<>();
         for (DataSnapshot queueCounterSnapshot : snapshot.child("clientsInQueue").getChildren()) {
             String clientId = queueCounterSnapshot.getKey();
-            String clientName = queueCounterSnapshot.getValue(String.class);
-            clientsInQueue.put(clientId, clientName);
+            String clientStatus = queueCounterSnapshot.getValue(String.class);
+            clientsInQueue.put(clientId, clientStatus);
         }
         Queue queue = new Queue(queueId, creatorId, queueName, queueStartTime, queueEndTime, queueStatus,
                 numberOfActiveCounters, averageCustomerTime, queueCounters, clientsInQueue);
@@ -346,11 +346,12 @@ public class FirebaseRealtimeUtils {
         String businessId = clientSnapshot.child("businessId").getValue(String.class);
         String queueId = clientSnapshot.child("queueId").getValue(String.class);
         int assignedNumberInQueue = clientSnapshot.child("assignedNumberInQueue").getValue(Integer.class);
+        String assignedCounter = clientSnapshot.child("assignedCounter").getValue(String.class);
         String queueEntryTime = clientSnapshot.child("queueEntryTime").getValue(String.class);
         String queueExitTime = clientSnapshot.child("queueExitTime").getValue(String.class);
 
         return new Client(clientId, clientName, clientEmail, clientPhoneNumber, clientStatus, businessId,
-                queueId, assignedNumberInQueue, queueEntryTime, queueExitTime);
+                queueId, assignedNumberInQueue, assignedCounter, queueEntryTime, queueExitTime);
     }
 
     public void updateClientsInFirebase(Client client, Callback<Boolean> callback) {

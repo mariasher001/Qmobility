@@ -16,13 +16,14 @@ public class Client {
     private String businessId;
     private String queueId;
     private int assignedNumberInQueue;
+    private String assignedCounter;
     private String queueEntryTime;
     private String queueExitTime;
 
     public Client() {
     }
 
-    public Client(String clientId, String clientName, String clientEmail, String clientPhoneNumber, String clientStatus, String businessId, String queueId, int assignedNumberInQueue, String queueEntryTime, String queueExitTime) {
+    public Client(String clientId, String clientName, String clientEmail, String clientPhoneNumber, String clientStatus, String businessId, String queueId, int assignedNumberInQueue, String assignedCounter, String queueEntryTime, String queueExitTime) {
         this.clientId = clientId;
         this.clientName = clientName;
         this.clientEmail = clientEmail;
@@ -31,11 +32,12 @@ public class Client {
         this.businessId = businessId;
         this.queueId = queueId;
         this.assignedNumberInQueue = assignedNumberInQueue;
+        this.assignedCounter = assignedCounter;
         this.queueEntryTime = queueEntryTime;
         this.queueExitTime = queueExitTime;
     }
 
-    public Client(String clientId, String clientName, String clientEmail, String clientPhoneNumber, String clientStatus, String businessId, String queueId, int assignedNumberInQueue, LocalDateTime queueEntryTime, LocalDateTime queueExitTime) {
+    public Client(String clientId, String clientName, String clientEmail, String clientPhoneNumber, String clientStatus, String businessId, String queueId, int assignedNumberInQueue, String assignedCounter, LocalDateTime queueEntryTime, LocalDateTime queueExitTime) {
         this.clientId = clientId;
         this.clientName = clientName;
         this.clientEmail = clientEmail;
@@ -44,6 +46,7 @@ public class Client {
         this.businessId = businessId;
         this.queueId = queueId;
         this.assignedNumberInQueue = assignedNumberInQueue;
+        this.assignedCounter = assignedCounter;
         this.queueEntryTime = DateTimeUtils.convertDateAndTimeToString(queueEntryTime);
         this.queueExitTime = DateTimeUtils.convertDateAndTimeToString(queueExitTime);
     }
@@ -112,6 +115,14 @@ public class Client {
         this.assignedNumberInQueue = assignedNumberInQueue;
     }
 
+    public String getAssignedCounter() {
+        return assignedCounter;
+    }
+
+    public void setAssignedCounter(String assignedCounter) {
+        this.assignedCounter = assignedCounter;
+    }
+
     public String getQueueEntryTime() {
         return queueEntryTime;
     }
@@ -120,19 +131,11 @@ public class Client {
         this.queueEntryTime = queueEntryTime;
     }
 
-    public void setQueueEntryTime(LocalDateTime queueEntryTime) {
-        this.queueEntryTime = DateTimeUtils.convertDateAndTimeToString(queueEntryTime);
-    }
-
     public String getQueueExitTime() {
         return queueExitTime;
     }
 
     public void setQueueExitTime(String queueExitTime) {
         this.queueExitTime = queueExitTime;
-    }
-
-    public void setQueueExitTime(LocalDateTime queueExitTime) {
-        this.queueExitTime = DateTimeUtils.convertDateAndTimeToString(queueExitTime);
     }
 }

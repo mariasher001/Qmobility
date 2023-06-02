@@ -125,14 +125,17 @@ public class QueueControlsActivity extends AppCompatActivity {
         dequeueAllClientsInQueue(areAllClientsDequeued -> {
             if (areAllClientsDequeued) {
                 queue.setClientsInQueue(new HashMap<>());
+
+                resetAllCountersInQueue(areAllCountersReset -> {
+                    if (areAllCountersReset) {
+                        queue.setNumberOfActiveCounters(0);
+                        updateQueueInFirebase("Queue Reset Successful");
+                    }
+                });
             }
         });
 
-        resetAllCountersInQueue(areAllCountersReset -> {
-            if (areAllCountersReset) {
-                updateQueueInFirebase("Queue Reset Successful");
-            }
-        });
+
     }
 
 
@@ -170,14 +173,18 @@ public class QueueControlsActivity extends AppCompatActivity {
         firebaseRealtimeUtils.getClientsInQueue(queue.getClientsInQueue(), clientsInQueue -> {
             for (Client client : clientsInQueue) {
                 client.setAssignedNumberInQueue(0);
-                client.setQueueExitTime(LocalDateTime.now());
+                client.setAssignedCounter("");
+                client.setQueueExitTime(DateTimeUtils.convertDateAndTimeToString(LocalDateTime.now()));
                 client.setClientStatus(ClientStatus.DEQUEUED.toString());
+                client.setBusinessId("");
+                client.setQueueId("");
                 firebaseRealtimeUtils.updateClientsInFirebase(client, isClientUpdated -> {
                     if (isClientUpdated) {
                         Log.i("Client update", client.getClientId() + " - Client Dequeued");
                     }
                 });
             }
+            callback.onSuccess(true);
         });
     }
 

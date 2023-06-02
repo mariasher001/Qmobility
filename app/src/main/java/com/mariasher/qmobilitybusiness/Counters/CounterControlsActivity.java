@@ -5,6 +5,7 @@ import static com.mariasher.qmobilitybusiness.Utils.Adapters.ViewCountersViewAda
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,13 +14,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.mariasher.qmobilitybusiness.Utils.DateTimeUtils;
 import com.mariasher.qmobilitybusiness.Utils.FirebaseRealtimeUtils;
 import com.mariasher.qmobilitybusiness.Utils.Interfaces.Callback;
+import com.mariasher.qmobilitybusiness.Utils.enums.ClientStatus;
 import com.mariasher.qmobilitybusiness.Utils.enums.CounterStatus;
 import com.mariasher.qmobilitybusiness.Utils.enums.QueueStatus;
+import com.mariasher.qmobilitybusiness.database.Client;
 import com.mariasher.qmobilitybusiness.database.Counter;
 import com.mariasher.qmobilitybusiness.database.Queue;
 import com.mariasher.qmobilitybusiness.databinding.ActivityCounterControlsBinding;
+
+import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CounterControlsActivity extends AppCompatActivity {
 
@@ -59,9 +69,26 @@ public class CounterControlsActivity extends AppCompatActivity {
                 firebaseRealtimeUtils.getQueueDataFromFirebaseWithBusinessId(this.businessId, this.counter.getQueueId(), queue -> {
                     this.queue = queue;
 
-                    setViewValues();
+                    calculateNextNumberOnCall(nextNumberOnCall -> {
+                        counter.setNextNumberOnCall(nextNumberOnCall);
+                        setViewValues();
+                    });
                 });
             });
+        });
+    }
+
+    private void calculateNextNumberOnCall(Callback<Integer> callback) {
+        firebaseRealtimeUtils.getClientsInQueue(queue.getClientsInQueue(), clients -> {
+            Client firstClient = null;
+            if (!clients.isEmpty()) {
+                firstClient = clients.stream()
+                        .filter(client1 -> client1.getClientStatus().equals(ClientStatus.QUEUED.toString()))
+                        .min(Comparator.comparingInt(Client::getAssignedNumberInQueue))
+                        .orElse(null);
+            }
+            int nextNumber = (firstClient != null ? firstClient.getAssignedNumberInQueue() : 0);
+            callback.onSuccess(nextNumber);
         });
     }
 
@@ -142,12 +169,15 @@ public class CounterControlsActivity extends AppCompatActivity {
     }
 
     public void resetCounterControlsButtonClicked(View view) {
+        if (!counter.getCounterStatus().equals(CounterStatus.PAUSED.toString())) {
+            queue.setNumberOfActiveCounters(queue.getNumberOfActiveCounters() - 1);
+        }
+
         counter.setCounterStatus(CounterStatus.INACTIVE.toString());
         counter.setAverageCustomerTime("");
         counter.setCustomerNumberOnCall(0);
         counter.setNextNumberOnCall(0);
 
-        queue.setNumberOfActiveCounters(queue.getNumberOfActiveCounters() - 1);
         firebaseRealtimeUtils.updateQueueInFirebase(businessId, queue, isQueueUpdated -> {
         });
 
@@ -186,7 +216,86 @@ public class CounterControlsActivity extends AppCompatActivity {
     }
 
     public void nextCustomerCounterControlsButtonClicked(View view) {
-        //TODO WHEN YOU ADD CLIENTS TO QUEUE
+
+        firebaseRealtimeUtils.getClientsInQueue(queue.getClientsInQueue(), clients -> {
+            Client currentClient = null;
+            if (!clients.isEmpty()) {
+                List<Client> currentClients = clients.stream()
+                        .filter(client1 ->
+                                client1.getClientStatus().equals(ClientStatus.ONCALL.toString()) &&
+                                        (client1.getAssignedCounter().equals(counter.getCounterNumber()))
+                        )
+                        .collect(Collectors.toList());
+                //LOGS
+                for (Client client: currentClients) {
+                    Log.i("lol", client.getClientEmail());
+                }
+
+                if (!currentClients.isEmpty()) {
+                    currentClient = currentClients.get(0);
+                }
+            }
+
+            //LOG
+            Log.i("lol", currentClient!=null?currentClient.getClientName():"NULL");
+
+            if (currentClient != null) {
+                currentClient.setClientStatus(ClientStatus.DEQUEUED.toString());
+                currentClient.setQueueId("");
+                currentClient.setBusinessId("");
+                currentClient.setAssignedCounter("");
+                currentClient.setAssignedNumberInQueue(0);
+                currentClient.setQueueExitTime(DateTimeUtils.convertDateAndTimeToString(LocalDateTime.now()));
+
+                Map<String, Object> clientsInQueue = queue.getClientsInQueue();
+                clientsInQueue.remove(currentClient.getClientId());
+                queue.setClientsInQueue(clientsInQueue);
+
+                //TODO calculate average time
+
+                firebaseRealtimeUtils.updateClientsInFirebase(currentClient, isClientUpdated -> {
+                    if (isClientUpdated) {
+                        Toast.makeText(this, "Client Dequeued!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                firebaseRealtimeUtils.updateQueueInFirebase(businessId, queue, isQueueUpdated -> {
+                });
+            }
+
+            Client firstClient = null;
+            if (!clients.isEmpty()) {
+                firstClient = clients.stream()
+                        .filter(client1 -> client1.getClientStatus().equals(ClientStatus.QUEUED.toString()))
+                        .min(Comparator.comparingInt(Client::getAssignedNumberInQueue))
+                        .orElse(null);
+            }
+
+            if (firstClient != null) {
+                firstClient.setClientStatus(ClientStatus.ONCALL.toString());
+                firstClient.setAssignedCounter(counter.getCounterNumber());
+                String firstClientId = firstClient.getClientId();
+
+                counter.setCustomerNumberOnCall(firstClient.getAssignedNumberInQueue());
+
+                Client nextClient = clients.stream()
+                        .filter(client1 -> client1.getClientStatus().equals(ClientStatus.QUEUED.toString()))
+                        .filter(client2 -> !client2.getClientId().equals(firstClientId))
+                        .min(Comparator.comparingInt(Client::getAssignedNumberInQueue))
+                        .orElse(null);
+
+                int nextNumber = (nextClient != null ? nextClient.getAssignedNumberInQueue() : 0);
+                counter.setNextNumberOnCall(nextNumber);
+
+                firebaseRealtimeUtils.updateClientsInFirebase(firstClient, isClientUpdated -> {
+                    if (isClientUpdated)
+                        Toast.makeText(this, "Next number called!", Toast.LENGTH_SHORT).show();
+                });
+                firebaseRealtimeUtils.updateCounterInFirebase(businessId, counter, isCounterUpdated -> {
+                });
+            } else {
+                Toast.makeText(this, "Queue is empty!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void skipCustomerCounterControlsButtonClicked(View view) {
