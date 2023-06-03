@@ -9,19 +9,21 @@ import com.mariasher.qmobilitybusiness.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
+    private ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        startLoginActivity();
-    }
+        Intent intent = new Intent(this, LoginActivity.class);
 
-    private void startLoginActivity() {
-        Intent loginIntent = new Intent(this,LoginActivity.class);
-        startActivity(loginIntent);
-        finish();
+        Runnable runnable = () -> {
+            startActivity(intent);
+            finish();
+        };
+
+        binding.initialConstraintLayout.postDelayed(runnable, 1000);
     }
 
 }

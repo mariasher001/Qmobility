@@ -12,7 +12,7 @@
         android:layout_height="1000dp">
 
         <TextView
-            android:id="@+id/headerTextView"
+            android:id="@+id/businessNameManageEmployeesHeaderTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -24,28 +24,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/businessPhoneNumberEditText"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="25dp"
-            android:autofillHints=""
-            android:background="@drawable/edit_text_corners"
-            android:ems="10"
-            android:hint="@string/business_phone_number"
-            android:inputType="number|phone"
-            android:paddingStart="40dp"
-            android:paddingEnd="1dp"
-            android:textColor="@color/white"
-            android:textColorHint="#F44336"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/businessNameEditText"
-            tools:ignore="TextContrastCheck" />
-
         <TextView
             android:id="@+id/smallHeaderTextView"
             android:layout_width="wrap_content"
@@ -54,9 +32,9 @@
             android:textColor="#FF6E40"
             android:textSize="16sp"
             android:textStyle="italic"
-            app:layout_constraintEnd_toEndOf="@+id/headerTextView"
-            app:layout_constraintStart_toStartOf="@+id/headerTextView"
-            app:layout_constraintTop_toBottomOf="@+id/headerTextView" />
+            app:layout_constraintEnd_toEndOf="@+id/businessNameManageEmployeesHeaderTextView"
+            app:layout_constraintStart_toStartOf="@+id/businessNameManageEmployeesHeaderTextView"
+            app:layout_constraintTop_toBottomOf="@+id/businessNameManageEmployeesHeaderTextView" />
 
         <EditText
             android:id="@+id/businessNameEditText"
@@ -81,7 +59,7 @@
             tools:ignore="TextContrastCheck" />
 
         <EditText
-            android:id="@+id/businessEmailEditText"
+            android:id="@+id/businessPhoneNumberEditText"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="25dp"
@@ -90,8 +68,8 @@
             android:autofillHints=""
             android:background="@drawable/edit_text_corners"
             android:ems="10"
-            android:hint="@string/business_email"
-            android:inputType="textEmailAddress"
+            android:hint="@string/business_phone_number"
+            android:inputType="number|phone"
             android:paddingStart="40dp"
             android:paddingEnd="1dp"
             android:textColor="@color/white"
@@ -99,47 +77,7 @@
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/businessPhoneNumberEditText"
-            tools:ignore="TextContrastCheck" />
-
-        <EditText
-            android:id="@+id/businessLatitudeEditText"
-            android:layout_width="145dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="20dp"
-            android:autofillHints=""
-            android:background="@drawable/edit_text_corners"
-            android:ems="10"
-            android:hint="@string/latitude"
-            android:inputType="text|numberDecimal"
-            android:paddingStart="20dp"
-            android:paddingEnd="1dp"
-            android:textColor="@color/white"
-            android:textColorHint="#F44336"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/GetGpsBusinessAddressCheckBox"
-            tools:ignore="TextContrastCheck" />
-
-        <EditText
-            android:id="@+id/businessLongitudeEditText"
-            android:layout_width="152dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="25dp"
-            android:autofillHints=""
-            android:background="@drawable/edit_text_corners"
-            android:ems="10"
-            android:hint="@string/longitude"
-            android:inputType="text|numberDecimal"
-            android:paddingStart="20dp"
-            android:paddingEnd="1dp"
-            android:textColor="@color/white"
-            android:textColorHint="#F44336"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/GetGpsBusinessAddressCheckBox"
+            app:layout_constraintTop_toBottomOf="@+id/businessNameEditText"
             tools:ignore="TextContrastCheck" />
 
         <EditText
@@ -161,7 +99,61 @@
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/businessEmailEditText"
+            app:layout_constraintTop_toBottomOf="@+id/businessPhoneNumberEditText"
+            tools:ignore="TextContrastCheck" />
+
+        <CheckBox
+            android:id="@+id/get_gps_business_address_check_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:onClick="getLocationUsingGPSClicked"
+            android:text="@string/get_location_using_gps"
+            android:textColor="@color/white"
+            android:textColorHint="#F44336"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/businessAddressEditText" />
+
+        <EditText
+            android:id="@+id/businessLatitudeEditText"
+            android:layout_width="145dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_corners"
+            android:ems="10"
+            android:hint="@string/latitude"
+            android:inputType="text|numberDecimal"
+            android:paddingStart="20dp"
+            android:paddingEnd="1dp"
+            android:textColor="@color/white"
+            android:textColorHint="#F44336"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/get_gps_business_address_check_box"
+            tools:ignore="TextContrastCheck" />
+
+        <EditText
+            android:id="@+id/businessLongitudeEditText"
+            android:layout_width="152dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="25dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_corners"
+            android:ems="10"
+            android:hint="@string/longitude"
+            android:inputType="text|numberDecimal"
+            android:paddingStart="20dp"
+            android:paddingEnd="1dp"
+            android:textColor="@color/white"
+            android:textColorHint="#F44336"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/get_gps_business_address_check_box"
             tools:ignore="TextContrastCheck" />
 
         <EditText
@@ -187,7 +179,7 @@
             tools:ignore="TextContrastCheck" />
 
         <EditText
-            android:id="@+id/locationManagerNameEditText"
+            android:id="@+id/adminNameEditText"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="25dp"
@@ -196,7 +188,7 @@
             android:autofillHints=""
             android:background="@drawable/edit_text_corners"
             android:ems="10"
-            android:hint="@string/location_manager_name"
+            android:hint="Admin Name"
             android:inputType="text"
             android:paddingStart="20dp"
             android:paddingEnd="1dp"
@@ -209,7 +201,30 @@
             tools:ignore="TextContrastCheck" />
 
         <EditText
-            android:id="@+id/passwordEditText"
+            android:id="@+id/adminEmailEditText"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="25dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_corners"
+            android:ems="10"
+            android:hint="Admin Email"
+            android:inputType="textEmailAddress"
+            android:paddingStart="20dp"
+            android:paddingEnd="1dp"
+            android:textColor="@color/white"
+            android:textColorHint="#F44336"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adminNameEditText"
+            tools:ignore="TextContrastCheck" />
+
+        <EditText
+            android:id="@+id/adminPasswordEditText"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="25dp"
@@ -227,11 +242,11 @@
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/locationManagerNameEditText"
+            app:layout_constraintTop_toBottomOf="@+id/adminEmailEditText"
             tools:ignore="TextContrastCheck" />
 
         <Button
-            android:id="@+id/registerbusinessButton"
+            android:id="@+id/registerEmployeeButton"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_marginStart="60dp"
@@ -246,22 +261,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
+            app:layout_constraintTop_toBottomOf="@+id/adminPasswordEditText"
             app:layout_constraintVertical_bias="0.0" />
-
-        <CheckBox
-            android:id="@+id/GetGpsBusinessAddressCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
-            android:onClick="getLocationUsingGPSClicked"
-            android:text="@string/get_location_using_gps"
-            android:textColor="@color/white"
-            android:textColorHint="#F44336"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/businessAddressEditText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

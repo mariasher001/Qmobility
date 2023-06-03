@@ -1,40 +1,31 @@
 package com.mariasher.qmobilitybusiness.database;
 
-import java.util.UUID;
+import androidx.annotation.NonNull;
 
 public class BusinessInfo {
+
+    @NonNull
+    private String businessID;
     private String businessName;
-    private String phoneNumber;
-    private String businessEmail;
+    private String businessPhoneNumber;
     private String businessAddress;
     private String businessLatitude;
     private String businessLongitude;
     private String businessType;
-    private String locationManagersName;
-    private String businessID;
 
-
-    //Constructor
-    public BusinessInfo(String businessName, String phoneNumber, String businessEmail, String businessAddress,
-                        String businessLatitude, String businessLongitude, String businessType,
-                        String locationManagersName, String businessID)
-    {
+    public BusinessInfo(@NonNull String businessID, String businessName, String businessPhoneNumber, String businessAddress, String businessLatitude, String businessLongitude, String businessType) {
+        this.businessID = businessID;
         this.businessName = businessName;
-        this.phoneNumber = phoneNumber;
-        this.businessEmail = businessEmail;
+        this.businessPhoneNumber = businessPhoneNumber;
         this.businessAddress = businessAddress;
         this.businessLatitude = businessLatitude;
         this.businessLongitude = businessLongitude;
         this.businessType = businessType;
-        this.locationManagersName = locationManagersName;
-        this.businessID = businessID;
     }
 
- //Empty constructor
     public BusinessInfo() {
     }
 
-//Getters and Setters
     public String getBusinessName() {
         return businessName;
     }
@@ -43,20 +34,12 @@ public class BusinessInfo {
         this.businessName = businessName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getBusinessPhoneNumber() {
+        return businessPhoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getBusinessEmail() {
-        return businessEmail;
-    }
-
-    public void setBusinessEmail(String businessEmail) {
-        this.businessEmail = businessEmail;
+    public void setBusinessPhoneNumber(String businessPhoneNumber) {
+        this.businessPhoneNumber = businessPhoneNumber;
     }
 
     public String getBusinessAddress() {
@@ -89,14 +72,6 @@ public class BusinessInfo {
 
     public void setBusinessType(String businessType) {
         this.businessType = businessType;
-    }
-
-    public String getLocationManagersName() {
-        return locationManagersName;
-    }
-
-    public void setLocationManagersName(String locationManagersName) {
-        this.locationManagersName = locationManagersName;
     }
 
     public String getBusinessID() {
