@@ -62,7 +62,10 @@ public class QueueDetailsActivity extends AppCompatActivity {
         binding.queueStatusQueueDetailsTextView.setText(queue.getQueueStatus());
         binding.numberOfActiveCountersQueueDetailsTextView.setText("" + queue.getNumberOfActiveCounters());
         binding.numberOfClientsInQueueDetailsTextView.setText("" + queue.getClientsInQueue().size());
-        binding.averageCustomerTimeQueueDetailsTextView.setText(queue.getAverageCustomerTime());
+        double totalClientWaitingTime = queue.getTotalClientWaitingTime();
+        int totalClients = queue.getTotalClients();
+        Double averageClientTime = (totalClients == 0) ? 0.0 : totalClientWaitingTime / totalClients;
+        binding.averageClientTimeQueueDetailsTextView.setText(averageClientTime + "s");
     }
 
     private void getCreatorName(Queue queue, Callback<String> callback) {

@@ -219,7 +219,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:text="Average Customer Time"
+                android:text="Average Client Time"
                 android:textColor="#FF6E40"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -227,7 +227,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/numberOfClientsInQueueDetailsTextView" />
 
             <TextView
-                android:id="@+id/averageCustomerTimeQueueDetailsTextView"
+                android:id="@+id/averageClientTimeQueueDetailsTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="50dp"

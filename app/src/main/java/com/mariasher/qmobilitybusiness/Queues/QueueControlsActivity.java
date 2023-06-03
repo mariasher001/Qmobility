@@ -122,6 +122,9 @@ public class QueueControlsActivity extends AppCompatActivity {
     public void resetQueueControlsButtonClicked(View view) {
         queue.setQueueStatus(QueueStatus.INACTIVE.toString());
         queue.setQueueEndTime(DateTimeUtils.convertDateAndTimeToString(LocalDateTime.now()));
+        queue.setTotalClientWaitingTime(0);
+        queue.setTotalClients(0);
+        queue.setAverageCustomerTime("");
         dequeueAllClientsInQueue(areAllClientsDequeued -> {
             if (areAllClientsDequeued) {
                 queue.setClientsInQueue(new HashMap<>());
@@ -134,8 +137,6 @@ public class QueueControlsActivity extends AppCompatActivity {
                 });
             }
         });
-
-
     }
 
 
@@ -213,6 +214,8 @@ public class QueueControlsActivity extends AppCompatActivity {
         queueMap.put("averageCustomerTime", queue.getAverageCustomerTime());
         queueMap.put("queueCounters", queue.getQueueCounters());
         queueMap.put("clientsInQueue", queue.getClientsInQueue());
+        queueMap.put("totalClientWaitingTime", queue.getTotalClientWaitingTime());
+        queueMap.put("totalClients", queue.getTotalClients());
 
         mReal.getReference("QMobility")
                 .child("Businesses")

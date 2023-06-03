@@ -272,6 +272,8 @@ public class FirebaseRealtimeUtils {
         String queueStatus = snapshot.child("queueStatus").getValue(String.class);
         Integer numberOfActiveCounters = snapshot.child("numberOfActiveCounters").getValue(Integer.class);
         String averageCustomerTime = snapshot.child("averageCustomerTime").getValue(String.class);
+        Double totalClientWaitingTime = snapshot.child("totalClientWaitingTime").getValue(Double.class);
+        Integer totalClients = snapshot.child("totalClients").getValue(Integer.class);
 
         Map<String, Object> queueCounters = new HashMap<>();
         for (DataSnapshot queueCounterSnapshot : snapshot.child("queueCounters").getChildren()) {
@@ -287,7 +289,7 @@ public class FirebaseRealtimeUtils {
             clientsInQueue.put(clientId, clientStatus);
         }
         Queue queue = new Queue(queueId, creatorId, queueName, queueStartTime, queueEndTime, queueStatus,
-                numberOfActiveCounters, averageCustomerTime, queueCounters, clientsInQueue);
+                numberOfActiveCounters, averageCustomerTime, queueCounters, clientsInQueue, totalClientWaitingTime, totalClients);
 
         return queue;
     }

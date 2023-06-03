@@ -226,18 +226,10 @@ public class CounterControlsActivity extends AppCompatActivity {
                                         (client1.getAssignedCounter().equals(counter.getCounterNumber()))
                         )
                         .collect(Collectors.toList());
-                //LOGS
-                for (Client client: currentClients) {
-                    Log.i("lol", client.getClientEmail());
-                }
-
                 if (!currentClients.isEmpty()) {
                     currentClient = currentClients.get(0);
                 }
             }
-
-            //LOG
-            Log.i("lol", currentClient!=null?currentClient.getClientName():"NULL");
 
             if (currentClient != null) {
                 currentClient.setClientStatus(ClientStatus.DEQUEUED.toString());
@@ -245,7 +237,6 @@ public class CounterControlsActivity extends AppCompatActivity {
                 currentClient.setBusinessId("");
                 currentClient.setAssignedCounter("");
                 currentClient.setAssignedNumberInQueue(0);
-                currentClient.setQueueExitTime(DateTimeUtils.convertDateAndTimeToString(LocalDateTime.now()));
 
                 Map<String, Object> clientsInQueue = queue.getClientsInQueue();
                 clientsInQueue.remove(currentClient.getClientId());
@@ -273,24 +264,29 @@ public class CounterControlsActivity extends AppCompatActivity {
             if (firstClient != null) {
                 firstClient.setClientStatus(ClientStatus.ONCALL.toString());
                 firstClient.setAssignedCounter(counter.getCounterNumber());
+                firstClient.setQueueExitTime(DateTimeUtils.convertDateAndTimeToString(LocalDateTime.now()));
+
                 String firstClientId = firstClient.getClientId();
-
-                counter.setCustomerNumberOnCall(firstClient.getAssignedNumberInQueue());
-
                 Client nextClient = clients.stream()
                         .filter(client1 -> client1.getClientStatus().equals(ClientStatus.QUEUED.toString()))
                         .filter(client2 -> !client2.getClientId().equals(firstClientId))
                         .min(Comparator.comparingInt(Client::getAssignedNumberInQueue))
                         .orElse(null);
-
                 int nextNumber = (nextClient != null ? nextClient.getAssignedNumberInQueue() : 0);
+                counter.setCustomerNumberOnCall(firstClient.getAssignedNumberInQueue());
                 counter.setNextNumberOnCall(nextNumber);
+
+                //TODO calculate average time
+                double clientTimeInQueue = DateTimeUtils.calculateTimeDifference(firstClient.getQueueEntryTime(), firstClient.getQueueExitTime());
+                queue.setTotalClientWaitingTime(queue.getTotalClientWaitingTime()+clientTimeInQueue);
 
                 firebaseRealtimeUtils.updateClientsInFirebase(firstClient, isClientUpdated -> {
                     if (isClientUpdated)
                         Toast.makeText(this, "Next number called!", Toast.LENGTH_SHORT).show();
                 });
                 firebaseRealtimeUtils.updateCounterInFirebase(businessId, counter, isCounterUpdated -> {
+                });
+                firebaseRealtimeUtils.updateQueueInFirebase(businessId, queue, isQueueUpdated -> {
                 });
             } else {
                 Toast.makeText(this, "Queue is empty!", Toast.LENGTH_SHORT).show();

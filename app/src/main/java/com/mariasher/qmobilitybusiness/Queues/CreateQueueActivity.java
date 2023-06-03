@@ -67,6 +67,8 @@ public class CreateQueueActivity extends AppCompatActivity {
         queueMap.put("averageCustomerTime", queue.getAverageCustomerTime());
         queueMap.put("queueCounters", queue.getQueueCounters());
         queueMap.put("clientsInQueue", queue.getClientsInQueue());
+        queueMap.put("totalClientWaitingTime", queue.getTotalClientWaitingTime());
+        queueMap.put("totalClients", queue.getTotalClients());
 
         firebaseRealtimeUtils.getBusinessIdFromEmployeeBusinessLink(mAuth.getCurrentUser().getUid(), businessId -> {
             mReal.getReference("QMobility")
